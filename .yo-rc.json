@@ -33,6 +33,8 @@
         "otherModules": [],
         "enableTranslation": true,
         "nativeLanguage": "en",
-        "languages": ["en", "pl"]
+        "languages": ["en", "pl"],
+        "herokuAppName": "mojewesele",
+        "herokuDeployType": "git"
     }
 }
