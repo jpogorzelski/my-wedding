@@ -1,0 +1,37 @@
+{
+    "name": "Company",
+    "fields": [
+        {
+            "fieldName": "companyName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "address",
+            "otherEntityRelationshipName": "company",
+            "relationshipValidateRules": "required",
+            "relationshipName": "address",
+            "otherEntityField": "postalCode"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "weddingHall",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "weddingHalls"
+        }
+    ],
+    "changelogDate": "20190316150829",
+    "entityTableName": "company",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

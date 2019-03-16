@@ -1,0 +1,24 @@
+{
+    "myWeddingApp": {
+        "country": {
+            "home": {
+                "title": "Country",
+                "createLabel": "Dodaj Country",
+                "createOrEditLabel": "Dodaj lub edytuj: Country",
+                "search": "Szukaj Country"
+            },
+            "created": "Utworzono nowy obiekt typu Country z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Country z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Country z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Country {{ id }}?"
+            },
+            "detail": {
+                "title": "Country"
+            },
+            "countryName": "Country Name",
+            "provinces": "Provinces",
+            "cities": "Cities"
+        }
+    }
+}

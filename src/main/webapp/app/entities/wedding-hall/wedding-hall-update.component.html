@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-wedding-hall-heading" jhiTranslate="myWeddingApp.weddingHall.home.createOrEditLabel">Create or edit a Wedding Hall</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!weddingHall.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="weddingHall.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.weddingHall.hallName" for="field_hallName">Hall Name</label>
+                    <input type="text" class="form-control" name="hallName" id="field_hallName"
+                        [(ngModel)]="weddingHall.hallName" required/>
+                    <div [hidden]="!(editForm.controls.hallName?.dirty && editForm.controls.hallName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.hallName?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.weddingHall.address" for="field_address">Address</label>
+                    <select class="form-control" id="field_address" name="address" [(ngModel)]="weddingHall.address"  required>
+                        <option *ngIf="!editForm.value.address" [ngValue]="null" selected></option>
+                        <option [ngValue]="addressOption.id === weddingHall.address?.id ? weddingHall.address : addressOption" *ngFor="let addressOption of addresses; trackBy: trackAddressById">{{addressOption.postalCode}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.address?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.weddingHall.company" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="weddingHall.company" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id === weddingHall.company?.id ? weddingHall.company : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.companyName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

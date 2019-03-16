@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-city-heading" jhiTranslate="myWeddingApp.city.home.createOrEditLabel">Create or edit a City</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!city.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="city.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.city.cityName" for="field_cityName">City Name</label>
+                    <input type="text" class="form-control" name="cityName" id="field_cityName"
+                        [(ngModel)]="city.cityName" required/>
+                    <div [hidden]="!(editForm.controls.cityName?.dirty && editForm.controls.cityName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cityName?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.city.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="city.country"  required>
+                        <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>
+                        <option [ngValue]="countryOption.id === city.country?.id ? city.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.countryName}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.city.province" for="field_province">Province</label>
+                    <select class="form-control" id="field_province" name="province" [(ngModel)]="city.province"  required>
+                        <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                        <option [ngValue]="provinceOption.id === city.province?.id ? city.province : provinceOption" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.provinceName}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

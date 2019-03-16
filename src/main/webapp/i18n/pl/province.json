@@ -1,0 +1,24 @@
+{
+    "myWeddingApp": {
+        "province": {
+            "home": {
+                "title": "Province",
+                "createLabel": "Dodaj Province",
+                "createOrEditLabel": "Dodaj lub edytuj: Province",
+                "search": "Szukaj Province"
+            },
+            "created": "Utworzono nowy obiekt typu Province z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Province z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Province z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Province {{ id }}?"
+            },
+            "detail": {
+                "title": "Province"
+            },
+            "provinceName": "Province Name",
+            "country": "Country",
+            "cities": "Cities"
+        }
+    }
+}

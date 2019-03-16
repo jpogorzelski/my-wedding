@@ -1,0 +1,243 @@
+id;country_name
+1;Afganistan
+2;Albania
+3;Algieria
+4;Andora
+5;Angola
+6;Anguilla
+7;Antarktyda
+8;Antigua i Barbuda
+9;Arabia Saudyjska
+10;Argentyna
+11;Armenia
+12;Aruba
+13;Australia
+14;Austria
+15;Azerbejdżan
+16;Bahamy
+17;Bahrajn
+18;Bangladesz
+19;Barbados
+20;Belgia
+21;Belize
+22;Benin
+23;Bermudy
+24;Bhutan
+25;Białoruś
+26;Boliwia
+27;Bonaire, Sint Eustatius i Saba
+28;Bośnia i Hercegowina
+29;Botswana
+30;Brazylia
+31;Brunei Darussalam
+32;Brytyjskie Terytorium Oceanu Indyjskiego
+33;Bułgaria
+34;Burkina Faso
+35;Burundi
+36;Ceuta
+37;Chile
+38;Chiny
+39;Curaçao
+40;Chorwacja
+41;Cypr
+42;Czad
+43;Czarnogóra
+44;Dania
+45;Dominika
+46;Dominikana
+47;Dżibuti
+48;Egipt
+49;Ekwador
+50;Erytrea
+51;Estonia
+52;Etiopia
+53;Falklandy
+54;Fidżi Republika
+55;Filipiny
+56;Finlandia
+57;Francuskie Terytorium Południowe
+58;Francja
+59;Gabon
+60;Gambia
+61;Ghana
+62;Gibraltar
+63;Grecja
+64;Grenada
+65;Grenlandia
+66;Gruzja
+67;Guam
+68;Gujana
+69;Gwatemala
+70;Gwinea
+71;Gwinea Równikowa
+72;Gwinea-Bissau
+73;Haiti
+74;Hiszpania
+75;Honduras
+76;Hongkong
+77;Indie
+78;Indonezja
+79;Irak
+80;Iran
+81;Irlandia
+82;Islandia
+83;Izrael
+84;Jamajka
+85;Japonia
+86;Jemen
+87;Jordania
+88;Kajmany
+89;Kambodża
+90;Kamerun
+91;Kanada
+92;Katar
+93;Kazachstan
+94;Kenia
+95;Kirgistan
+96;Kiribati
+97;Kolumbia
+98;Komory
+99;Kongo
+100;Kongo, Republika Demokratyczna
+101;Koreańska Republika Ludowo-Demokratyczna
+102;Kosowo
+103;Kostaryka
+104;Kraje i terytoria niewyszczególnione w ramach handlu wewnątrzunijnego
+105;Kuba
+106;Kuwejt
+107;Laos
+108;Lesotho
+109;Liban
+110;Liberia
+111;Libia
+112;Liechtenstein
+113;Litwa
+114;Luksemburg
+115;Łotwa
+116;Macedonia
+117;Madagaskar
+118;Majotta
+119;Makau
+120;Malawi
+121;Malediwy
+122;Malezja
+123;Mali
+124;Malta
+125;Mariany Północne
+126;Maroko
+127;Mauretania
+128;Mauritius
+129;Meksyk
+130;Melilla
+131;Mikronezja
+132;Minor (Powiernicze Wyspy Pacyfiku Stanów Zjednoczonych)
+133;Mołdawia
+134;Mongolia
+135;Montserrat
+136;Mozambik
+137;Myanmar (Burma)
+138;Namibia
+139;Nauru
+140;Nepal
+141;Niderlandy
+142;Niemcy
+143;Niger
+144;Nigeria
+145;Nikaragua
+146;Niue
+147;Norfolk
+148;Norwegia
+149;Nowa Kaledonia
+150;Nowa Zelandia
+151;Okupowane Terytorium Palestyny
+152;Oman
+153;Pakistan
+154;Palau
+155;Panama
+156;Papua Nowa Gwinea
+157;Paragwaj
+158;Peru
+159;Pitcairn
+160;Polinezja Francuska
+161;Polska
+162;Południowa Georgia i Południowe Wyspy Sandwich
+163;Portugalia
+164;Republika Czeska
+165;Republika Korei
+166;Rep.Połud.Afryki
+167;Rep.Środkowoafryańska
+168;Rosja
+169;Rwanda
+170;Sahara Zachodnia
+171;Saint Barthelemy
+172;Rumunia
+173;Salwador
+174;Samoa
+175;Samoa Amerykańskie
+176;San Marino
+177;Senegal
+178;Serbia
+179;Seszele
+180;Sierra Leone
+181;Singapur
+182;Suazi
+183;Słowacja
+184;Słowenia
+185;Somalia
+186;Sri Lanka
+187;St. Pierre i Miquelon
+188;St.Kitts i Nevis
+189;St.Lucia
+190;St.Vincent i Grenadyny
+191;Stany Zjedn. Ameryki
+192;Sudan
+193;Sudan Południowy
+194;Surinam
+195;Syria
+196;Szwajcaria
+197;Szwecja
+198;Święta Helena
+199;Tadżykistan
+200;Tajlandia
+201;Tajwan
+202;Tanzania
+203;Togo
+204;Tokelau
+205;Tonga
+206;Trynidad i Tobago
+207;Tunezja
+208;Turcja
+209;Turkmenistan
+210;Wyspy Turks i Caicos
+211;Tuvalu
+212;Uganda
+213;Ukraina
+214;Urugwaj
+215;Uzbekistan
+216;Vanuatu
+217;Wallis i Futuna
+218;Watykan
+219;Wenezuela
+220;Węgry
+221;Wielka Brytania
+222;Wietnam
+223;Włochy
+224;Wschodni Timor
+225;Wyb.Kości Słoniowej
+226;Wyspa Bouveta
+227;Wyspa Bożego Narodzenia
+228;Wyspy Cooka
+229;Wyspy Dziewicze-USA
+230;Wyspy Dziewicze-W.B
+231;Wyspy Heard i McDonald
+232;Wyspy Kokosowe (Keelinga)
+233;Wyspy Owcze
+234;Wyspy Marshalla
+235;Wyspy Salomona
+236;Wyspa Sint Maarten (część holenderska wyspy)
+237;Wyspy Św.Tomasza i Książęca
+238;Zambia
+239;Zapasy i zaopatrzenie statków w ramach handlu wewnątrzunijnego
+240;Zielony Przylądek
+241;Zimbabwe
+242;Zjedn.Emiraty Arabskie

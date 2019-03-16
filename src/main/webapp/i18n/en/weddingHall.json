@@ -1,0 +1,24 @@
+{
+    "myWeddingApp": {
+        "weddingHall": {
+            "home": {
+                "title": "Wedding Halls",
+                "createLabel": "Create a new Wedding Hall",
+                "createOrEditLabel": "Create or edit a Wedding Hall",
+                "search": "Search for Wedding Hall"
+            },
+            "created": "A new Wedding Hall is created with identifier {{ param }}",
+            "updated": "A Wedding Hall is updated with identifier {{ param }}",
+            "deleted": "A Wedding Hall is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Wedding Hall {{ id }}?"
+            },
+            "detail": {
+                "title": "Wedding Hall"
+            },
+            "hallName": "Hall Name",
+            "address": "Address",
+            "company": "Company"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="city">
+            <h2><span jhiTranslate="myWeddingApp.city.detail.title">City</span> {{city.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="myWeddingApp.city.cityName">City Name</span></dt>
+                <dd>
+                    <span>{{city.cityName}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.city.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="city.country">
+                        <a [routerLink]="['/country', city.country?.id, 'view']">{{city.country?.countryName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.city.province">Province</span></dt>
+                <dd>
+                    <div *ngIf="city.province">
+                        <a [routerLink]="['/province', city.province?.id, 'view']">{{city.province?.provinceName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/city', city.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

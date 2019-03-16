@@ -1,0 +1,39 @@
+{
+    "name": "WeddingHall",
+    "fields": [
+        {
+            "fieldName": "hallName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "address",
+            "otherEntityRelationshipName": "weddingHall",
+            "relationshipValidateRules": "required",
+            "relationshipName": "address",
+            "otherEntityField": "postalCode"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "weddingHalls",
+            "relationshipName": "company",
+            "otherEntityField": "companyName"
+        }
+    ],
+    "changelogDate": "20190316150830",
+    "entityTableName": "wedding_hall",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,28 @@
+{
+    "myWeddingApp": {
+        "address": {
+            "home": {
+                "title": "Address",
+                "createLabel": "Dodaj Address",
+                "createOrEditLabel": "Dodaj lub edytuj: Address",
+                "search": "Szukaj Address"
+            },
+            "created": "Utworzono nowy obiekt typu Address z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Address z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Address z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Address {{ id }}?"
+            },
+            "detail": {
+                "title": "Address"
+            },
+            "street": "Street",
+            "houseNo": "House No",
+            "flatNo": "Flat No",
+            "postalCode": "Postal Code",
+            "country": "Country",
+            "province": "Province",
+            "city": "City"
+        }
+    }
+}

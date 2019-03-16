@@ -1,0 +1,24 @@
+{
+    "myWeddingApp": {
+        "weddingHall": {
+            "home": {
+                "title": "Wedding Hall",
+                "createLabel": "Dodaj Wedding Hall",
+                "createOrEditLabel": "Dodaj lub edytuj: Wedding Hall",
+                "search": "Szukaj Wedding Hall"
+            },
+            "created": "Utworzono nowy obiekt typu Wedding Hall z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Wedding Hall z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Wedding Hall z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Wedding Hall {{ id }}?"
+            },
+            "detail": {
+                "title": "Wedding Hall"
+            },
+            "hallName": "Hall Name",
+            "address": "Address",
+            "company": "Company"
+        }
+    }
+}

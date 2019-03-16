@@ -1,0 +1,39 @@
+{
+    "name": "City",
+    "fields": [
+        {
+            "fieldName": "cityName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "country",
+            "otherEntityRelationshipName": "cities",
+            "relationshipValidateRules": "required",
+            "relationshipName": "country",
+            "otherEntityField": "countryName"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "province",
+            "otherEntityRelationshipName": "cities",
+            "relationshipValidateRules": "required",
+            "relationshipName": "province",
+            "otherEntityField": "provinceName"
+        }
+    ],
+    "changelogDate": "20190316150826",
+    "entityTableName": "city",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

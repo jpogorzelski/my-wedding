@@ -1,0 +1,24 @@
+{
+    "myWeddingApp": {
+        "customer": {
+            "home": {
+                "title": "Customer",
+                "createLabel": "Dodaj Customer",
+                "createOrEditLabel": "Dodaj lub edytuj: Customer",
+                "search": "Szukaj Customer"
+            },
+            "created": "Utworzono nowy obiekt typu Customer z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Customer z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Customer z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Customer {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer"
+            },
+            "phoneNumber": "Phone Number",
+            "user": "User",
+            "address": "Address"
+        }
+    }
+}

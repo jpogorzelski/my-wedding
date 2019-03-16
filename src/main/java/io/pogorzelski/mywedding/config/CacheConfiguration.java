@@ -38,6 +38,17 @@ public class CacheConfiguration {
             cm.createCache(io.pogorzelski.mywedding.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Country.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Country.class.getName() + ".provinces", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Country.class.getName() + ".cities", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Province.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Province.class.getName() + ".cities", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.City.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Address.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Customer.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Company.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.WeddingHall.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Company.class.getName() + ".weddingHalls", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

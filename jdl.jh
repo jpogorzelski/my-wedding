@@ -1,0 +1,62 @@
+entity Country {
+	countryName String required
+}
+
+entity Province {
+	provinceName String required
+	//country
+}
+
+entity City {
+	cityName String required
+	//country, province
+}
+
+entity Address {
+	street String required
+	houseNo String required
+	flatNo String
+	postalCode String required
+	//country, province, city
+}
+
+entity Customer {
+	phoneNumber String
+	//user, address
+}
+
+entity Company {
+	companyName String required
+	//address, halls
+}
+
+entity WeddingHall {
+    hallName String required
+    //address, company, maybe rating
+}
+
+relationship OneToOne {
+    Customer{user(login)} to User
+}
+
+relationship ManyToOne {
+    Province{country(countryName) required} to Country{provinces(provinceName)}
+    City{country(countryName) required} to Country{cities(cityName)}
+    City{province(provinceName) required} to Province{cities(cityName)}
+
+    Address{country(countryName) required} to Country
+    Address{province(provinceName) required} to Province
+    Address{city(cityName) required} to City
+
+    Customer{address(postalCode)} to Address
+    Company{address(postalCode) required} to Address
+    WeddingHall{address(postalCode) required} to Address
+    WeddingHall{company(companyName)} to Company{weddingHalls(hallName)}
+
+}
+
+search WeddingHall with elasticsearch
+
+service all with serviceClass
+
+paginate Country, City with infinite-scroll
