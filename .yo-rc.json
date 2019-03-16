@@ -1,0 +1,38 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "io.pogorzelski.mywedding",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "monolith",
+        "baseName": "MyWedding",
+        "packageName": "io.pogorzelski.mywedding",
+        "packageFolder": "io/pogorzelski/mywedding",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "postgresql",
+        "searchEngine": "elasticsearch",
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "gradle",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "MmZhMDhkYjBiMmQ3OTllNDNmMTcxZmNlYmQ5YWJhYzNmNmEwOGFjZTIyMmY5YjlhNGJmOTI2OTk0OWM3ZDFkZTc4ZmZjNzJjNmMzMTdhNzlhODU1ZjExZGY3NDVmNDNiMzliZTM3ZTFhNmQ5OGRhYzU4ODI0NGM4MjI1ZDZiNjg=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["cucumber"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": ["en", "pl"]
+    }
+}

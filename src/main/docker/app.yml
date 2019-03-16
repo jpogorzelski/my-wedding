@@ -1,0 +1,20 @@
+version: '2'
+services:
+    mywedding-app:
+        image: mywedding
+        environment:
+            - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://mywedding-postgresql:5432/MyWedding
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_JEST_URI=http://mywedding-elasticsearch:9200
+        ports:
+            - 8080:8080
+    mywedding-postgresql:
+        extends:
+            file: postgresql.yml
+            service: mywedding-postgresql
+    mywedding-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: mywedding-elasticsearch
