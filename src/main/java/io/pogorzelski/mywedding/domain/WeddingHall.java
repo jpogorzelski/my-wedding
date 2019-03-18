@@ -18,7 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "wedding_hall")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "weddinghall")
+@Document(indexName = "weddinghall", replicas = 0)
 public class WeddingHall implements Serializable {
 
     private static final long serialVersionUID = 1L;
