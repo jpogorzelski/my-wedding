@@ -24,4 +24,5 @@ export * from './user-management/user-management-delete-dialog.component';
 export * from './user-management/user-management-detail.component';
 export * from './user-management/user-management.component';
 export * from './user-management/user-management.route';
+export * from './elasticsearch-reindex/index';
 export * from './admin.route';

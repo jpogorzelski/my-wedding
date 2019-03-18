@@ -17,7 +17,9 @@ import {
     JhiHealthModalComponent,
     JhiHealthCheckComponent,
     JhiConfigurationComponent,
-    JhiDocsComponent
+    JhiDocsComponent,
+    ElasticsearchReindexComponent,
+    ElasticsearchReindexModalComponent
 } from './';
 
 @NgModule({
@@ -37,10 +39,12 @@ import {
         JhiHealthCheckComponent,
         JhiHealthModalComponent,
         JhiDocsComponent,
-        JhiMetricsMonitoringComponent
+        JhiMetricsMonitoringComponent,
+        ElasticsearchReindexComponent,
+        ElasticsearchReindexModalComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    entryComponents: [UserMgmtDeleteDialogComponent, JhiHealthModalComponent],
+    entryComponents: [UserMgmtDeleteDialogComponent, JhiHealthModalComponent, ElasticsearchReindexModalComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MyWeddingAdminModule {
