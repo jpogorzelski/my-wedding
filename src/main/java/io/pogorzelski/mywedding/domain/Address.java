@@ -4,11 +4,10 @@ package io.pogorzelski.mywedding.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.Document;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -45,17 +44,17 @@ public class Address implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("addresses")
+    @JsonIgnoreProperties(value = "addresses", allowSetters = true)
     private Country country;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("addresses")
+    @JsonIgnoreProperties(value = "addresses", allowSetters = true)
     private Province province;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("addresses")
+    @JsonIgnoreProperties(value = "addresses", allowSetters = true)
     private City city;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

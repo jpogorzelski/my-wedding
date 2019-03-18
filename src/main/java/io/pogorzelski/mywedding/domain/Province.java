@@ -41,7 +41,7 @@ public class Province implements Serializable {
     private Country country;
 
     @OneToMany(mappedBy = "province")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
     private Set<City> cities = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
