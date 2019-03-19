@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "country")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "address", replicas = 0, type = "country")
+@Document(indexName = "country", shards = 1, replicas = 0)
 public class Country implements Serializable {
 
     private static final long serialVersionUID = 1L;

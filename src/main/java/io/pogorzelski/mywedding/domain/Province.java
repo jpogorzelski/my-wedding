@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "province")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "address", replicas = 0, type = "province")
+@Document(indexName = "province", shards = 1, replicas = 0)
 public class Province implements Serializable {
 
     private static final long serialVersionUID = 1L;
