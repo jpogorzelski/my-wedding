@@ -4,10 +4,9 @@ package io.pogorzelski.mywedding.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-
-import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,7 +16,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "customer", replicas = 0, type = "entity")
+@Document(indexName = "subject", replicas = 0, type = "customer")
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
