@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ElasticsearchReindexService {
     constructor(private http: HttpClient) {}
 
