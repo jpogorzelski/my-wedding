@@ -12,7 +12,6 @@ type EntityArrayResponseType = HttpResponse<IProvince[]>;
 @Injectable({ providedIn: 'root' })
 export class ProvinceService {
     public resourceUrl = SERVER_API_URL + 'api/provinces';
-    public resourceSearchUrl = SERVER_API_URL + 'api/_search/provinces';
 
     constructor(protected http: HttpClient) {}
 
@@ -35,10 +34,5 @@ export class ProvinceService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
-
-    search(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<IProvince[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
 }

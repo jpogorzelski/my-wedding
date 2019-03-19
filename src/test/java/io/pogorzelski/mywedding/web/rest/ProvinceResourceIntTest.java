@@ -1,14 +1,11 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
-import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.domain.Country;
+import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.ProvinceRepository;
-import io.pogorzelski.mywedding.repository.search.ProvinceSearchRepository;
 import io.pogorzelski.mywedding.service.ProvinceService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,15 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.util.Collections;
 import java.util.List;
-
 
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -54,14 +47,6 @@ public class ProvinceResourceIntTest {
 
     @Autowired
     private ProvinceService provinceService;
-
-    /**
-     * This repository is mocked in the io.pogorzelski.mywedding.repository.search test package.
-     *
-     * @see io.pogorzelski.mywedding.repository.search.ProvinceSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ProvinceSearchRepository mockProvinceSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -133,8 +118,6 @@ public class ProvinceResourceIntTest {
         Province testProvince = provinceList.get(provinceList.size() - 1);
         assertThat(testProvince.getProvinceName()).isEqualTo(DEFAULT_PROVINCE_NAME);
 
-        // Validate the Province in Elasticsearch
-        verify(mockProvinceSearchRepository, times(1)).save(testProvince);
     }
 
     @Test
@@ -155,8 +138,6 @@ public class ProvinceResourceIntTest {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Province in Elasticsearch
-        verify(mockProvinceSearchRepository, times(0)).save(province);
     }
 
     @Test
@@ -218,8 +199,6 @@ public class ProvinceResourceIntTest {
     public void updateProvince() throws Exception {
         // Initialize the database
         provinceService.save(province);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockProvinceSearchRepository);
 
         int databaseSizeBeforeUpdate = provinceRepository.findAll().size();
 
@@ -241,8 +220,6 @@ public class ProvinceResourceIntTest {
         Province testProvince = provinceList.get(provinceList.size() - 1);
         assertThat(testProvince.getProvinceName()).isEqualTo(UPDATED_PROVINCE_NAME);
 
-        // Validate the Province in Elasticsearch
-        verify(mockProvinceSearchRepository, times(1)).save(testProvince);
     }
 
     @Test
@@ -262,8 +239,6 @@ public class ProvinceResourceIntTest {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Province in Elasticsearch
-        verify(mockProvinceSearchRepository, times(0)).save(province);
     }
 
     @Test
@@ -283,23 +258,6 @@ public class ProvinceResourceIntTest {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Province in Elasticsearch
-        verify(mockProvinceSearchRepository, times(1)).deleteById(province.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchProvince() throws Exception {
-        // Initialize the database
-        provinceService.save(province);
-        when(mockProvinceSearchRepository.search(queryStringQuery("id:" + province.getId())))
-            .thenReturn(Collections.singletonList(province));
-        // Search the province
-        restProvinceMockMvc.perform(get("/api/_search/provinces?query=id:" + province.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(province.getId().intValue())))
-            .andExpect(jsonPath("$.[*].provinceName").value(hasItem(DEFAULT_PROVINCE_NAME)));
     }
 
     @Test

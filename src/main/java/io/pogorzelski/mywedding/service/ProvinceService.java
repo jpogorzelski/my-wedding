@@ -2,19 +2,13 @@ package io.pogorzelski.mywedding.service;
 
 import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.ProvinceRepository;
-import io.pogorzelski.mywedding.repository.search.ProvinceSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Province.
@@ -27,11 +21,8 @@ public class ProvinceService {
 
     private final ProvinceRepository provinceRepository;
 
-    private final ProvinceSearchRepository provinceSearchRepository;
-
-    public ProvinceService(ProvinceRepository provinceRepository, ProvinceSearchRepository provinceSearchRepository) {
+    public ProvinceService(ProvinceRepository provinceRepository) {
         this.provinceRepository = provinceRepository;
-        this.provinceSearchRepository = provinceSearchRepository;
     }
 
     /**
@@ -43,7 +34,6 @@ public class ProvinceService {
     public Province save(Province province) {
         log.debug("Request to save Province : {}", province);
         Province result = provinceRepository.save(province);
-        provinceSearchRepository.save(result);
         return result;
     }
 
@@ -79,20 +69,6 @@ public class ProvinceService {
     public void delete(Long id) {
         log.debug("Request to delete Province : {}", id);
         provinceRepository.deleteById(id);
-        provinceSearchRepository.deleteById(id);
     }
 
-    /**
-     * Search for the province corresponding to the query.
-     *
-     * @param query the query of the search
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public List<Province> search(String query) {
-        log.debug("Request to search Provinces for query {}", query);
-        return StreamSupport
-            .stream(provinceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

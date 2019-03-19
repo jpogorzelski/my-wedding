@@ -1,16 +1,13 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
 import io.pogorzelski.mywedding.domain.Address;
+import io.pogorzelski.mywedding.domain.City;
 import io.pogorzelski.mywedding.domain.Country;
 import io.pogorzelski.mywedding.domain.Province;
-import io.pogorzelski.mywedding.domain.City;
 import io.pogorzelski.mywedding.repository.AddressRepository;
-import io.pogorzelski.mywedding.repository.search.AddressSearchRepository;
 import io.pogorzelski.mywedding.service.AddressService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,15 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.util.Collections;
 import java.util.List;
-
 
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -65,14 +58,6 @@ public class AddressResourceIntTest {
 
     @Autowired
     private AddressService addressService;
-
-    /**
-     * This repository is mocked in the io.pogorzelski.mywedding.repository.search test package.
-     *
-     * @see io.pogorzelski.mywedding.repository.search.AddressSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private AddressSearchRepository mockAddressSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -160,8 +145,6 @@ public class AddressResourceIntTest {
         assertThat(testAddress.getFlatNo()).isEqualTo(DEFAULT_FLAT_NO);
         assertThat(testAddress.getPostalCode()).isEqualTo(DEFAULT_POSTAL_CODE);
 
-        // Validate the Address in Elasticsearch
-        verify(mockAddressSearchRepository, times(1)).save(testAddress);
     }
 
     @Test
@@ -182,8 +165,6 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Address in Elasticsearch
-        verify(mockAddressSearchRepository, times(0)).save(address);
     }
 
     @Test
@@ -287,8 +268,6 @@ public class AddressResourceIntTest {
     public void updateAddress() throws Exception {
         // Initialize the database
         addressService.save(address);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockAddressSearchRepository);
 
         int databaseSizeBeforeUpdate = addressRepository.findAll().size();
 
@@ -316,8 +295,6 @@ public class AddressResourceIntTest {
         assertThat(testAddress.getFlatNo()).isEqualTo(UPDATED_FLAT_NO);
         assertThat(testAddress.getPostalCode()).isEqualTo(UPDATED_POSTAL_CODE);
 
-        // Validate the Address in Elasticsearch
-        verify(mockAddressSearchRepository, times(1)).save(testAddress);
     }
 
     @Test
@@ -337,8 +314,6 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Address in Elasticsearch
-        verify(mockAddressSearchRepository, times(0)).save(address);
     }
 
     @Test
@@ -358,26 +333,6 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Address in Elasticsearch
-        verify(mockAddressSearchRepository, times(1)).deleteById(address.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchAddress() throws Exception {
-        // Initialize the database
-        addressService.save(address);
-        when(mockAddressSearchRepository.search(queryStringQuery("id:" + address.getId())))
-            .thenReturn(Collections.singletonList(address));
-        // Search the address
-        restAddressMockMvc.perform(get("/api/_search/addresses?query=id:" + address.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(address.getId().intValue())))
-            .andExpect(jsonPath("$.[*].street").value(hasItem(DEFAULT_STREET)))
-            .andExpect(jsonPath("$.[*].houseNo").value(hasItem(DEFAULT_HOUSE_NO)))
-            .andExpect(jsonPath("$.[*].flatNo").value(hasItem(DEFAULT_FLAT_NO)))
-            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
     }
 
     @Test

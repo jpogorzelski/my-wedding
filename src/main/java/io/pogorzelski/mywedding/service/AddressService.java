@@ -2,19 +2,13 @@ package io.pogorzelski.mywedding.service;
 
 import io.pogorzelski.mywedding.domain.Address;
 import io.pogorzelski.mywedding.repository.AddressRepository;
-import io.pogorzelski.mywedding.repository.search.AddressSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Address.
@@ -27,11 +21,8 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
 
-    private final AddressSearchRepository addressSearchRepository;
-
-    public AddressService(AddressRepository addressRepository, AddressSearchRepository addressSearchRepository) {
+    public AddressService(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
-        this.addressSearchRepository = addressSearchRepository;
     }
 
     /**
@@ -43,7 +34,6 @@ public class AddressService {
     public Address save(Address address) {
         log.debug("Request to save Address : {}", address);
         Address result = addressRepository.save(address);
-        addressSearchRepository.save(result);
         return result;
     }
 
@@ -79,20 +69,6 @@ public class AddressService {
     public void delete(Long id) {
         log.debug("Request to delete Address : {}", id);
         addressRepository.deleteById(id);
-        addressSearchRepository.deleteById(id);
     }
 
-    /**
-     * Search for the address corresponding to the query.
-     *
-     * @param query the query of the search
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public List<Address> search(String query) {
-        log.debug("Request to search Addresses for query {}", query);
-        return StreamSupport
-            .stream(addressSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

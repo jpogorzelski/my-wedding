@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 import { ICity } from 'app/shared/model/city.model';
 import { AccountService } from 'app/core';
@@ -25,14 +23,12 @@ export class CityComponent implements OnInit, OnDestroy {
     predicate: any;
     reverse: any;
     totalItems: number;
-    currentSearch: string;
 
     constructor(
         protected cityService: CityService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
         protected parseLinks: JhiParseLinks,
-        protected activatedRoute: ActivatedRoute,
         protected accountService: AccountService
     ) {
         this.cities = [];
@@ -43,27 +39,9 @@ export class CityComponent implements OnInit, OnDestroy {
         };
         this.predicate = 'id';
         this.reverse = true;
-        this.currentSearch =
-            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
-                ? this.activatedRoute.snapshot.params['search']
-                : '';
     }
 
     loadAll() {
-        if (this.currentSearch) {
-            this.cityService
-                .search({
-                    query: this.currentSearch,
-                    page: this.page,
-                    size: this.itemsPerPage,
-                    sort: this.sort()
-                })
-                .subscribe(
-                    (res: HttpResponse<ICity[]>) => this.paginateCities(res.body, res.headers),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-            return;
-        }
         this.cityService
             .query({
                 page: this.page,
@@ -84,33 +62,6 @@ export class CityComponent implements OnInit, OnDestroy {
 
     loadPage(page) {
         this.page = page;
-        this.loadAll();
-    }
-
-    clear() {
-        this.cities = [];
-        this.links = {
-            last: 0
-        };
-        this.page = 0;
-        this.predicate = 'id';
-        this.reverse = true;
-        this.currentSearch = '';
-        this.loadAll();
-    }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.cities = [];
-        this.links = {
-            last: 0
-        };
-        this.page = 0;
-        this.predicate = '_score';
-        this.reverse = false;
-        this.currentSearch = query;
         this.loadAll();
     }
 

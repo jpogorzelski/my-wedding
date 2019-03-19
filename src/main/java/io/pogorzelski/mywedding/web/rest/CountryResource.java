@@ -1,28 +1,24 @@
 package io.pogorzelski.mywedding.web.rest;
+
+import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.Country;
 import io.pogorzelski.mywedding.service.CountryService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
 import io.pogorzelski.mywedding.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Country.
@@ -119,22 +115,6 @@ public class CountryResource {
         log.debug("REST request to delete Country : {}", id);
         countryService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/countries?query=:query : search for the country corresponding
-     * to the query.
-     *
-     * @param query the query of the country search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/countries")
-    public ResponseEntity<List<Country>> searchCountries(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Countries for query {}", query);
-        Page<Country> page = countryService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/countries");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

@@ -1,9 +1,10 @@
 package io.pogorzelski.mywedding.web.rest;
+
+import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.Address;
 import io.pogorzelski.mywedding.service.AddressService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Address.
@@ -111,19 +108,6 @@ public class AddressResource {
         log.debug("REST request to delete Address : {}", id);
         addressService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/addresses?query=:query : search for the address corresponding
-     * to the query.
-     *
-     * @param query the query of the address search
-     * @return the result of the search
-     */
-    @GetMapping("/_search/addresses")
-    public List<Address> searchAddresses(@RequestParam String query) {
-        log.debug("REST request to search Addresses for query {}", query);
-        return addressService.search(query);
     }
 
 }

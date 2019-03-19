@@ -42,9 +42,11 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'idea'
 
 idea {
-  module {
-    excludeDirs += files('node_modules')
-  }
+    module {
+        excludeDirs += files('node_modules')
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 dependencyManagement {
