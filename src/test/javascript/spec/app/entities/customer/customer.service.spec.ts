@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(CustomerService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Customer(0, 'AAAAAAA');
+            elemDefault = new Customer(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,11 @@ describe('Service Tests', () => {
             it('should update a Customer', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        phoneNumber: 'BBBBBB'
+                        phoneNumber: 'BBBBBB',
+                        street: 'BBBBBB',
+                        houseNo: 'BBBBBB',
+                        flatNo: 'BBBBBB',
+                        postalCode: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -72,7 +76,11 @@ describe('Service Tests', () => {
             it('should return a list of Customer', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        phoneNumber: 'BBBBBB'
+                        phoneNumber: 'BBBBBB',
+                        street: 'BBBBBB',
+                        houseNo: 'BBBBBB',
+                        flatNo: 'BBBBBB',
+                        postalCode: 'BBBBBB'
                     },
                     elemDefault
                 );

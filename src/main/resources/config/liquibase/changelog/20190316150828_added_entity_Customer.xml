@@ -24,10 +24,34 @@
             <column name="phone_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+
+            <column name="street" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="house_no" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="flat_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="postal_code" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="user_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_customer_user_id" />
             </column>
-            <column name="address_id" type="bigint">
+            <column name="country_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="province_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="city_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

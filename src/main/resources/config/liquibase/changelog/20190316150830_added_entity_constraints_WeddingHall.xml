@@ -8,11 +8,23 @@
     -->
     <changeSet id="20190316150830-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="address_id"
+        <addForeignKeyConstraint baseColumnNames="country_id"
                                  baseTableName="wedding_hall"
-                                 constraintName="fk_wedding_hall_address_id"
+                                 constraintName="fk_wedding_hall_country_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="address"/>
+                                 referencedTableName="country"/>
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="wedding_hall"
+                                 constraintName="fk_wedding_hall_province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="city_id"
+                                 baseTableName="wedding_hall"
+                                 constraintName="fk_wedding_hall_city_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="city"/>
 
         <addForeignKeyConstraint baseColumnNames="company_id"
                                  baseTableName="wedding_hall"

@@ -3,6 +3,8 @@ package io.pogorzelski.mywedding.web.rest;
 import io.pogorzelski.mywedding.MyWeddingApp;
 
 import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.Country;
+import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
 import io.pogorzelski.mywedding.service.CustomerService;
@@ -47,6 +49,18 @@ public class CustomerResourceIntTest {
 
     private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_STREET = "AAAAAAAAAA";
+    private static final String UPDATED_STREET = "BBBBBBBBBB";
+
+    private static final String DEFAULT_HOUSE_NO = "AAAAAAAAAA";
+    private static final String UPDATED_HOUSE_NO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FLAT_NO = "AAAAAAAAAA";
+    private static final String UPDATED_FLAT_NO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_POSTAL_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_POSTAL_CODE = "BBBBBBBBBB";
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -101,7 +115,21 @@ public class CustomerResourceIntTest {
      */
     public static Customer createEntity(EntityManager em) {
         Customer customer = new Customer()
-            .phoneNumber(DEFAULT_PHONE_NUMBER);
+            .phoneNumber(DEFAULT_PHONE_NUMBER)
+            .street(DEFAULT_STREET)
+            .houseNo(DEFAULT_HOUSE_NO)
+            .flatNo(DEFAULT_FLAT_NO)
+            .postalCode(DEFAULT_POSTAL_CODE);
+        // Add required entity
+        Country country = CountryResourceIntTest.createEntity(em);
+        em.persist(country);
+        em.flush();
+        customer.setCountry(country);
+        // Add required entity
+        Province province = ProvinceResourceIntTest.createEntity(em);
+        em.persist(province);
+        em.flush();
+        customer.setProvince(province);
         return customer;
     }
 
@@ -126,6 +154,10 @@ public class CustomerResourceIntTest {
         assertThat(customerList).hasSize(databaseSizeBeforeCreate + 1);
         Customer testCustomer = customerList.get(customerList.size() - 1);
         assertThat(testCustomer.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
+        assertThat(testCustomer.getStreet()).isEqualTo(DEFAULT_STREET);
+        assertThat(testCustomer.getHouseNo()).isEqualTo(DEFAULT_HOUSE_NO);
+        assertThat(testCustomer.getFlatNo()).isEqualTo(DEFAULT_FLAT_NO);
+        assertThat(testCustomer.getPostalCode()).isEqualTo(DEFAULT_POSTAL_CODE);
 
         // Validate the Customer in Elasticsearch
         verify(mockCustomerSearchRepository, times(1)).save(testCustomer);
@@ -155,6 +187,60 @@ public class CustomerResourceIntTest {
 
     @Test
     @Transactional
+    public void checkStreetIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customerRepository.findAll().size();
+        // set the field null
+        customer.setStreet(null);
+
+        // Create the Customer, which fails.
+
+        restCustomerMockMvc.perform(post("/api/customers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(customer)))
+            .andExpect(status().isBadRequest());
+
+        List<Customer> customerList = customerRepository.findAll();
+        assertThat(customerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkHouseNoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customerRepository.findAll().size();
+        // set the field null
+        customer.setHouseNo(null);
+
+        // Create the Customer, which fails.
+
+        restCustomerMockMvc.perform(post("/api/customers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(customer)))
+            .andExpect(status().isBadRequest());
+
+        List<Customer> customerList = customerRepository.findAll();
+        assertThat(customerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPostalCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customerRepository.findAll().size();
+        // set the field null
+        customer.setPostalCode(null);
+
+        // Create the Customer, which fails.
+
+        restCustomerMockMvc.perform(post("/api/customers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(customer)))
+            .andExpect(status().isBadRequest());
+
+        List<Customer> customerList = customerRepository.findAll();
+        assertThat(customerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCustomers() throws Exception {
         // Initialize the database
         customerRepository.saveAndFlush(customer);
@@ -164,7 +250,11 @@ public class CustomerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.toString())));
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].street").value(hasItem(DEFAULT_STREET.toString())))
+            .andExpect(jsonPath("$.[*].houseNo").value(hasItem(DEFAULT_HOUSE_NO.toString())))
+            .andExpect(jsonPath("$.[*].flatNo").value(hasItem(DEFAULT_FLAT_NO.toString())))
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE.toString())));
     }
     
     @Test
@@ -178,7 +268,11 @@ public class CustomerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
-            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.toString()));
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.toString()))
+            .andExpect(jsonPath("$.street").value(DEFAULT_STREET.toString()))
+            .andExpect(jsonPath("$.houseNo").value(DEFAULT_HOUSE_NO.toString()))
+            .andExpect(jsonPath("$.flatNo").value(DEFAULT_FLAT_NO.toString()))
+            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE.toString()));
     }
 
     @Test
@@ -204,7 +298,11 @@ public class CustomerResourceIntTest {
         // Disconnect from session so that the updates on updatedCustomer are not directly saved in db
         em.detach(updatedCustomer);
         updatedCustomer
-            .phoneNumber(UPDATED_PHONE_NUMBER);
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .street(UPDATED_STREET)
+            .houseNo(UPDATED_HOUSE_NO)
+            .flatNo(UPDATED_FLAT_NO)
+            .postalCode(UPDATED_POSTAL_CODE);
 
         restCustomerMockMvc.perform(put("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -216,6 +314,10 @@ public class CustomerResourceIntTest {
         assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
         Customer testCustomer = customerList.get(customerList.size() - 1);
         assertThat(testCustomer.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testCustomer.getStreet()).isEqualTo(UPDATED_STREET);
+        assertThat(testCustomer.getHouseNo()).isEqualTo(UPDATED_HOUSE_NO);
+        assertThat(testCustomer.getFlatNo()).isEqualTo(UPDATED_FLAT_NO);
+        assertThat(testCustomer.getPostalCode()).isEqualTo(UPDATED_POSTAL_CODE);
 
         // Validate the Customer in Elasticsearch
         verify(mockCustomerSearchRepository, times(1)).save(testCustomer);
@@ -275,7 +377,11 @@ public class CustomerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)));
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
+            .andExpect(jsonPath("$.[*].street").value(hasItem(DEFAULT_STREET)))
+            .andExpect(jsonPath("$.[*].houseNo").value(hasItem(DEFAULT_HOUSE_NO)))
+            .andExpect(jsonPath("$.[*].flatNo").value(hasItem(DEFAULT_FLAT_NO)))
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
     }
 
     @Test

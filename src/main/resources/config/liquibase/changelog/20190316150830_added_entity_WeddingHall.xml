@@ -25,8 +25,16 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="address_id" type="bigint">
+            <column name="country_id" type="bigint">
                 <constraints nullable="false" />
+            </column>
+
+            <column name="province_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="city_id" type="bigint">
+                <constraints nullable="true" />
             </column>
 
             <column name="company_id" type="bigint">

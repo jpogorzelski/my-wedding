@@ -9,14 +9,42 @@
                 <dd>
                     <span>{{customer.phoneNumber}}</span>
                 </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.street">Street</span></dt>
+                <dd>
+                    <span>{{customer.street}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.houseNo">House No</span></dt>
+                <dd>
+                    <span>{{customer.houseNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.flatNo">Flat No</span></dt>
+                <dd>
+                    <span>{{customer.flatNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.postalCode">Postal Code</span></dt>
+                <dd>
+                    <span>{{customer.postalCode}}</span>
+                </dd>
                 <dt><span jhiTranslate="myWeddingApp.customer.user">User</span></dt>
                 <dd>
                     {{customer.user?.login}}
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.customer.address">Address</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.customer.country">Country</span></dt>
                 <dd>
-                    <div *ngIf="customer.address">
-                        <a [routerLink]="['/address', customer.address?.id, 'view']">{{customer.address?.postalCode}}</a>
+                    <div *ngIf="customer.country">
+                        <a [routerLink]="['/country', customer.country?.id, 'view']">{{customer.country?.countryName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.province">Province</span></dt>
+                <dd>
+                    <div *ngIf="customer.province">
+                        <a [routerLink]="['/province', customer.province?.id, 'view']">{{customer.province?.provinceName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.city">City</span></dt>
+                <dd>
+                    <div *ngIf="customer.city">
+                        <a [routerLink]="['/city', customer.city?.id, 'view']">{{customer.city?.cityName}}</a>
                     </div>
                 </dd>
             </dl>

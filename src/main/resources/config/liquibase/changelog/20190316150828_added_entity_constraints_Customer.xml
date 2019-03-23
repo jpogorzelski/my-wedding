@@ -14,11 +14,23 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="address_id"
+        <addForeignKeyConstraint baseColumnNames="country_id"
                                  baseTableName="customer"
-                                 constraintName="fk_customer_address_id"
+                                 constraintName="fk_customer_country_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="address"/>
+                                 referencedTableName="country"/>
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="city_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_city_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="city"/>
 
     </changeSet>
 </databaseChangeLog>

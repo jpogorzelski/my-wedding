@@ -17,10 +17,6 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './city/city.module#MyWeddingCityModule'
             },
             {
-                path: 'address',
-                loadChildren: './address/address.module#MyWeddingAddressModule'
-            },
-            {
                 path: 'customer',
                 loadChildren: './customer/customer.module#MyWeddingCustomerModule'
             },
@@ -31,50 +27,6 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'wedding-hall',
                 loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallModule'
-            },
-            {
-                path: 'address',
-                loadChildren: './address/address.module#MyWeddingAddressModule'
-            },
-            {
-                path: 'province',
-                loadChildren: './province/province.module#MyWeddingProvinceModule'
-            },
-            {
-                path: 'city',
-                loadChildren: './city/city.module#MyWeddingCityModule'
-            },
-            {
-                path: 'address',
-                loadChildren: './address/address.module#MyWeddingAddressModule'
-            },
-            {
-                path: 'company',
-                loadChildren: './company/company.module#MyWeddingCompanyModule'
-            },
-            {
-                path: 'wedding-hall',
-                loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallModule'
-            },
-            {
-                path: 'address',
-                loadChildren: './address/address.module#MyWeddingAddressModule'
-            },
-            {
-                path: 'company',
-                loadChildren: './company/company.module#MyWeddingCompanyModule'
-            },
-            {
-                path: 'wedding-hall',
-                loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallModule'
-            },
-            {
-                path: 'country',
-                loadChildren: './country/country.module#MyWeddingCountryModule'
-            },
-            {
-                path: 'city',
-                loadChildren: './city/city.module#MyWeddingCityModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

@@ -44,7 +44,6 @@ public class CacheConfiguration {
             cm.createCache(io.pogorzelski.mywedding.domain.Province.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.Province.class.getName() + ".cities", jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.City.class.getName(), jcacheConfiguration);
-            cm.createCache(io.pogorzelski.mywedding.domain.Address.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.Customer.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.Company.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.WeddingHall.class.getName(), jcacheConfiguration);

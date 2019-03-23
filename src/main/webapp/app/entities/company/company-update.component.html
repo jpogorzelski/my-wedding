@@ -20,19 +20,77 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.street" for="field_street">Street</label>
+                    <input type="text" class="form-control" name="street" id="field_street"
+                        [(ngModel)]="company.street" required/>
+                    <div [hidden]="!(editForm.controls.street?.dirty && editForm.controls.street?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.street?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.houseNo" for="field_houseNo">House No</label>
+                    <input type="text" class="form-control" name="houseNo" id="field_houseNo"
+                        [(ngModel)]="company.houseNo" required/>
+                    <div [hidden]="!(editForm.controls.houseNo?.dirty && editForm.controls.houseNo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.houseNo?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.flatNo" for="field_flatNo">Flat No</label>
+                    <input type="text" class="form-control" name="flatNo" id="field_flatNo"
+                        [(ngModel)]="company.flatNo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.postalCode" for="field_postalCode">Postal Code</label>
+                    <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                        [(ngModel)]="company.postalCode" required/>
+                    <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postalCode?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.address" for="field_address">Address</label>
-                    <select class="form-control" id="field_address" name="address" [(ngModel)]="company.address"  required>
-                        <option *ngIf="!editForm.value.address" [ngValue]="null" selected></option>
-                        <option [ngValue]="addressOption.id === company.address?.id ? company.address : addressOption" *ngFor="let addressOption of addresses; trackBy: trackAddressById">{{addressOption.postalCode}}</option>
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="company.country"  required>
+                        <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>
+                        <option [ngValue]="countryOption.id === company.country?.id ? company.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.countryName}}</option>
                     </select>
                 </div>
-                <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
                     <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.address?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.province" for="field_province">Province</label>
+                    <select class="form-control" id="field_province" name="province" [(ngModel)]="company.province"  required>
+                        <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                        <option [ngValue]="provinceOption.id === company.province?.id ? company.province : provinceOption" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.provinceName}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.city" for="field_city">City</label>
+                    <select class="form-control" id="field_city" name="city" [(ngModel)]="company.city" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cityOption.id === company.city?.id ? company.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.cityName}}</option>
+                    </select>
                 </div>
             </div>
             <div>

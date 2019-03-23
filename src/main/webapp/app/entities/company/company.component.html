@@ -31,7 +31,13 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="myWeddingApp.company.companyName">Company Name</span></th>
-            <th><span jhiTranslate="myWeddingApp.company.address">Address</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.street">Street</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.houseNo">House No</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.flatNo">Flat No</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.postalCode">Postal Code</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.country">Country</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.province">Province</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.city">City</span></th>
             <th></th>
             </tr>
             </thead>
@@ -39,9 +45,23 @@
             <tr *ngFor="let company of companies ;trackBy: trackId">
                 <td><a [routerLink]="['/company', company.id, 'view' ]">{{company.id}}</a></td>
                 <td>{{company.companyName}}</td>
+                <td>{{company.street}}</td>
+                <td>{{company.houseNo}}</td>
+                <td>{{company.flatNo}}</td>
+                <td>{{company.postalCode}}</td>
                 <td>
-                    <div *ngIf="company.address">
-                        <a [routerLink]="['../address', company.address?.id, 'view' ]" >{{company.address?.postalCode}}</a>
+                    <div *ngIf="company.country">
+                        <a [routerLink]="['../country', company.country?.id, 'view' ]" >{{company.country?.countryName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="company.province">
+                        <a [routerLink]="['../province', company.province?.id, 'view' ]" >{{company.province?.provinceName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="company.city">
+                        <a [routerLink]="['../city', company.city?.id, 'view' ]" >{{company.city?.cityName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

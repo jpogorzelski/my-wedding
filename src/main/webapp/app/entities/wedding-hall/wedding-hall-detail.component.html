@@ -9,10 +9,22 @@
                 <dd>
                     <span>{{weddingHall.hallName}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.weddingHall.address">Address</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.weddingHall.country">Country</span></dt>
                 <dd>
-                    <div *ngIf="weddingHall.address">
-                        <a [routerLink]="['/address', weddingHall.address?.id, 'view']">{{weddingHall.address?.postalCode}}</a>
+                    <div *ngIf="weddingHall.country">
+                        <a [routerLink]="['/country', weddingHall.country?.id, 'view']">{{weddingHall.country?.countryName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.weddingHall.province">Province</span></dt>
+                <dd>
+                    <div *ngIf="weddingHall.province">
+                        <a [routerLink]="['/province', weddingHall.province?.id, 'view']">{{weddingHall.province?.provinceName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.weddingHall.city">City</span></dt>
+                <dd>
+                    <div *ngIf="weddingHall.city">
+                        <a [routerLink]="['/city', weddingHall.city?.id, 'view']">{{weddingHall.city?.cityName}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="myWeddingApp.weddingHall.company">Company</span></dt>

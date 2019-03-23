@@ -31,8 +31,14 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="myWeddingApp.customer.phoneNumber">Phone Number</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.street">Street</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.houseNo">House No</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.flatNo">Flat No</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.postalCode">Postal Code</span></th>
             <th><span jhiTranslate="myWeddingApp.customer.user">User</span></th>
-            <th><span jhiTranslate="myWeddingApp.customer.address">Address</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.country">Country</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.province">Province</span></th>
+            <th><span jhiTranslate="myWeddingApp.customer.city">City</span></th>
             <th></th>
             </tr>
             </thead>
@@ -40,12 +46,26 @@
             <tr *ngFor="let customer of customers ;trackBy: trackId">
                 <td><a [routerLink]="['/customer', customer.id, 'view' ]">{{customer.id}}</a></td>
                 <td>{{customer.phoneNumber}}</td>
+                <td>{{customer.street}}</td>
+                <td>{{customer.houseNo}}</td>
+                <td>{{customer.flatNo}}</td>
+                <td>{{customer.postalCode}}</td>
                 <td>
                     {{customer.user?.login}}
                 </td>
                 <td>
-                    <div *ngIf="customer.address">
-                        <a [routerLink]="['../address', customer.address?.id, 'view' ]" >{{customer.address?.postalCode}}</a>
+                    <div *ngIf="customer.country">
+                        <a [routerLink]="['../country', customer.country?.id, 'view' ]" >{{customer.country?.countryName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="customer.province">
+                        <a [routerLink]="['../province', customer.province?.id, 'view' ]" >{{customer.province?.provinceName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="customer.city">
+                        <a [routerLink]="['../city', customer.city?.id, 'view' ]" >{{customer.city?.cityName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

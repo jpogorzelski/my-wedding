@@ -3,7 +3,8 @@ package io.pogorzelski.mywedding.web.rest;
 import io.pogorzelski.mywedding.MyWeddingApp;
 
 import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.domain.Address;
+import io.pogorzelski.mywedding.domain.Country;
+import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.CompanyRepository;
 import io.pogorzelski.mywedding.repository.search.CompanySearchRepository;
 import io.pogorzelski.mywedding.service.CompanyService;
@@ -48,6 +49,18 @@ public class CompanyResourceIntTest {
 
     private static final String DEFAULT_COMPANY_NAME = "AAAAAAAAAA";
     private static final String UPDATED_COMPANY_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_STREET = "AAAAAAAAAA";
+    private static final String UPDATED_STREET = "BBBBBBBBBB";
+
+    private static final String DEFAULT_HOUSE_NO = "AAAAAAAAAA";
+    private static final String UPDATED_HOUSE_NO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FLAT_NO = "AAAAAAAAAA";
+    private static final String UPDATED_FLAT_NO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_POSTAL_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_POSTAL_CODE = "BBBBBBBBBB";
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -102,12 +115,21 @@ public class CompanyResourceIntTest {
      */
     public static Company createEntity(EntityManager em) {
         Company company = new Company()
-            .companyName(DEFAULT_COMPANY_NAME);
+            .companyName(DEFAULT_COMPANY_NAME)
+            .street(DEFAULT_STREET)
+            .houseNo(DEFAULT_HOUSE_NO)
+            .flatNo(DEFAULT_FLAT_NO)
+            .postalCode(DEFAULT_POSTAL_CODE);
         // Add required entity
-        Address address = AddressResourceIntTest.createEntity(em);
-        em.persist(address);
+        Country country = CountryResourceIntTest.createEntity(em);
+        em.persist(country);
         em.flush();
-        company.setAddress(address);
+        company.setCountry(country);
+        // Add required entity
+        Province province = ProvinceResourceIntTest.createEntity(em);
+        em.persist(province);
+        em.flush();
+        company.setProvince(province);
         return company;
     }
 
@@ -132,6 +154,10 @@ public class CompanyResourceIntTest {
         assertThat(companyList).hasSize(databaseSizeBeforeCreate + 1);
         Company testCompany = companyList.get(companyList.size() - 1);
         assertThat(testCompany.getCompanyName()).isEqualTo(DEFAULT_COMPANY_NAME);
+        assertThat(testCompany.getStreet()).isEqualTo(DEFAULT_STREET);
+        assertThat(testCompany.getHouseNo()).isEqualTo(DEFAULT_HOUSE_NO);
+        assertThat(testCompany.getFlatNo()).isEqualTo(DEFAULT_FLAT_NO);
+        assertThat(testCompany.getPostalCode()).isEqualTo(DEFAULT_POSTAL_CODE);
 
         // Validate the Company in Elasticsearch
         verify(mockCompanySearchRepository, times(1)).save(testCompany);
@@ -179,6 +205,60 @@ public class CompanyResourceIntTest {
 
     @Test
     @Transactional
+    public void checkStreetIsRequired() throws Exception {
+        int databaseSizeBeforeTest = companyRepository.findAll().size();
+        // set the field null
+        company.setStreet(null);
+
+        // Create the Company, which fails.
+
+        restCompanyMockMvc.perform(post("/api/companies")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(company)))
+            .andExpect(status().isBadRequest());
+
+        List<Company> companyList = companyRepository.findAll();
+        assertThat(companyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkHouseNoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = companyRepository.findAll().size();
+        // set the field null
+        company.setHouseNo(null);
+
+        // Create the Company, which fails.
+
+        restCompanyMockMvc.perform(post("/api/companies")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(company)))
+            .andExpect(status().isBadRequest());
+
+        List<Company> companyList = companyRepository.findAll();
+        assertThat(companyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPostalCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = companyRepository.findAll().size();
+        // set the field null
+        company.setPostalCode(null);
+
+        // Create the Company, which fails.
+
+        restCompanyMockMvc.perform(post("/api/companies")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(company)))
+            .andExpect(status().isBadRequest());
+
+        List<Company> companyList = companyRepository.findAll();
+        assertThat(companyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCompanies() throws Exception {
         // Initialize the database
         companyRepository.saveAndFlush(company);
@@ -188,7 +268,11 @@ public class CompanyResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().intValue())))
-            .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME.toString())));
+            .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME.toString())))
+            .andExpect(jsonPath("$.[*].street").value(hasItem(DEFAULT_STREET.toString())))
+            .andExpect(jsonPath("$.[*].houseNo").value(hasItem(DEFAULT_HOUSE_NO.toString())))
+            .andExpect(jsonPath("$.[*].flatNo").value(hasItem(DEFAULT_FLAT_NO.toString())))
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE.toString())));
     }
     
     @Test
@@ -202,7 +286,11 @@ public class CompanyResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(company.getId().intValue()))
-            .andExpect(jsonPath("$.companyName").value(DEFAULT_COMPANY_NAME.toString()));
+            .andExpect(jsonPath("$.companyName").value(DEFAULT_COMPANY_NAME.toString()))
+            .andExpect(jsonPath("$.street").value(DEFAULT_STREET.toString()))
+            .andExpect(jsonPath("$.houseNo").value(DEFAULT_HOUSE_NO.toString()))
+            .andExpect(jsonPath("$.flatNo").value(DEFAULT_FLAT_NO.toString()))
+            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE.toString()));
     }
 
     @Test
@@ -228,7 +316,11 @@ public class CompanyResourceIntTest {
         // Disconnect from session so that the updates on updatedCompany are not directly saved in db
         em.detach(updatedCompany);
         updatedCompany
-            .companyName(UPDATED_COMPANY_NAME);
+            .companyName(UPDATED_COMPANY_NAME)
+            .street(UPDATED_STREET)
+            .houseNo(UPDATED_HOUSE_NO)
+            .flatNo(UPDATED_FLAT_NO)
+            .postalCode(UPDATED_POSTAL_CODE);
 
         restCompanyMockMvc.perform(put("/api/companies")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -240,6 +332,10 @@ public class CompanyResourceIntTest {
         assertThat(companyList).hasSize(databaseSizeBeforeUpdate);
         Company testCompany = companyList.get(companyList.size() - 1);
         assertThat(testCompany.getCompanyName()).isEqualTo(UPDATED_COMPANY_NAME);
+        assertThat(testCompany.getStreet()).isEqualTo(UPDATED_STREET);
+        assertThat(testCompany.getHouseNo()).isEqualTo(UPDATED_HOUSE_NO);
+        assertThat(testCompany.getFlatNo()).isEqualTo(UPDATED_FLAT_NO);
+        assertThat(testCompany.getPostalCode()).isEqualTo(UPDATED_POSTAL_CODE);
 
         // Validate the Company in Elasticsearch
         verify(mockCompanySearchRepository, times(1)).save(testCompany);
@@ -299,7 +395,11 @@ public class CompanyResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(company.getId().intValue())))
-            .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME)));
+            .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME)))
+            .andExpect(jsonPath("$.[*].street").value(hasItem(DEFAULT_STREET)))
+            .andExpect(jsonPath("$.[*].houseNo").value(hasItem(DEFAULT_HOUSE_NO)))
+            .andExpect(jsonPath("$.[*].flatNo").value(hasItem(DEFAULT_FLAT_NO)))
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
     }
 
     @Test
