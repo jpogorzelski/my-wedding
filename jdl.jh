@@ -78,4 +78,3 @@ search WeddingHall with elasticsearch
 
 service all with serviceClass
 
-paginate Country, City with infinite-scroll

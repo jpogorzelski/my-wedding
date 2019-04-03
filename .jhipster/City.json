@@ -30,7 +30,7 @@
     "changelogDate": "20190316150826",
     "entityTableName": "city",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "pagination": "no",
     "service": "serviceClass",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
