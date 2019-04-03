@@ -5,18 +5,6 @@ import { RouterModule } from '@angular/router';
     imports: [
         RouterModule.forChild([
             {
-                path: 'country',
-                loadChildren: './country/country.module#MyWeddingCountryModule'
-            },
-            {
-                path: 'province',
-                loadChildren: './province/province.module#MyWeddingProvinceModule'
-            },
-            {
-                path: 'city',
-                loadChildren: './city/city.module#MyWeddingCityModule'
-            },
-            {
                 path: 'customer',
                 loadChildren: './customer/customer.module#MyWeddingCustomerModule'
             },
@@ -27,10 +15,6 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'wedding-hall',
                 loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallModule'
-            },
-            {
-                path: 'ext',
-                loadChildren: './ext/ext.module#MyWeddingExtModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
@@ -40,4 +24,4 @@ import { RouterModule } from '@angular/router';
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MyWeddingEntityModule {}
+export class MyWeddingExtModule {}

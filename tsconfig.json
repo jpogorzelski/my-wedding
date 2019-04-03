@@ -15,7 +15,8 @@
         "typeRoots": ["node_modules/@types"],
         "baseUrl": "./",
         "paths": {
-            "app/*": ["src/main/webapp/app/*"]
+            "app/*": ["src/main/webapp/app/*"],
+            "@ng-select/ng-select": ["'node_modules/@ng-select/ng-select"]
         },
         "importHelpers": true,
         "allowJs": true
