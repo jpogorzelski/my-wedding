@@ -6,15 +6,15 @@ import { RouterModule } from '@angular/router';
         RouterModule.forChild([
             {
                 path: 'customer',
-                loadChildren: './customer/customer.module#MyWeddingCustomerModule'
+                loadChildren: './customer/customer.module#MyWeddingCustomerExtModule'
             },
             {
                 path: 'company',
-                loadChildren: './company/company.module#MyWeddingCompanyModule'
+                loadChildren: './company/company.module#MyWeddingCompanyExtModule'
             },
             {
                 path: 'wedding-hall',
-                loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallModule'
+                loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallExtModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

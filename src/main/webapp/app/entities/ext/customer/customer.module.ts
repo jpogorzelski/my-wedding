@@ -32,7 +32,7 @@ const ENTITY_STATES = [...customerRoute, ...customerPopupRoute];
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MyWeddingCustomerModule {
+export class MyWeddingCustomerExtModule {
     constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
         this.languageHelper.language.subscribe((languageKey: string) => {
             if (languageKey !== undefined) {

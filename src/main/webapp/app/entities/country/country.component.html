@@ -9,22 +9,6 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <form class="form-inline" name="searchForm">
-                <div class="input-group w-100 mt-3">
-                    <input [(ngModel)]="currentSearch" class="form-control" id="currentSearch" name="currentSearch"
-                           placeholder="{{ 'myWeddingApp.country.home.search' | translate }}" type="text">
-                    <button (click)="search(currentSearch)" class="input-group-append btn btn-info">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                    </button>
-                    <button (click)="clear()" *ngIf="currentSearch" class="input-group-append btn btn-danger">
-                        <fa-icon [icon]="'trash-alt'"></fa-icon>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
     <br/>
     <div class="table-responsive" *ngIf="countries">
         <table class="table table-striped">
