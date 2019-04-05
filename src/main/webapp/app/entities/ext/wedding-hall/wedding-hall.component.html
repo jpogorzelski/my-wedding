@@ -1,0 +1,95 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="myWeddingApp.weddingHall.home.title">Wedding Halls</span>
+        <button [routerLink]="['/ext/wedding-hall/new']"
+                class="btn btn-primary float-right jh-create-entity create-wedding-hall" id="jh-create-entity">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" jhiTranslate="myWeddingApp.weddingHall.home.createLabel">
+            Create new Wedding Hall
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline" name="searchForm">
+                <div class="input-group w-100 mt-3">
+                    <input [(ngModel)]="currentSearch" class="form-control" id="currentSearch" name="currentSearch"
+                           placeholder="{{ 'myWeddingApp.weddingHall.home.search' | translate }}" type="text">
+                    <button (click)="search(currentSearch)" class="input-group-append btn btn-info">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button (click)="clear()" *ngIf="currentSearch" class="input-group-append btn btn-danger">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div *ngIf="weddingHalls" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="myWeddingApp.weddingHall.hallName">Hall Name</span></th>
+                <th><span jhiTranslate="myWeddingApp.weddingHall.country">Country</span></th>
+                <th><span jhiTranslate="myWeddingApp.weddingHall.province">Province</span></th>
+                <th><span jhiTranslate="myWeddingApp.weddingHall.city">City</span></th>
+                <th><span jhiTranslate="myWeddingApp.weddingHall.company">Company</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let weddingHall of weddingHalls ;trackBy: trackId">
+                <td><a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]">{{weddingHall.id}}</a></td>
+                <td>{{weddingHall.hallName}}</td>
+                <td>
+                    <div *ngIf="weddingHall.country">
+                        <a [routerLink]="['/country', weddingHall.country?.id, 'view' ]">{{weddingHall.country?.countryName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="weddingHall.province">
+                        <a [routerLink]="['/province', weddingHall.province?.id, 'view' ]">{{weddingHall.province?.provinceName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="weddingHall.city">
+                        <a [routerLink]="['/city', weddingHall.city?.id, 'view' ]">{{weddingHall.city?.cityName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="weddingHall.company">
+                        <a [routerLink]="['/ext/company', weddingHall.company?.id, 'view' ]">{{weddingHall.company?.companyName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]"
+                                class="btn btn-info btn-sm"
+                                type="submit">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button [routerLink]="['/ext/wedding-hall', weddingHall.id, 'edit']"
+                                class="btn btn-primary btn-sm"
+                                type="submit">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button [routerLink]="['/ext/wedding-hall', { outlets: { popup: weddingHall.id + '/delete'} }]"
+                                class="btn btn-danger btn-sm"
+                                queryParamsHandling="merge"
+                                replaceUrl="true"
+                                type="submit">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

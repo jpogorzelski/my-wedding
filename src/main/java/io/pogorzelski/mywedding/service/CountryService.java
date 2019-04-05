@@ -4,11 +4,10 @@ import io.pogorzelski.mywedding.domain.Country;
 import io.pogorzelski.mywedding.repository.CountryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,13 +40,12 @@ public class CountryService {
     /**
      * Get all the countries.
      *
-     * @param pageable the pagination information
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<Country> findAll(Pageable pageable) {
+    public List<Country> findAll() {
         log.debug("Request to get all Countries");
-        return countryRepository.findAll(pageable);
+        return countryRepository.findAll();
     }
 
 

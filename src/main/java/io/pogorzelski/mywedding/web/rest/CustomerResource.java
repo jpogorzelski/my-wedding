@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,7 +44,7 @@ public class CustomerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/customers")
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) throws URISyntaxException {
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) throws URISyntaxException {
         log.debug("REST request to save Customer : {}", customer);
         if (customer.getId() != null) {
             throw new BadRequestAlertException("A new customer cannot already have an ID", ENTITY_NAME, "idexists");
@@ -64,7 +65,7 @@ public class CustomerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/customers")
-    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) throws URISyntaxException {
+    public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) throws URISyntaxException {
         log.debug("REST request to update Customer : {}", customer);
         if (customer.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

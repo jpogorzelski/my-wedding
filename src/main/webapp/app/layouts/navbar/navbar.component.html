@@ -46,12 +46,6 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="address" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.address">Address</span>
-                        </a>
-                    </li>
-                    <li>
                         <a class="dropdown-item" routerLink="customer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.customer">Customer</span>
@@ -67,6 +61,28 @@
                         <a class="dropdown-item" routerLink="wedding-hall" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.weddingHall">Wedding Hall</span>
+                        </a>
+                    </li>
+                    <hr/>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/company" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span>Ext Company</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/customer" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span>Ext Customer</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/wedding-hall" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span>Ext Wedding Hall</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

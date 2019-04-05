@@ -17,8 +17,14 @@
                 "title": "Customer"
             },
             "phoneNumber": "Phone Number",
+            "street": "Street",
+            "houseNo": "House No",
+            "flatNo": "Flat No",
+            "postalCode": "Postal Code",
             "user": "User",
-            "address": "Address"
+            "country": "Country",
+            "province": "Province",
+            "city": "City"
         }
     }
 }

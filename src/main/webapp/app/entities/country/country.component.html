@@ -13,13 +13,13 @@
     <div class="table-responsive" *ngIf="countries">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="countryName"><span jhiTranslate="myWeddingApp.country.countryName">Country Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="myWeddingApp.country.countryName">Country Name</span></th>
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let country of countries ;trackBy: trackId">
                 <td><a [routerLink]="['/country', country.id, 'view' ]">{{country.id}}</a></td>
                 <td>{{country.countryName}}</td>

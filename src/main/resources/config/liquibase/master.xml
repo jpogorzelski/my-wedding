@@ -8,7 +8,6 @@
     <include file="config/liquibase/changelog/20190316150824_added_entity_Country.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150825_added_entity_Province.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150826_added_entity_City.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190316150827_added_entity_Address.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150828_added_entity_Customer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150829_added_entity_Company.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150830_added_entity_WeddingHall.xml" relativeToChangelogFile="false"/>
@@ -18,6 +17,5 @@
     <include file="config/liquibase/changelog/20190316150828_added_entity_constraints_Customer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150829_added_entity_constraints_Company.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150830_added_entity_constraints_WeddingHall.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190316150827_added_entity_constraints_Address.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

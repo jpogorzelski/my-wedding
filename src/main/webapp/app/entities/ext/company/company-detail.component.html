@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="company">
+            <h2><span jhiTranslate="myWeddingApp.company.detail.title">Company</span> {{company.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="myWeddingApp.company.companyName">Company Name</span></dt>
+                <dd>
+                    <span>{{company.companyName}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.street">Street</span></dt>
+                <dd>
+                    <span>{{company.street}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.houseNo">House No</span></dt>
+                <dd>
+                    <span>{{company.houseNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.flatNo">Flat No</span></dt>
+                <dd>
+                    <span>{{company.flatNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.postalCode">Postal Code</span></dt>
+                <dd>
+                    <span>{{company.postalCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="company.country">
+                        <a [routerLink]="['/country', company.country?.id, 'view']">{{company.country?.countryName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.province">Province</span></dt>
+                <dd>
+                    <div *ngIf="company.province">
+                        <a [routerLink]="['/province', company.province?.id, 'view']">{{company.province?.provinceName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.city">City</span></dt>
+                <dd>
+                    <div *ngIf="company.city">
+                        <a [routerLink]="['/city', company.city?.id, 'view']">{{company.city?.cityName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button (click)="previousState()"
+                    class="btn btn-info"
+                    type="submit">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button [routerLink]="['/ext/company', company.id, 'edit']"
+                    class="btn btn-primary"
+                    type="button">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,13 @@
                 "title": "Company"
             },
             "companyName": "Company Name",
-            "address": "Address",
+            "street": "Street",
+            "houseNo": "House No",
+            "flatNo": "Flat No",
+            "postalCode": "Postal Code",
+            "country": "Country",
+            "province": "Province",
+            "city": "City",
             "weddingHalls": "Wedding Halls"
         }
     }

@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="customer">
+            <h2><span jhiTranslate="myWeddingApp.customer.detail.title">Customer</span> {{customer.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="myWeddingApp.customer.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{customer.phoneNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.street">Street</span></dt>
+                <dd>
+                    <span>{{customer.street}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.houseNo">House No</span></dt>
+                <dd>
+                    <span>{{customer.houseNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.flatNo">Flat No</span></dt>
+                <dd>
+                    <span>{{customer.flatNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.postalCode">Postal Code</span></dt>
+                <dd>
+                    <span>{{customer.postalCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.user">User</span></dt>
+                <dd>
+                    {{customer.user?.login}}
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="customer.country">
+                        <a [routerLink]="['/country', customer.country?.id, 'view']">{{customer.country?.countryName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.province">Province</span></dt>
+                <dd>
+                    <div *ngIf="customer.province">
+                        <a [routerLink]="['/province', customer.province?.id, 'view']">{{customer.province?.provinceName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.customer.city">City</span></dt>
+                <dd>
+                    <div *ngIf="customer.city">
+                        <a [routerLink]="['/city', customer.city?.id, 'view']">{{customer.city?.cityName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button (click)="previousState()"
+                    class="btn btn-info"
+                    type="submit">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button [routerLink]="['/ext/customer', customer.id, 'edit']"
+                    class="btn btn-primary"
+                    type="button">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

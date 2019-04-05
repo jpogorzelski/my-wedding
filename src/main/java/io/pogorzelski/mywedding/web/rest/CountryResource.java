@@ -5,12 +5,8 @@ import io.pogorzelski.mywedding.domain.Country;
 import io.pogorzelski.mywedding.service.CountryService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
-import io.pogorzelski.mywedding.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,15 +76,12 @@ public class CountryResource {
     /**
      * GET  /countries : get all the countries.
      *
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of countries in body
      */
     @GetMapping("/countries")
-    public ResponseEntity<List<Country>> getAllCountries(Pageable pageable) {
-        log.debug("REST request to get a page of Countries");
-        Page<Country> page = countryService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/countries");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public List<Country> getAllCountries() {
+        log.debug("REST request to get all Countries");
+        return countryService.findAll();
     }
 
     /**

@@ -4,10 +4,11 @@ package io.pogorzelski.mywedding.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "wedding_hall")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "weddinghall", shards = 1, replicas = 0)
+@Document(indexName = "weddinghall")
 public class WeddingHall implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +35,16 @@ public class WeddingHall implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("weddingHalls")
-    private Address address;
+    private Country country;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("weddingHalls")
+    private Province province;
+
+    @ManyToOne
+    @JsonIgnoreProperties("weddingHalls")
+    private City city;
 
     @ManyToOne
     @JsonIgnoreProperties("weddingHalls")
@@ -62,17 +72,43 @@ public class WeddingHall implements Serializable {
         this.hallName = hallName;
     }
 
-    public Address getAddress() {
-        return address;
+    public Country getCountry() {
+        return country;
     }
 
-    public WeddingHall address(Address address) {
-        this.address = address;
+    public WeddingHall country(Country country) {
+        this.country = country;
         return this;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public WeddingHall province(Province province) {
+        this.province = province;
+        return this;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public WeddingHall city(City city) {
+        this.city = city;
+        return this;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Company getCompany() {

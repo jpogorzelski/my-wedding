@@ -12,11 +12,26 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "otherEntityName": "address",
+            "otherEntityName": "country",
             "otherEntityRelationshipName": "weddingHall",
             "relationshipValidateRules": "required",
-            "relationshipName": "address",
-            "otherEntityField": "postalCode"
+            "relationshipName": "country",
+            "otherEntityField": "countryName"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "province",
+            "otherEntityRelationshipName": "weddingHall",
+            "relationshipValidateRules": "required",
+            "relationshipName": "province",
+            "otherEntityField": "provinceName"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "city",
+            "otherEntityRelationshipName": "weddingHall",
+            "relationshipName": "city",
+            "otherEntityField": "cityName"
         },
         {
             "relationshipType": "many-to-one",

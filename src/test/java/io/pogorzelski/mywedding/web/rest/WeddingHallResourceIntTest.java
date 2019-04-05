@@ -3,7 +3,8 @@ package io.pogorzelski.mywedding.web.rest;
 import io.pogorzelski.mywedding.MyWeddingApp;
 
 import io.pogorzelski.mywedding.domain.WeddingHall;
-import io.pogorzelski.mywedding.domain.Address;
+import io.pogorzelski.mywedding.domain.Country;
+import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.WeddingHallRepository;
 import io.pogorzelski.mywedding.repository.search.WeddingHallSearchRepository;
 import io.pogorzelski.mywedding.service.WeddingHallService;
@@ -104,10 +105,15 @@ public class WeddingHallResourceIntTest {
         WeddingHall weddingHall = new WeddingHall()
             .hallName(DEFAULT_HALL_NAME);
         // Add required entity
-        Address address = AddressResourceIntTest.createEntity(em);
-        em.persist(address);
+        Country country = CountryResourceIntTest.createEntity(em);
+        em.persist(country);
         em.flush();
-        weddingHall.setAddress(address);
+        weddingHall.setCountry(country);
+        // Add required entity
+        Province province = ProvinceResourceIntTest.createEntity(em);
+        em.persist(province);
+        em.flush();
+        weddingHall.setProvince(province);
         return weddingHall;
     }
 

@@ -14,6 +14,44 @@
                     <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
                         [(ngModel)]="customer.phoneNumber" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.street" for="field_street">Street</label>
+                    <input type="text" class="form-control" name="street" id="field_street"
+                        [(ngModel)]="customer.street" required/>
+                    <div [hidden]="!(editForm.controls.street?.dirty && editForm.controls.street?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.street?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.houseNo" for="field_houseNo">House No</label>
+                    <input type="text" class="form-control" name="houseNo" id="field_houseNo"
+                        [(ngModel)]="customer.houseNo" required/>
+                    <div [hidden]="!(editForm.controls.houseNo?.dirty && editForm.controls.houseNo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.houseNo?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.flatNo" for="field_flatNo">Flat No</label>
+                    <input type="text" class="form-control" name="flatNo" id="field_flatNo"
+                        [(ngModel)]="customer.flatNo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.postalCode" for="field_postalCode">Postal Code</label>
+                    <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                        [(ngModel)]="customer.postalCode" required/>
+                    <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postalCode?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.customer.user" for="field_user">User</label>
@@ -23,10 +61,36 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.address" for="field_address">Address</label>
-                    <select class="form-control" id="field_address" name="address" [(ngModel)]="customer.address" >
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="customer.country"  required>
+                        <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>
+                        <option [ngValue]="countryOption.id === customer.country?.id ? customer.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.countryName}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.province" for="field_province">Province</label>
+                    <select class="form-control" id="field_province" name="province" [(ngModel)]="customer.province"  required>
+                        <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                        <option [ngValue]="provinceOption.id === customer.province?.id ? customer.province : provinceOption" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.provinceName}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.customer.city" for="field_city">City</label>
+                    <select class="form-control" id="field_city" name="city" [(ngModel)]="customer.city" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="addressOption.id === customer.address?.id ? customer.address : addressOption" *ngFor="let addressOption of addresses; trackBy: trackAddressById">{{addressOption.postalCode}}</option>
+                        <option [ngValue]="cityOption.id === customer.city?.id ? customer.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.cityName}}</option>
                     </select>
                 </div>
             </div>

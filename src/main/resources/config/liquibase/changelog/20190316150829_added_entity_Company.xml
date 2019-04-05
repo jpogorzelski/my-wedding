@@ -25,8 +25,32 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="address_id" type="bigint">
+            <column name="street" type="varchar(255)">
                 <constraints nullable="false" />
+            </column>
+
+            <column name="house_no" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="flat_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="postal_code" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="country_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="province_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="city_id" type="bigint">
+                <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

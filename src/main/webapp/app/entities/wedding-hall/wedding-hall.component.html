@@ -31,7 +31,9 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="myWeddingApp.weddingHall.hallName">Hall Name</span></th>
-            <th><span jhiTranslate="myWeddingApp.weddingHall.address">Address</span></th>
+            <th><span jhiTranslate="myWeddingApp.weddingHall.country">Country</span></th>
+            <th><span jhiTranslate="myWeddingApp.weddingHall.province">Province</span></th>
+            <th><span jhiTranslate="myWeddingApp.weddingHall.city">City</span></th>
             <th><span jhiTranslate="myWeddingApp.weddingHall.company">Company</span></th>
             <th></th>
             </tr>
@@ -41,8 +43,18 @@
                 <td><a [routerLink]="['/wedding-hall', weddingHall.id, 'view' ]">{{weddingHall.id}}</a></td>
                 <td>{{weddingHall.hallName}}</td>
                 <td>
-                    <div *ngIf="weddingHall.address">
-                        <a [routerLink]="['../address', weddingHall.address?.id, 'view' ]" >{{weddingHall.address?.postalCode}}</a>
+                    <div *ngIf="weddingHall.country">
+                        <a [routerLink]="['../country', weddingHall.country?.id, 'view' ]" >{{weddingHall.country?.countryName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="weddingHall.province">
+                        <a [routerLink]="['../province', weddingHall.province?.id, 'view' ]" >{{weddingHall.province?.provinceName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="weddingHall.city">
+                        <a [routerLink]="['../city', weddingHall.city?.id, 'view' ]" >{{weddingHall.city?.cityName}}</a>
                     </div>
                 </td>
                 <td>

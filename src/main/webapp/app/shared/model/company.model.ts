@@ -1,13 +1,32 @@
-import { IAddress } from 'app/shared/model/address.model';
+import { ICountry } from 'app/shared/model/country.model';
+import { IProvince } from 'app/shared/model/province.model';
+import { ICity } from 'app/shared/model/city.model';
 import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
 
 export interface ICompany {
     id?: number;
     companyName?: string;
-    address?: IAddress;
+    street?: string;
+    houseNo?: string;
+    flatNo?: string;
+    postalCode?: string;
+    country?: ICountry;
+    province?: IProvince;
+    city?: ICity;
     weddingHalls?: IWeddingHall[];
 }
 
 export class Company implements ICompany {
-    constructor(public id?: number, public companyName?: string, public address?: IAddress, public weddingHalls?: IWeddingHall[]) {}
+    constructor(
+        public id?: number,
+        public companyName?: string,
+        public street?: string,
+        public houseNo?: string,
+        public flatNo?: string,
+        public postalCode?: string,
+        public country?: ICountry,
+        public province?: IProvince,
+        public city?: ICity,
+        public weddingHalls?: IWeddingHall[]
+    ) {}
 }

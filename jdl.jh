@@ -12,6 +12,7 @@ entity City {
 	//country, province
 }
 
+/*
 entity Address {
 	street String required
 	houseNo String required
@@ -19,14 +20,26 @@ entity Address {
 	postalCode String required
 	//country, province, city
 }
-
+*/
 entity Customer {
 	phoneNumber String
+
+	street String required
+	houseNo String required
+	flatNo String
+	postalCode String required
+
 	//user, address
 }
 
 entity Company {
 	companyName String required
+
+	street String required
+	houseNo String required
+	flatNo String
+	postalCode String required
+
 	//address, halls
 }
 
@@ -44,13 +57,19 @@ relationship ManyToOne {
     City{country(countryName) required} to Country{cities(cityName)}
     City{province(provinceName) required} to Province{cities(cityName)}
 
-    Address{country(countryName) required} to Country
-    Address{province(provinceName) required} to Province
-    Address{city(cityName) required} to City
 
-    Customer{address(postalCode)} to Address
-    Company{address(postalCode) required} to Address
-    WeddingHall{address(postalCode) required} to Address
+    Customer{country(countryName) required} to Country
+    Customer{province(provinceName) required} to Province
+    Customer{city(cityName)} to City
+
+    Company{country(countryName) required} to Country
+    Company{province(provinceName) required} to Province
+    Company{city(cityName)} to City
+
+    WeddingHall{country(countryName) required} to Country
+    WeddingHall{province(provinceName) required} to Province
+    WeddingHall{city(cityName)} to City
+
     WeddingHall{company(companyName)} to Company{weddingHalls(hallName)}
 
 }
@@ -59,4 +78,3 @@ search WeddingHall with elasticsearch
 
 service all with serviceClass
 
-paginate Country, City with infinite-scroll

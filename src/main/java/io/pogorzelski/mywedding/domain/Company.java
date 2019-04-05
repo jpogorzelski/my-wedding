@@ -1,17 +1,19 @@
 package io.pogorzelski.mywedding.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Company.
@@ -19,7 +21,7 @@ import java.util.Set;
 @Entity
 @Table(name = "company")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "company", shards = 1, replicas = 0)
+@Document(indexName = "company")
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,10 +35,34 @@ public class Company implements Serializable {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
+    @NotNull
+    @Column(name = "street", nullable = false)
+    private String street;
+
+    @NotNull
+    @Column(name = "house_no", nullable = false)
+    private String houseNo;
+
+    @Column(name = "flat_no")
+    private String flatNo;
+
+    @NotNull
+    @Column(name = "postal_code", nullable = false)
+    private String postalCode;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("companies")
-    private Address address;
+    private Country country;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("companies")
+    private Province province;
+
+    @ManyToOne
+    @JsonIgnoreProperties("companies")
+    private City city;
 
     @OneToMany(mappedBy = "company")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -63,17 +89,95 @@ public class Company implements Serializable {
         this.companyName = companyName;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public Company address(Address address) {
-        this.address = address;
+    public Company street(String street) {
+        this.street = street;
         return this;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public Company houseNo(String houseNo) {
+        this.houseNo = houseNo;
+        return this;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo;
+    }
+
+    public String getFlatNo() {
+        return flatNo;
+    }
+
+    public Company flatNo(String flatNo) {
+        this.flatNo = flatNo;
+        return this;
+    }
+
+    public void setFlatNo(String flatNo) {
+        this.flatNo = flatNo;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public Company postalCode(String postalCode) {
+        this.postalCode = postalCode;
+        return this;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Company country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public Company province(Province province) {
+        this.province = province;
+        return this;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public Company city(City city) {
+        this.city = city;
+        return this;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Set<WeddingHall> getWeddingHalls() {
@@ -127,6 +231,10 @@ public class Company implements Serializable {
         return "Company{" +
             "id=" + getId() +
             ", companyName='" + getCompanyName() + "'" +
+            ", street='" + getStreet() + "'" +
+            ", houseNo='" + getHouseNo() + "'" +
+            ", flatNo='" + getFlatNo() + "'" +
+            ", postalCode='" + getPostalCode() + "'" +
             "}";
     }
 }

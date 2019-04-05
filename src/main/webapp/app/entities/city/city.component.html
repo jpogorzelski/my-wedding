@@ -13,15 +13,15 @@
     <div class="table-responsive" *ngIf="cities">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cityName"><span jhiTranslate="myWeddingApp.city.cityName">City Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="country.countryName"><span jhiTranslate="myWeddingApp.city.country">Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="province.provinceName"><span jhiTranslate="myWeddingApp.city.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="myWeddingApp.city.cityName">City Name</span></th>
+                <th><span jhiTranslate="myWeddingApp.city.country">Country</span></th>
+                <th><span jhiTranslate="myWeddingApp.city.province">Province</span></th>
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let city of cities ;trackBy: trackId">
                 <td><a [routerLink]="['/city', city.id, 'view' ]">{{city.id}}</a></td>
                 <td>{{city.cityName}}</td>

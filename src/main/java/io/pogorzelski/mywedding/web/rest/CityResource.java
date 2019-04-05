@@ -5,12 +5,8 @@ import io.pogorzelski.mywedding.domain.City;
 import io.pogorzelski.mywedding.service.CityService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
-import io.pogorzelski.mywedding.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,15 +76,12 @@ public class CityResource {
     /**
      * GET  /cities : get all the cities.
      *
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of cities in body
      */
     @GetMapping("/cities")
-    public ResponseEntity<List<City>> getAllCities(Pageable pageable) {
-        log.debug("REST request to get a page of Cities");
-        Page<City> page = cityService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cities");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public List<City> getAllCities() {
+        log.debug("REST request to get all Cities");
+        return cityService.findAll();
     }
 
     /**
