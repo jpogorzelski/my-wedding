@@ -39,6 +39,12 @@
             "otherEntityRelationshipName": "weddingHalls",
             "relationshipName": "company",
             "otherEntityField": "companyName"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "album",
+            "otherEntityRelationshipName": "hallName",
+            "relationshipName": "album"
         }
     ],
     "changelogDate": "20190316150830",
@@ -49,6 +55,5 @@
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "searchEngine": "elasticsearch"
+    "applications": "*"
 }

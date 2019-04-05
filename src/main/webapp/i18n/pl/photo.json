@@ -1,0 +1,25 @@
+{
+    "myWeddingApp": {
+        "photo": {
+            "home": {
+                "title": "Photo",
+                "createLabel": "Dodaj Photo",
+                "createOrEditLabel": "Dodaj lub edytuj: Photo"
+            },
+            "created": "Utworzono nowy obiekt typu Photo z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Photo z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Photo z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Photo {{ id }}?"
+            },
+            "detail": {
+                "title": "Photo"
+            },
+            "title": "Title",
+            "description": "Description",
+            "image": "Image",
+            "uploaded": "Uploaded",
+            "album": "Album"
+        }
+    }
+}

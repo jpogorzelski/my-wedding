@@ -48,6 +48,20 @@ entity WeddingHall {
     //address, company, maybe rating
 }
 
+
+entity Album {
+    title String required,
+    description TextBlob,
+    created Instant
+}
+
+entity Photo {
+    title String required,
+    description TextBlob,
+    image ImageBlob required,
+    uploaded Instant
+}
+
 relationship OneToOne {
     Customer{user(login)} to User
 }
@@ -72,9 +86,13 @@ relationship ManyToOne {
 
     WeddingHall{company(companyName)} to Company{weddingHalls(hallName)}
 
+    Album{hallName} to WeddingHall{album(title)}
+    Photo{album(title)} to Album{photos(title)}
+
+
 }
 
-search WeddingHall with elasticsearch
+//search WeddingHall with elasticsearch
 
 service all with serviceClass
 

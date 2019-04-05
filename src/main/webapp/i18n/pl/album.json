@@ -1,0 +1,25 @@
+{
+    "myWeddingApp": {
+        "album": {
+            "home": {
+                "title": "Album",
+                "createLabel": "Dodaj Album",
+                "createOrEditLabel": "Dodaj lub edytuj: Album"
+            },
+            "created": "Utworzono nowy obiekt typu Album z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Album z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Album z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Album {{ id }}?"
+            },
+            "detail": {
+                "title": "Album"
+            },
+            "title": "Title",
+            "description": "Description",
+            "created": "Created",
+            "hallName": "Hall Name",
+            "photos": "Photos"
+        }
+    }
+}

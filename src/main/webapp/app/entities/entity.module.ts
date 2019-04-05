@@ -31,6 +31,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'ext',
                 loadChildren: './ext/ext.module#MyWeddingExtModule'
+            },
+            {
+                path: 'album',
+                loadChildren: './album/album.module#MyWeddingAlbumModule'
+            },
+            {
+                path: 'photo',
+                loadChildren: './photo/photo.module#MyWeddingPhotoModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

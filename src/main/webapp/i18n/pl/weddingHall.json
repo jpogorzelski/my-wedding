@@ -4,8 +4,7 @@
             "home": {
                 "title": "Wedding Hall",
                 "createLabel": "Dodaj Wedding Hall",
-                "createOrEditLabel": "Dodaj lub edytuj: Wedding Hall",
-                "search": "Szukaj Wedding Hall"
+                "createOrEditLabel": "Dodaj lub edytuj: Wedding Hall"
             },
             "created": "Utworzono nowy obiekt typu Wedding Hall z identyfikatorem {{ param }}",
             "updated": "Uaktualniono obiekt typu Wedding Hall z identyfikatorem {{ param }}",
@@ -20,7 +19,8 @@
             "country": "Country",
             "province": "Province",
             "city": "City",
-            "company": "Company"
+            "company": "Company",
+            "album": "Album"
         }
     }
 }
