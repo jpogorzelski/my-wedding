@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class AlbumService {
      */
     public Album save(Album album) {
         log.debug("Request to save Album : {}", album);
+        album.setCreated(Instant.now());
         return albumRepository.save(album);
     }
 

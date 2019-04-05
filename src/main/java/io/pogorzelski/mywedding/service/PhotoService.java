@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class PhotoService {
      */
     public Photo save(Photo photo) {
         log.debug("Request to save Photo : {}", photo);
+        photo.setUploaded(Instant.now());
         return photoRepository.save(photo);
     }
 
