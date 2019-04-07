@@ -1,15 +1,14 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
 import io.pogorzelski.mywedding.domain.Photo;
 import io.pogorzelski.mywedding.repository.PhotoRepository;
 import io.pogorzelski.mywedding.service.PhotoService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,14 +23,15 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Clock;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -57,11 +57,11 @@ public class PhotoResourceIntTest {
 
     private static final Instant DEFAULT_UPLOADED = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPLOADED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant EXPECTED_UPLOADED = Instant.EPOCH;
 
     @Autowired
     private PhotoRepository photoRepository;
 
-    @Autowired
     private PhotoService photoService;
 
     @Autowired
@@ -79,6 +79,9 @@ public class PhotoResourceIntTest {
     @Autowired
     private Validator validator;
 
+    @Mock
+    private Clock clock;
+
     private MockMvc restPhotoMockMvc;
 
     private Photo photo;
@@ -86,7 +89,9 @@ public class PhotoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        this.photoService = new PhotoService(photoRepository, clock);
         final PhotoResource photoResource = new PhotoResource(photoService);
+        when(clock.instant()).thenReturn(EXPECTED_UPLOADED);
         this.restPhotoMockMvc = MockMvcBuilders.standaloneSetup(photoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -190,7 +195,7 @@ public class PhotoResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].uploaded").value(hasItem(DEFAULT_UPLOADED.toString())));
+            .andExpect(jsonPath("$.[*].uploaded").value(hasItem(EXPECTED_UPLOADED.toString())));
     }
     
     @Test
@@ -208,7 +213,7 @@ public class PhotoResourceIntTest {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
-            .andExpect(jsonPath("$.uploaded").value(DEFAULT_UPLOADED.toString()));
+            .andExpect(jsonPath("$.uploaded").value(EXPECTED_UPLOADED.toString()));
     }
 
     @Test
@@ -251,7 +256,7 @@ public class PhotoResourceIntTest {
         assertThat(testPhoto.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testPhoto.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testPhoto.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testPhoto.getUploaded()).isEqualTo(UPDATED_UPLOADED);
+        assertThat(testPhoto.getUploaded()).isEqualTo(EXPECTED_UPLOADED);
     }
 
     @Test

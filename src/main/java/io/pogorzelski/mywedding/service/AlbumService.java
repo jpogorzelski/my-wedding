@@ -4,10 +4,10 @@ import io.pogorzelski.mywedding.domain.Album;
 import io.pogorzelski.mywedding.repository.AlbumRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +23,11 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
 
-    public AlbumService(AlbumRepository albumRepository) {
+    private final Clock clock;
+
+    public AlbumService(AlbumRepository albumRepository, Clock clock) {
         this.albumRepository = albumRepository;
+        this.clock = clock;
     }
 
     /**
@@ -35,7 +38,8 @@ public class AlbumService {
      */
     public Album save(Album album) {
         log.debug("Request to save Album : {}", album);
-        album.setCreated(Instant.now());
+        final Instant now = Instant.now(clock);
+        album.setCreated(now);
         return albumRepository.save(album);
     }
 

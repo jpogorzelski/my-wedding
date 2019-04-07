@@ -4,10 +4,10 @@ import io.pogorzelski.mywedding.domain.Photo;
 import io.pogorzelski.mywedding.repository.PhotoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +23,11 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
 
-    public PhotoService(PhotoRepository photoRepository) {
+    private final Clock clock;
+
+    public PhotoService(PhotoRepository photoRepository, Clock clock) {
         this.photoRepository = photoRepository;
+        this.clock = clock;
     }
 
     /**
@@ -35,7 +38,7 @@ public class PhotoService {
      */
     public Photo save(Photo photo) {
         log.debug("Request to save Photo : {}", photo);
-        photo.setUploaded(Instant.now());
+        photo.setUploaded(Instant.now(clock));
         return photoRepository.save(photo);
     }
 

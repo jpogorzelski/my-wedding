@@ -1,15 +1,14 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
 import io.pogorzelski.mywedding.domain.Album;
 import io.pogorzelski.mywedding.repository.AlbumRepository;
 import io.pogorzelski.mywedding.service.AlbumService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,18 +19,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Clock;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,11 +51,11 @@ public class AlbumResourceIntTest {
 
     private static final Instant DEFAULT_CREATED = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant EXPECTED_CREATED = Instant.EPOCH;
 
     @Autowired
     private AlbumRepository albumRepository;
 
-    @Autowired
     private AlbumService albumService;
 
     @Autowired
@@ -74,6 +73,9 @@ public class AlbumResourceIntTest {
     @Autowired
     private Validator validator;
 
+    @Mock
+    private Clock clock;
+
     private MockMvc restAlbumMockMvc;
 
     private Album album;
@@ -81,7 +83,9 @@ public class AlbumResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        this.albumService = new AlbumService(albumRepository, clock);
         final AlbumResource albumResource = new AlbumResource(albumService);
+        doReturn(EXPECTED_CREATED).when(clock).instant();
         this.restAlbumMockMvc = MockMvcBuilders.standaloneSetup(albumResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -126,7 +130,7 @@ public class AlbumResourceIntTest {
         Album testAlbum = albumList.get(albumList.size() - 1);
         assertThat(testAlbum.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testAlbum.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testAlbum.getCreated()).isEqualTo(DEFAULT_CREATED);
+        assertThat(testAlbum.getCreated()).isEqualTo(EXPECTED_CREATED);
     }
 
     @Test
@@ -179,7 +183,7 @@ public class AlbumResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(album.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].created").value(hasItem(DEFAULT_CREATED.toString())));
+            .andExpect(jsonPath("$.[*].created").value(hasItem(EXPECTED_CREATED.toString())));
     }
     
     @Test
@@ -195,7 +199,7 @@ public class AlbumResourceIntTest {
             .andExpect(jsonPath("$.id").value(album.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.created").value(DEFAULT_CREATED.toString()));
+            .andExpect(jsonPath("$.created").value(EXPECTED_CREATED.toString()));
     }
 
     @Test
@@ -234,7 +238,7 @@ public class AlbumResourceIntTest {
         Album testAlbum = albumList.get(albumList.size() - 1);
         assertThat(testAlbum.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testAlbum.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testAlbum.getCreated()).isEqualTo(UPDATED_CREATED);
+        assertThat(testAlbum.getCreated()).isEqualTo(EXPECTED_CREATED);
     }
 
     @Test
