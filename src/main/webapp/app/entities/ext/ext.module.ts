@@ -15,6 +15,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'wedding-hall',
                 loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallExtModule'
+            },
+            {
+                path: 'offer',
+                loadChildren: './offer/offer.module#MyWeddingOfferExtModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
