@@ -1,0 +1,27 @@
+{
+    "myWeddingApp": {
+        "offer": {
+            "home": {
+                "title": "Offer",
+                "createLabel": "Dodaj Offer",
+                "createOrEditLabel": "Dodaj lub edytuj: Offer"
+            },
+            "created": "Utworzono nowy obiekt typu Offer z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Offer z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Offer z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Offer {{ id }}?"
+            },
+            "detail": {
+                "title": "Offer"
+            },
+            "eventDate": "Event Date",
+            "description": "Description",
+            "pricePerCapita": "Price Per Capita",
+            "available": "Available",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "weddingHall": "Wedding Hall"
+        }
+    }
+}

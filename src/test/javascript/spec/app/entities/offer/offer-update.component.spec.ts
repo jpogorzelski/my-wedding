@@ -1,38 +1,38 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { MyWeddingTestModule } from '../../../test.module';
-import { WeddingHallUpdateComponent } from 'app/entities/wedding-hall/wedding-hall-update.component';
-import { WeddingHallService } from 'app/entities/wedding-hall/wedding-hall.service';
-import { WeddingHall } from 'app/shared/model/wedding-hall.model';
+import { OfferUpdateComponent } from 'app/entities/offer/offer-update.component';
+import { OfferService } from 'app/entities/offer/offer.service';
+import { Offer } from 'app/shared/model/offer.model';
 
 describe('Component Tests', () => {
-    describe('WeddingHall Management Update Component', () => {
-        let comp: WeddingHallUpdateComponent;
-        let fixture: ComponentFixture<WeddingHallUpdateComponent>;
-        let service: WeddingHallService;
+    describe('Offer Management Update Component', () => {
+        let comp: OfferUpdateComponent;
+        let fixture: ComponentFixture<OfferUpdateComponent>;
+        let service: OfferService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [MyWeddingTestModule],
-                declarations: [WeddingHallUpdateComponent]
+                declarations: [OfferUpdateComponent]
             })
-                .overrideTemplate(WeddingHallUpdateComponent, '')
+                .overrideTemplate(OfferUpdateComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(WeddingHallUpdateComponent);
+            fixture = TestBed.createComponent(OfferUpdateComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(WeddingHallService);
+            service = fixture.debugElement.injector.get(OfferService);
         });
 
         describe('save', () => {
             it('Should call update service on save for existing entity', fakeAsync(() => {
                 // GIVEN
-                const entity = new WeddingHall(123);
+                const entity = new Offer(123);
                 spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.weddingHall = entity;
+                comp.offer = entity;
                 // WHEN
                 comp.save();
                 tick(); // simulate async
@@ -44,9 +44,9 @@ describe('Component Tests', () => {
 
             it('Should call create service on save for new entity', fakeAsync(() => {
                 // GIVEN
-                const entity = new WeddingHall();
+                const entity = new Offer();
                 spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.weddingHall = entity;
+                comp.offer = entity;
                 // WHEN
                 comp.save();
                 tick(); // simulate async

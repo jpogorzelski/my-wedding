@@ -62,6 +62,18 @@ entity Photo {
     uploaded Instant
 }
 
+entity Offer {
+  eventDate Instant required
+  description String
+  pricePerCapita BigDecimal required
+  available Boolean required
+
+  //technical
+  startDate LocalDate required
+  endDate LocalDate
+
+}
+
 relationship OneToOne {
     Customer{user(login)} to User
 }
@@ -88,6 +100,8 @@ relationship ManyToOne {
 
     Album{hallName} to WeddingHall{album(title)}
     Photo{album(title)} to Album{photos(title)}
+
+    Offer{weddingHall(hallName) required} to WeddingHall{offers(eventDate)}
 
 
 }

@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="offer">
+            <h2><span jhiTranslate="myWeddingApp.offer.detail.title">Offer</span> {{offer.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="myWeddingApp.offer.eventDate">Event Date</span></dt>
+                <dd>
+                    <span>{{offer.eventDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.offer.description">Description</span></dt>
+                <dd>
+                    <span>{{offer.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.offer.pricePerCapita">Price Per Capita</span></dt>
+                <dd>
+                    <span>{{offer.pricePerCapita}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.offer.available">Available</span></dt>
+                <dd>
+                    <span>{{offer.available}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.offer.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{offer.startDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.offer.endDate">End Date</span></dt>
+                <dd>
+                    <span>{{offer.endDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.offer.weddingHall">Wedding Hall</span></dt>
+                <dd>
+                    <div *ngIf="offer.weddingHall">
+                        <a [routerLink]="['/wedding-hall', offer.weddingHall?.id, 'view']">{{offer.weddingHall?.hallName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/offer', offer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
