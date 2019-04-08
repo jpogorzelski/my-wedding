@@ -57,7 +57,7 @@ public class OfferResourceIntTest {
     private static final BigDecimal UPDATED_PRICE_PER_CAPITA = new BigDecimal(2);
 
     private static final Boolean DEFAULT_AVAILABLE = false;
-    private static final Boolean UPDATED_AVAILABLE = true;
+    private static final Boolean UPDATED_AVAILABLE = false;
 
     private static final LocalDate DEFAULT_START_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_START_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -147,7 +147,7 @@ public class OfferResourceIntTest {
         assertThat(testOffer.getEventDate()).isEqualTo(DEFAULT_EVENT_DATE);
         assertThat(testOffer.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOffer.getPricePerCapita()).isEqualTo(DEFAULT_PRICE_PER_CAPITA);
-        assertThat(testOffer.isAvailable()).isEqualTo(DEFAULT_AVAILABLE);
+        assertThat(testOffer.isAvailable()).isEqualTo(true);
         assertThat(testOffer.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testOffer.getEndDate()).isEqualTo(DEFAULT_END_DATE);
     }
