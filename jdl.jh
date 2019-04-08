@@ -69,8 +69,8 @@ entity Offer {
   available Boolean required
 
   //technical
-  startDate Instant required
-  endDate Instant
+  startDate LocalDate required
+  endDate LocalDate
 
 }
 

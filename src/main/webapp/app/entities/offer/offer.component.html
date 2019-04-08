@@ -32,8 +32,8 @@
                 <td>{{offer.description}}</td>
                 <td>{{offer.pricePerCapita}}</td>
                 <td>{{offer.available}}</td>
-                <td>{{offer.startDate | date:'medium'}}</td>
-                <td>{{offer.endDate | date:'medium'}}</td>
+                <td>{{offer.startDate | date:'mediumDate'}}</td>
+                <td>{{offer.endDate | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="offer.weddingHall">
                         <a [routerLink]="['../wedding-hall', offer.weddingHall?.id, 'view' ]" >{{offer.weddingHall?.hallName}}</a>

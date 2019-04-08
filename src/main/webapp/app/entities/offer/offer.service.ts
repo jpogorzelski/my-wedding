@@ -52,8 +52,8 @@ export class OfferService {
     protected convertDateFromClient(offer: IOffer): IOffer {
         const copy: IOffer = Object.assign({}, offer, {
             eventDate: offer.eventDate != null && offer.eventDate.isValid() ? offer.eventDate.toJSON() : null,
-            startDate: offer.startDate != null && offer.startDate.isValid() ? offer.startDate.toJSON() : null,
-            endDate: offer.endDate != null && offer.endDate.isValid() ? offer.endDate.toJSON() : null
+            startDate: offer.startDate != null && offer.startDate.isValid() ? offer.startDate.format(DATE_FORMAT) : null,
+            endDate: offer.endDate != null && offer.endDate.isValid() ? offer.endDate.format(DATE_FORMAT) : null
         });
         return copy;
     }

@@ -21,8 +21,8 @@ export class OfferUpdateComponent implements OnInit {
 
     weddinghalls: IWeddingHall[];
     eventDate: string;
-    startDate: string;
-    endDate: string;
+    startDateDp: any;
+    endDateDp: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -36,8 +36,6 @@ export class OfferUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ offer }) => {
             this.offer = offer;
             this.eventDate = this.offer.eventDate != null ? this.offer.eventDate.format(DATE_TIME_FORMAT) : null;
-            this.startDate = this.offer.startDate != null ? this.offer.startDate.format(DATE_TIME_FORMAT) : null;
-            this.endDate = this.offer.endDate != null ? this.offer.endDate.format(DATE_TIME_FORMAT) : null;
         });
         this.weddingHallService
             .query()
@@ -55,8 +53,6 @@ export class OfferUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.offer.eventDate = this.eventDate != null ? moment(this.eventDate, DATE_TIME_FORMAT) : null;
-        this.offer.startDate = this.startDate != null ? moment(this.startDate, DATE_TIME_FORMAT) : null;
-        this.offer.endDate = this.endDate != null ? moment(this.endDate, DATE_TIME_FORMAT) : null;
         if (this.offer.id !== undefined) {
             this.subscribeToSaveResponse(this.offerService.update(this.offer));
         } else {

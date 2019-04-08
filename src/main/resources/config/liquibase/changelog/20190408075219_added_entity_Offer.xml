@@ -37,11 +37,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="start_date" type="datetime">
+            <column name="start_date" type="date">
                 <constraints nullable="false" />
             </column>
 
-            <column name="end_date" type="datetime">
+            <column name="end_date" type="date">
                 <constraints nullable="true" />
             </column>
 
@@ -52,8 +52,6 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="offer" columnName="event_date" columnDataType="datetime"/>
-        <dropDefaultValue tableName="offer" columnName="start_date" columnDataType="datetime"/>
-        <dropDefaultValue tableName="offer" columnName="end_date" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

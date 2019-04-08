@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { OfferService } from 'app/entities/offer/offer.service';
 import { IOffer, Offer } from 'app/shared/model/offer.model';
 
@@ -33,8 +33,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         eventDate: currentDate.format(DATE_TIME_FORMAT),
-                        startDate: currentDate.format(DATE_TIME_FORMAT),
-                        endDate: currentDate.format(DATE_TIME_FORMAT)
+                        startDate: currentDate.format(DATE_FORMAT),
+                        endDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -52,8 +52,8 @@ describe('Service Tests', () => {
                     {
                         id: 0,
                         eventDate: currentDate.format(DATE_TIME_FORMAT),
-                        startDate: currentDate.format(DATE_TIME_FORMAT),
-                        endDate: currentDate.format(DATE_TIME_FORMAT)
+                        startDate: currentDate.format(DATE_FORMAT),
+                        endDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -80,8 +80,8 @@ describe('Service Tests', () => {
                         description: 'BBBBBB',
                         pricePerCapita: 1,
                         available: true,
-                        startDate: currentDate.format(DATE_TIME_FORMAT),
-                        endDate: currentDate.format(DATE_TIME_FORMAT)
+                        startDate: currentDate.format(DATE_FORMAT),
+                        endDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -109,8 +109,8 @@ describe('Service Tests', () => {
                         description: 'BBBBBB',
                         pricePerCapita: 1,
                         available: true,
-                        startDate: currentDate.format(DATE_TIME_FORMAT),
-                        endDate: currentDate.format(DATE_TIME_FORMAT)
+                        startDate: currentDate.format(DATE_FORMAT),
+                        endDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
