@@ -48,6 +48,10 @@ public class CacheConfiguration {
             cm.createCache(io.pogorzelski.mywedding.domain.Company.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.WeddingHall.class.getName(), jcacheConfiguration);
             cm.createCache(io.pogorzelski.mywedding.domain.Company.class.getName() + ".weddingHalls", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.WeddingHall.class.getName() + ".albums", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Album.class.getName(), jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Album.class.getName() + ".photos", jcacheConfiguration);
+            cm.createCache(io.pogorzelski.mywedding.domain.Photo.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

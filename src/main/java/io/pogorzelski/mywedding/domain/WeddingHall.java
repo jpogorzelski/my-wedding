@@ -1,6 +1,7 @@
 package io.pogorzelski.mywedding.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,6 +11,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -50,6 +53,9 @@ public class WeddingHall implements Serializable {
     @JsonIgnoreProperties("weddingHalls")
     private Company company;
 
+    @OneToMany(mappedBy = "hallName")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Album> albums = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -122,6 +128,31 @@ public class WeddingHall implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public WeddingHall albums(Set<Album> albums) {
+        this.albums = albums;
+        return this;
+    }
+
+    public WeddingHall addAlbum(Album album) {
+        this.albums.add(album);
+        album.setHallName(this);
+        return this;
+    }
+
+    public WeddingHall removeAlbum(Album album) {
+        this.albums.remove(album);
+        album.setHallName(null);
+        return this;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
