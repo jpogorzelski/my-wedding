@@ -1,0 +1,28 @@
+{
+    "myWeddingApp": {
+        "reservationOrder": {
+            "home": {
+                "title": "Reservation Order",
+                "createLabel": "Dodaj Reservation Order",
+                "createOrEditLabel": "Dodaj lub edytuj: Reservation Order"
+            },
+            "created": "Utworzono nowy obiekt typu Reservation Order z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Reservation Order z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Reservation Order z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Reservation Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Reservation Order"
+            },
+            "reservationConfirmed": "Reservation Confirmed",
+            "guestCount": "Guest Count",
+            "downPaymentAmount": "Down Payment Amount",
+            "downPaymentSettled": "Down Payment Settled",
+            "createDate": "Create Date",
+            "modificationDate": "Modification Date",
+            "eventDate": "Event Date",
+            "required": "Required"
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "name": "ReservationOrder",
+    "fields": [
+        {
+            "fieldName": "reservationConfirmed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "guestCount",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "downPaymentAmount",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "downPaymentSettled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "createDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "modificationDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "offer",
+            "otherEntityRelationshipName": "reservationOrder",
+            "relationshipValidateRules": "required",
+            "relationshipName": "eventDate",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "customer",
+            "otherEntityRelationshipName": "reservationOrder",
+            "relationshipName": "required",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190408143707",
+    "entityTableName": "reservation_order",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

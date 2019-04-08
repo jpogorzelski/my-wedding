@@ -17,6 +17,7 @@
                 "album": "Album",
                 "photo": "Photo",
                 "offer": "Offer",
+                "reservationOrder": "Reservation Order",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

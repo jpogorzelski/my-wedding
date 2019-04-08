@@ -74,8 +74,21 @@ entity Offer {
 
 }
 
+entity ReservationOrder {
+  reservationConfirmed Boolean
+  guestCount Integer required
+  downPaymentAmount BigDecimal required
+  downPaymentSettled Boolean
+
+  //technical
+  createDate LocalDate required
+  modificationDate LocalDate required
+}
+
+
 relationship OneToOne {
     Customer{user(login)} to User
+    ReservationOrder{eventDate required} to Offer
 }
 
 relationship ManyToOne {
@@ -102,6 +115,7 @@ relationship ManyToOne {
     Photo{album(title)} to Album{photos(title)}
 
     Offer{weddingHall(hallName) required} to WeddingHall{offers(eventDate)}
+    ReservationOrder{required} to Customer
 
 
 }
