@@ -1,19 +1,27 @@
 package io.pogorzelski.mywedding.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A WeddingHall.
@@ -56,6 +64,9 @@ public class WeddingHall implements Serializable {
     @OneToMany(mappedBy = "hallName")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Album> albums = new HashSet<>();
+    @OneToMany(mappedBy = "weddingHall")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Offer> offers = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -153,6 +164,31 @@ public class WeddingHall implements Serializable {
 
     public void setAlbums(Set<Album> albums) {
         this.albums = albums;
+    }
+
+    public Set<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
+    }
+
+    public WeddingHall offers(Set<Offer> offers) {
+        this.offers = offers;
+        return this;
+    }
+
+    public WeddingHall addOffers(Offer offer) {
+        this.offers.add(offer);
+        offer.setWeddingHall(this);
+        return this;
+    }
+
+    public WeddingHall removeOffers(Offer offer) {
+        this.offers.remove(offer);
+        offer.setWeddingHall(null);
+        return this;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

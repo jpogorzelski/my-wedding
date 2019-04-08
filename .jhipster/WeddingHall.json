@@ -45,6 +45,12 @@
             "otherEntityName": "album",
             "otherEntityRelationshipName": "hallName",
             "relationshipName": "album"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "offer",
+            "otherEntityRelationshipName": "weddingHall",
+            "relationshipName": "offers"
         }
     ],
     "changelogDate": "20190316150830",
