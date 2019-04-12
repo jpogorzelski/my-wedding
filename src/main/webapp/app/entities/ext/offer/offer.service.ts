@@ -49,6 +49,13 @@ export class OfferService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    book(offer: IOffer): Observable<HttpResponse<any>> {
+        const copy = this.convertDateFromClient(offer);
+        return this.http
+            .post<IOffer>(`${this.resourceUrl}/${offer.id}/book`, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     protected convertDateFromClient(offer: IOffer): IOffer {
         const copy: IOffer = Object.assign({}, offer, {
             eventDate: offer.eventDate != null && offer.eventDate.isValid() ? offer.eventDate.toJSON() : null,

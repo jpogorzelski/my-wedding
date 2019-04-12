@@ -93,7 +93,7 @@ public class OfferResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final OfferResource offerResource = new OfferResource(offerService);
+        final OfferResource offerResource = new OfferResource(offerService, reservationOrderService);
         this.restOfferMockMvc = MockMvcBuilders.standaloneSetup(offerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

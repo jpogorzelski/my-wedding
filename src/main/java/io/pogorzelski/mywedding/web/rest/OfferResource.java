@@ -1,6 +1,8 @@
 package io.pogorzelski.mywedding.web.rest;
 import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
 import io.pogorzelski.mywedding.service.OfferService;
+import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -10,9 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +33,11 @@ public class OfferResource {
     private static final String ENTITY_NAME = "offer";
 
     private final OfferService offerService;
+    private final ReservationOrderService reservationOrderService;
 
-    public OfferResource(OfferService offerService) {
+    public OfferResource(OfferService offerService, ReservationOrderService reservationOrderService) {
         this.offerService = offerService;
+        this.reservationOrderService = reservationOrderService;
     }
 
     /**
@@ -110,4 +117,35 @@ public class OfferResource {
         offerService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+
+    /**
+     * POST  /offers/:id/book : Book an offer.
+     *
+     * @param offer the offer to book
+     * @return the ResponseEntity with status 201 (Booked) and with body the offer, or with status 400 (Bad Request) if the offer has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/offers/{id}/book")
+    public ResponseEntity<Offer> bookOffer(@Valid @RequestBody Offer offer) throws URISyntaxException {
+        log.debug("REST request to book Offer : {}", offer);
+        if (offer.getId() == null) {
+            throw new BadRequestAlertException("Cannot book unexisting offer - missing ID", ENTITY_NAME, "idnull");
+        }
+        offer.setAvailable(false);
+        ReservationOrder reservationOrder = new ReservationOrder();
+        reservationOrder.setEventDate(offer);
+        reservationOrder.setCreateDate(LocalDate.now());
+        reservationOrder.setModificationDate(LocalDate.now());
+        reservationOrder.setRequired(null); //todo fix naming and set user
+        reservationOrder.setDownPaymentAmount(new BigDecimal("1000.0"));
+        reservationOrder.setGuestCount(120);
+        //todo change popup to page - there is need to enter above before submit
+        Offer result = offerService.save(offer);
+        reservationOrderService.save(reservationOrder);
+        return ResponseEntity.created(new URI("/api/offers/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
 }

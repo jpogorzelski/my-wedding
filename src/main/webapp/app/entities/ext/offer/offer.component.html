@@ -42,6 +42,14 @@
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
+                                [routerLink]="['/ext/offer', { outlets: { popup: offer.id + '/book'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.book">Book</span>
+                        </button>
+                        <button type="submit"
                                 [routerLink]="['/ext/offer', offer.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>

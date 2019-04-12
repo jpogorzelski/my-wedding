@@ -8,6 +8,7 @@ import { Offer } from 'app/shared/model/offer.model';
 import { OfferService } from './offer.service';
 import { OfferComponent } from './offer.component';
 import { OfferDetailComponent } from './offer-detail.component';
+import { OfferBookPopupComponent } from './offer-book-dialog.component';
 import { OfferUpdateComponent } from './offer-update.component';
 import { OfferDeletePopupComponent } from './offer-delete-dialog.component';
 import { IOffer } from 'app/shared/model/offer.model';
@@ -80,6 +81,19 @@ export const offerPopupRoute: Routes = [
     {
         path: ':id/delete',
         component: OfferDeletePopupComponent,
+        resolve: {
+            offer: OfferResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'myWeddingApp.offer.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
+        path: ':id/book',
+        component: OfferBookPopupComponent,
         resolve: {
             offer: OfferResolve
         },

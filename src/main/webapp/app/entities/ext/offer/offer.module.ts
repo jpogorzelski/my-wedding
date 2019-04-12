@@ -10,6 +10,8 @@ import {
     OfferUpdateComponent,
     OfferDeletePopupComponent,
     OfferDeleteDialogComponent,
+    OfferBookPopupComponent,
+    OfferBookDialogComponent,
     offerRoute,
     offerPopupRoute
 } from './';
@@ -18,8 +20,23 @@ const ENTITY_STATES = [...offerRoute, ...offerPopupRoute];
 
 @NgModule({
     imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [OfferComponent, OfferDetailComponent, OfferUpdateComponent, OfferDeleteDialogComponent, OfferDeletePopupComponent],
-    entryComponents: [OfferComponent, OfferUpdateComponent, OfferDeleteDialogComponent, OfferDeletePopupComponent],
+    declarations: [
+        OfferComponent,
+        OfferDetailComponent,
+        OfferUpdateComponent,
+        OfferDeleteDialogComponent,
+        OfferDeletePopupComponent,
+        OfferBookPopupComponent,
+        OfferBookDialogComponent
+    ],
+    entryComponents: [
+        OfferComponent,
+        OfferUpdateComponent,
+        OfferDeleteDialogComponent,
+        OfferDeletePopupComponent,
+        OfferBookPopupComponent,
+        OfferBookDialogComponent
+    ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
