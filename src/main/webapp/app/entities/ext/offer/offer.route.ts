@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Offer } from 'app/shared/model/offer.model';
+import { IOffer, Offer } from 'app/shared/model/offer.model';
 import { OfferService } from './offer.service';
 import { OfferComponent } from './offer.component';
 import { OfferDetailComponent } from './offer-detail.component';
-import { OfferBookPopupComponent } from './offer-book-dialog.component';
+import { OfferBookPopupComponent } from './offer-book.component';
 import { OfferUpdateComponent } from './offer-update.component';
 import { OfferDeletePopupComponent } from './offer-delete-dialog.component';
-import { IOffer } from 'app/shared/model/offer.model';
 
 @Injectable({ providedIn: 'root' })
 export class OfferResolve implements Resolve<IOffer> {
