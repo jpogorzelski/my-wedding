@@ -83,24 +83,30 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.eventDate" for="field_eventDate">Event Date</label>
-                    <select class="form-control" id="field_eventDate" name="eventDate" [(ngModel)]="reservationOrder.eventDate" required>
-                        <option *ngIf="!editForm.value.eventDate" [ngValue]="null" selected></option>
-                        <option [ngValue]="offerOption.id === reservationOrder.eventDate?.id ? reservationOrder.eventDate : offerOption" *ngFor="let offerOption of eventdates; trackBy: trackOfferById">{{offerOption.id}}</option>
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.offer" for="field_offer">Offer</label>
+                    <select class="form-control" id="field_offer" name="offer" [(ngModel)]="reservationOrder.offer" required>
+                        <option *ngIf="!editForm.value.offer" [ngValue]="null" selected></option>
+                        <option [ngValue]="offerOption.id === reservationOrder.offer?.id ? reservationOrder.offer : offerOption" *ngFor="let offerOption of offers; trackBy: trackOfferById">{{offerOption.id}}</option>
                     </select>
                 </div>
-                <div [hidden]="!(editForm.controls.eventDate?.dirty && editForm.controls.eventDate?.invalid)">
+                <div [hidden]="!(editForm.controls.offer?.dirty && editForm.controls.offer?.invalid)">
                     <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.eventDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.offer?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.required" for="field_required">Required</label>
-                    <select class="form-control" id="field_required" name="required" [(ngModel)]="reservationOrder.required" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="customerOption.id === reservationOrder.required?.id ? reservationOrder.required : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.customer" for="field_customer">Customer</label>
+                    <select class="form-control" id="field_customer" name="customer" [(ngModel)]="reservationOrder.customer"  required>
+                        <option *ngIf="!editForm.value.customer" [ngValue]="null" selected></option>
+                        <option [ngValue]="customerOption.id === reservationOrder.customer?.id ? reservationOrder.customer : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
                     </select>
+                </div>
+                <div [hidden]="!(editForm.controls.customer?.dirty && editForm.controls.customer?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.customer?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
                 </div>
             </div>
             <div>

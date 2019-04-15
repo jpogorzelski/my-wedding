@@ -10,8 +10,8 @@ export interface IReservationOrder {
     downPaymentSettled?: boolean;
     createDate?: Moment;
     modificationDate?: Moment;
-    eventDate?: IOffer;
-    required?: ICustomer;
+    offer?: IOffer;
+    customer?: ICustomer;
 }
 
 export class ReservationOrder implements IReservationOrder {
@@ -23,8 +23,8 @@ export class ReservationOrder implements IReservationOrder {
         public downPaymentSettled?: boolean,
         public createDate?: Moment,
         public modificationDate?: Moment,
-        public eventDate?: IOffer,
-        public required?: ICustomer
+        public offer?: IOffer,
+        public customer?: ICustomer
     ) {
         this.reservationConfirmed = this.reservationConfirmed || false;
         this.downPaymentSettled = this.downPaymentSettled || false;

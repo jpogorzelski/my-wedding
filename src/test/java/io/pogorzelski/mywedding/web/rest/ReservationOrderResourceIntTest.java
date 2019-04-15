@@ -4,6 +4,7 @@ import io.pogorzelski.mywedding.MyWeddingApp;
 
 import io.pogorzelski.mywedding.domain.ReservationOrder;
 import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
@@ -118,7 +119,12 @@ public class ReservationOrderResourceIntTest {
         Offer offer = OfferResourceIntTest.createEntity(em);
         em.persist(offer);
         em.flush();
-        reservationOrder.setEventDate(offer);
+        reservationOrder.setOffer(offer);
+        // Add required entity
+        Customer customer = CustomerResourceIntTest.createEntity(em);
+        em.persist(customer);
+        em.flush();
+        reservationOrder.setCustomer(customer);
         return reservationOrder;
     }
 

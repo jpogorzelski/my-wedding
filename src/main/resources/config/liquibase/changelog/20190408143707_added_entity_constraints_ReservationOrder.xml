@@ -8,15 +8,15 @@
     -->
     <changeSet id="20190408143707-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="event_date_id"
+        <addForeignKeyConstraint baseColumnNames="offer_id"
                                  baseTableName="reservation_order"
-                                 constraintName="fk_reservation_order_event_date_id"
+                                 constraintName="fk_reservation_order_offer_id"
                                  referencedColumnNames="id"
                                  referencedTableName="offer"/>
 
-        <addForeignKeyConstraint baseColumnNames="required_id"
+        <addForeignKeyConstraint baseColumnNames="customer_id"
                                  baseTableName="reservation_order"
-                                 constraintName="fk_reservation_order_required_id"
+                                 constraintName="fk_reservation_order_customer_id"
                                  referencedColumnNames="id"
                                  referencedTableName="customer"/>
 

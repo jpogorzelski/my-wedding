@@ -29,16 +29,16 @@
                 <dd>
                     <span>{{reservationOrder.modificationDate}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.reservationOrder.eventDate">Event Date</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.offer">Offer</span></dt>
                 <dd>
-                    <div *ngIf="reservationOrder.eventDate">
-                        <a [routerLink]="['/offer', reservationOrder.eventDate?.id, 'view']">{{reservationOrder.eventDate?.id}}</a>
+                    <div *ngIf="reservationOrder.offer">
+                        <a [routerLink]="['/offer', reservationOrder.offer?.id, 'view']">{{reservationOrder.offer?.id}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.reservationOrder.required">Required</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.customer">Customer</span></dt>
                 <dd>
-                    <div *ngIf="reservationOrder.required">
-                        <a [routerLink]="['/customer', reservationOrder.required?.id, 'view']">{{reservationOrder.required?.id}}</a>
+                    <div *ngIf="reservationOrder.customer">
+                        <a [routerLink]="['/customer', reservationOrder.customer?.id, 'view']">{{reservationOrder.customer?.id}}</a>
                     </div>
                 </dd>
             </dl>

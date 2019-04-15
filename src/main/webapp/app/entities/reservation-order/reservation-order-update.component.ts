@@ -20,7 +20,7 @@ export class ReservationOrderUpdateComponent implements OnInit {
     reservationOrder: IReservationOrder;
     isSaving: boolean;
 
-    eventdates: IOffer[];
+    offers: IOffer[];
 
     customers: ICustomer[];
     createDateDp: any;
@@ -47,17 +47,17 @@ export class ReservationOrderUpdateComponent implements OnInit {
             )
             .subscribe(
                 (res: IOffer[]) => {
-                    if (!this.reservationOrder.eventDate || !this.reservationOrder.eventDate.id) {
-                        this.eventdates = res;
+                    if (!this.reservationOrder.offer || !this.reservationOrder.offer.id) {
+                        this.offers = res;
                     } else {
                         this.offerService
-                            .find(this.reservationOrder.eventDate.id)
+                            .find(this.reservationOrder.offer.id)
                             .pipe(
                                 filter((subResMayBeOk: HttpResponse<IOffer>) => subResMayBeOk.ok),
                                 map((subResponse: HttpResponse<IOffer>) => subResponse.body)
                             )
                             .subscribe(
-                                (subRes: IOffer) => (this.eventdates = [subRes].concat(res)),
+                                (subRes: IOffer) => (this.offers = [subRes].concat(res)),
                                 (subRes: HttpErrorResponse) => this.onError(subRes.message)
                             );
                     }

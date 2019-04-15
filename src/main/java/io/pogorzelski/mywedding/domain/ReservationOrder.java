@@ -53,11 +53,12 @@ public class ReservationOrder implements Serializable {
     @OneToOne(optional = false)    @NotNull
 
     @JoinColumn(unique = true)
-    private Offer eventDate;
+    private Offer offer;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties("reservationOrders")
-    private Customer required;
+    private Customer customer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -146,30 +147,30 @@ public class ReservationOrder implements Serializable {
         this.modificationDate = modificationDate;
     }
 
-    public Offer getEventDate() {
-        return eventDate;
+    public Offer getOffer() {
+        return offer;
     }
 
-    public ReservationOrder eventDate(Offer offer) {
-        this.eventDate = offer;
+    public ReservationOrder offer(Offer offer) {
+        this.offer = offer;
         return this;
     }
 
-    public void setEventDate(Offer offer) {
-        this.eventDate = offer;
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 
-    public Customer getRequired() {
-        return required;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public ReservationOrder required(Customer customer) {
-        this.required = customer;
+    public ReservationOrder customer(Customer customer) {
+        this.customer = customer;
         return this;
     }
 
-    public void setRequired(Customer customer) {
-        this.required = customer;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

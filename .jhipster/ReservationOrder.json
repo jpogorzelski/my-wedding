@@ -44,7 +44,7 @@
             "otherEntityName": "offer",
             "otherEntityRelationshipName": "reservationOrder",
             "relationshipValidateRules": "required",
-            "relationshipName": "eventDate",
+            "relationshipName": "offer",
             "otherEntityField": "id",
             "ownerSide": true
         },
@@ -52,7 +52,8 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "customer",
             "otherEntityRelationshipName": "reservationOrder",
-            "relationshipName": "required",
+            "relationshipValidateRules": "required",
+            "relationshipName": "customer",
             "otherEntityField": "id"
         }
     ],

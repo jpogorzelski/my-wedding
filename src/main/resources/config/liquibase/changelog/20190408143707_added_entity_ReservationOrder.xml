@@ -44,11 +44,11 @@
             <column name="modification_date" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="event_date_id" type="bigint">
-                <constraints unique="true" nullable="false" uniqueConstraintName="ux_reservation_order_event_date_id" />
+            <column name="offer_id" type="bigint">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_reservation_order_offer_id" />
             </column>
-            <column name="required_id" type="bigint">
-                <constraints nullable="true" />
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

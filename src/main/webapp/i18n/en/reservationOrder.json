@@ -21,8 +21,8 @@
             "downPaymentSettled": "Down Payment Settled",
             "createDate": "Create Date",
             "modificationDate": "Modification Date",
-            "eventDate": "Event Date",
-            "required": "Required"
+            "offer": "Offer",
+            "customer": "Customer"
         }
     }
 }
