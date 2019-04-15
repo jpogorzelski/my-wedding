@@ -19,6 +19,10 @@ export class ReservationOrderService {
     constructor(protected http: HttpClient) {}
 
     create(reservationOrder: IReservationOrder): Observable<EntityResponseType> {
+        reservationOrder.createDate = moment();
+        reservationOrder.modificationDate = moment();
+        reservationOrder.downPaymentSettled = false;
+        reservationOrder.reservationConfirmed = false;
         const copy = this.convertDateFromClient(reservationOrder);
         return this.http
             .post<IReservationOrder>(this.resourceUrl, copy, { observe: 'response' })
@@ -26,6 +30,7 @@ export class ReservationOrderService {
     }
 
     update(reservationOrder: IReservationOrder): Observable<EntityResponseType> {
+        reservationOrder.modificationDate = moment();
         const copy = this.convertDateFromClient(reservationOrder);
         return this.http
             .put<IReservationOrder>(this.resourceUrl, copy, { observe: 'response' })

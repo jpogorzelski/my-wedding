@@ -46,6 +46,13 @@
             "relationshipValidateRules": "required",
             "relationshipName": "weddingHall",
             "otherEntityField": "hallName"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "reservationOrder",
+            "otherEntityRelationshipName": "offer",
+            "relationshipName": "reservationOrder",
+            "ownerSide": false
         }
     ],
     "changelogDate": "20190408075219",

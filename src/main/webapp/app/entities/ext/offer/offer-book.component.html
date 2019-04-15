@@ -1,66 +1,54 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="bookForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-offer-heading" jhiTranslate="myWeddingApp.offer.home.bookLabel">Book Offer</h2>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-reservation-order-heading" jhiTranslate="myWeddingApp.reservationOrder.home.createOrEditLabel">Create or edit a Reservation Order</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!offer.id">
+                <div class="form-group" [hidden]="!reservationOrder.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                           [(ngModel)]="offer.id" readonly />
+                           [(ngModel)]="reservationOrder.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.offer.pricePerCapita" for="field_guestCount">Guest count</label>
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.guestCount" for="field_guestCount">Guest Count</label>
                     <input type="number" class="form-control" name="guestCount" id="field_guestCount"
-                           [(ngModel)]="offer.guestCount" required/>
-                    <div [hidden]="!(editForm.controls.pricePerCapita?.dirty && editForm.controls.pricePerCapita?.invalid)">
+                           [(ngModel)]="reservationOrder.guestCount" required/>
+                    <div [hidden]="!(editForm.controls.guestCount?.dirty && editForm.controls.guestCount?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.pricePerCapita?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.guestCount?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.pricePerCapita?.errors?.number" jhiTranslate="entity.validation.number">
+                               [hidden]="!editForm.controls.guestCount?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.offer.startDate" for="field_startDate">Start Date</label>
-                    <div class="input-group">
-                        <input id="field_startDate" type="text" class="form-control" name="startDate" ngbDatepicker  #startDateDp="ngbDatepicker" [(ngModel)]="offer.startDate"
-                               required/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div [hidden]="!(editForm.controls.startDate?.dirty && editForm.controls.startDate?.invalid)">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.downPaymentAmount" for="field_downPaymentAmount">Down Payment Amount</label>
+                    <input type="number" class="form-control" name="downPaymentAmount" id="field_downPaymentAmount"
+                           [(ngModel)]="reservationOrder.downPaymentAmount" required/>
+                    <div [hidden]="!(editForm.controls.downPaymentAmount?.dirty && editForm.controls.downPaymentAmount?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.startDate?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.downPaymentAmount?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.offer.endDate" for="field_endDate">End Date</label>
-                    <div class="input-group">
-                        <input id="field_endDate" type="text" class="form-control" name="endDate" ngbDatepicker  #endDateDp="ngbDatepicker" [(ngModel)]="offer.endDate"
-                        />
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.downPaymentAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.offer.weddingHall" for="field_weddingHall">Wedding Hall</label>
-                    <select class="form-control" id="field_weddingHall" name="weddingHall" [(ngModel)]="offer.weddingHall"  required>
-                        <option *ngIf="!editForm.value.weddingHall" [ngValue]="null" selected></option>
-                        <option [ngValue]="weddingHallOption.id === offer.weddingHall?.id ? offer.weddingHall : weddingHallOption" *ngFor="let weddingHallOption of weddinghalls; trackBy: trackWeddingHallById">{{weddingHallOption.hallName}}</option>
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.offer" for="field_offer">Offer (event date)</label>
+                    <select class="form-control" id="field_offer" name="offer" [(ngModel)]="offer" required readonly>
+                        <option [ngValue]="offer">{{offer.eventDate | date:'medium'}}</option>
                     </select>
                 </div>
-                <div [hidden]="!(editForm.controls.weddingHall?.dirty && editForm.controls.weddingHall?.invalid)">
+                <div [hidden]="!(editForm.controls.offer?.dirty && editForm.controls.offer?.invalid)">
                     <small class="form-text text-danger"
-                           [hidden]="!editForm.controls.weddingHall?.errors?.required" jhiTranslate="entity.validation.required">
+                           [hidden]="!editForm.controls.offer?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

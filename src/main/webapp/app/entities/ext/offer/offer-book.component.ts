@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiAlertService } from 'ng-jhipster';
-import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
 import { IReservationOrder } from 'app/shared/model/reservation-order.model';
+import { IOffer } from 'app/shared/model/offer.model';
+import { ICustomer } from 'app/shared/model/customer.model';
 import { ReservationOrderService } from 'app/entities/reservation-order';
 
 @Component({
@@ -11,19 +13,21 @@ import { ReservationOrderService } from 'app/entities/reservation-order';
     templateUrl: './offer-book.component.html'
 })
 export class OfferBookComponent implements OnInit {
+    offer: IOffer;
     reservationOrder: IReservationOrder;
     isSaving: boolean;
 
     constructor(
+        protected jhiAlertService: JhiAlertService,
         protected reservationOrderService: ReservationOrderService,
-        protected activatedRoute: ActivatedRoute,
-        protected jhiAlertService: JhiAlertService
+        protected activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ reservationOrder }) => {
-            this.reservationOrder = reservationOrder;
+        this.activatedRoute.data.subscribe(({ offer }) => {
+            this.offer = offer;
+            this.reservationOrder = offer.reservationOrder;
         });
     }
 
@@ -32,12 +36,16 @@ export class OfferBookComponent implements OnInit {
     }
 
     save() {
+        console.log('#### SAVE START');
         this.isSaving = true;
         if (this.reservationOrder.id !== undefined) {
+            console.log('#### SAVE UPDATE');
             this.subscribeToSaveResponse(this.reservationOrderService.update(this.reservationOrder));
         } else {
+            console.log('#### SAVE CREATE');
             this.subscribeToSaveResponse(this.reservationOrderService.create(this.reservationOrder));
         }
+        console.log('#### SAVE END');
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IReservationOrder>>) {

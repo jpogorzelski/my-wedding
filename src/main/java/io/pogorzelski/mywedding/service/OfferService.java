@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing Offer.
@@ -48,6 +50,20 @@ public class OfferService {
         return offerRepository.findAll();
     }
 
+
+
+    /**
+     *  get all the offers where ReservationOrder is null.
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<Offer> findAllWhereReservationOrderIsNull() {
+        log.debug("Request to get all offers where ReservationOrder is null");
+        return StreamSupport
+            .stream(offerRepository.findAll().spliterator(), false)
+            .filter(offer -> offer.getReservationOrder() == null)
+            .collect(Collectors.toList());
+    }
 
     /**
      * Get one offer by id.

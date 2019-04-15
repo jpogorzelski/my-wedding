@@ -10,6 +10,8 @@ import { OfferComponent } from './offer.component';
 import { OfferDetailComponent } from './offer-detail.component';
 import { OfferUpdateComponent } from './offer-update.component';
 import { OfferDeletePopupComponent } from './offer-delete-dialog.component';
+import { OfferBookComponent } from 'app/entities/ext/offer/offer-book.component';
+import { ReservationOrder } from 'app/shared/model/reservation-order.model';
 
 @Injectable({ providedIn: 'root' })
 export class OfferResolve implements Resolve<IOffer> {
@@ -24,6 +26,31 @@ export class OfferResolve implements Resolve<IOffer> {
             );
         }
         return of(new Offer());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class OfferBookResolve implements Resolve<IOffer> {
+    constructor(private service: OfferService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IOffer> {
+        const id = route.params['id'] ? route.params['id'] : null;
+        if (id) {
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Offer>) => response.ok),
+                map((offer: HttpResponse<Offer>) => {
+                    let body = offer.body;
+                    body.reservationOrder = body.reservationOrder || new ReservationOrder();
+                    console.log('####AAAAA');
+                    console.dir(body);
+                    return body;
+                })
+            );
+        }
+        console.log('### NULL');
+        let newOffer = new Offer();
+        newOffer.reservationOrder = new ReservationOrder();
+        return of(newOffer);
     }
 }
 
@@ -42,6 +69,18 @@ export const offerRoute: Routes = [
         component: OfferDetailComponent,
         resolve: {
             offer: OfferResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'myWeddingApp.offer.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: ':id/book',
+        component: OfferBookComponent,
+        resolve: {
+            offer: OfferBookResolve
         },
         data: {
             authorities: ['ROLE_USER'],

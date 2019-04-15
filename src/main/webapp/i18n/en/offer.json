@@ -21,7 +21,11 @@
             "available": "Available",
             "startDate": "Start Date",
             "endDate": "End Date",
-            "weddingHall": "Wedding Hall"
+            "weddingHall": "Wedding Hall",
+            "reservationOrder": "Reservation Order",
+            "action": {
+                "book": "Book"
+            }
         }
     }
 }
