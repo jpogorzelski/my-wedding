@@ -35,19 +35,16 @@ public class Company implements Serializable {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @NotNull
-    @Column(name = "street", nullable = false)
+    @Column(name = "street")
     private String street;
 
-    @NotNull
-    @Column(name = "house_no", nullable = false)
+    @Column(name = "house_no")
     private String houseNo;
 
     @Column(name = "flat_no")
     private String flatNo;
 
-    @NotNull
-    @Column(name = "postal_code", nullable = false)
+    @Column(name = "postal_code")
     private String postalCode;
 
     @OneToOne

@@ -10,17 +10,11 @@
         },
         {
             "fieldName": "street",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "houseNo",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "flatNo",
@@ -28,10 +22,7 @@
         },
         {
             "fieldName": "postalCode",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         }
     ],
     "relationships": [

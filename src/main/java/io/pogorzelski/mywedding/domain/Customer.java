@@ -31,19 +31,16 @@ public class Customer implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @NotNull
-    @Column(name = "street", nullable = false)
+    @Column(name = "street")
     private String street;
 
-    @NotNull
-    @Column(name = "house_no", nullable = false)
+    @Column(name = "house_no")
     private String houseNo;
 
     @Column(name = "flat_no")
     private String flatNo;
 
-    @NotNull
-    @Column(name = "postal_code", nullable = false)
+    @Column(name = "postal_code")
     private String postalCode;
 
     @OneToOne

@@ -23,24 +23,12 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.company.street" for="field_street">Street</label>
                     <input type="text" class="form-control" name="street" id="field_street"
-                        [(ngModel)]="company.street" required/>
-                    <div [hidden]="!(editForm.controls.street?.dirty && editForm.controls.street?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.street?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
+                        [(ngModel)]="company.street" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.company.houseNo" for="field_houseNo">House No</label>
                     <input type="text" class="form-control" name="houseNo" id="field_houseNo"
-                        [(ngModel)]="company.houseNo" required/>
-                    <div [hidden]="!(editForm.controls.houseNo?.dirty && editForm.controls.houseNo?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.houseNo?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
+                        [(ngModel)]="company.houseNo" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.company.flatNo" for="field_flatNo">Flat No</label>
@@ -50,13 +38,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.company.postalCode" for="field_postalCode">Postal Code</label>
                     <input type="text" class="form-control" name="postalCode" id="field_postalCode"
-                        [(ngModel)]="company.postalCode" required/>
-                    <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.postalCode?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
+                        [(ngModel)]="company.postalCode" />
                 </div>
 
                 <div class="form-group">

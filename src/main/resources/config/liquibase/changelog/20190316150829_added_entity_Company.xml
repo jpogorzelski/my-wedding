@@ -26,11 +26,11 @@
             </column>
 
             <column name="street" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="house_no" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="flat_no" type="varchar(255)">
@@ -38,7 +38,7 @@
             </column>
 
             <column name="postal_code" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="owner_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_company_owner_id" />

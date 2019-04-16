@@ -12,22 +12,13 @@ entity City {
 	//country, province
 }
 
-/*
-entity Address {
-	street String required
-	houseNo String required
-	flatNo String
-	postalCode String required
-	//country, province, city
-}
-*/
 entity Customer {
 	phoneNumber String
 
-	street String required
-	houseNo String required
+	street String //required
+	houseNo String //required
 	flatNo String
-	postalCode String required
+	postalCode String //required
 
 	//user, address
 }
@@ -35,10 +26,10 @@ entity Customer {
 entity Company {
 	companyName String required
 
-	street String required
-	houseNo String required
+	street String //required
+	houseNo String //required
 	flatNo String
-	postalCode String required
+	postalCode String //required
 
 	//address, halls
 }
