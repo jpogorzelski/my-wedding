@@ -46,12 +46,18 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final CustomerService customerService;
+
+    private final CompanyService companyService;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager, CustomerService customerService, CompanyService companyService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.customerService = customerService;
+        this.companyService = companyService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -119,7 +125,7 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        Set<Authority> authorities = new HashSet<>();
+        Set<Authority> authorities = mapAuthorities(userDTO);
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
@@ -133,9 +139,7 @@ public class UserService {
         if (existingUser.getActivated()) {
              return false;
         }
-        userRepository.delete(existingUser);
-        userRepository.flush();
-        this.clearUserCaches(existingUser);
+        removeUserFromAllRelated(existingUser);
         return true;
     }
 
@@ -156,20 +160,25 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
-        if (userDTO.getAuthorities() != null) {
-            Set<Authority> authorities = userDTO.getAuthorities().stream()
-                .map(authorityRepository::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toSet());
-            user.setAuthorities(authorities);
-        }
+        user.setAuthorities(mapAuthorities(userDTO));
         userRepository.save(user);
         userSearchRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
     }
+
+    private Set<Authority> mapAuthorities(UserDTO userDTO) {
+        if (userDTO.getAuthorities() != null) {
+            return userDTO.getAuthorities().stream()
+                .map(authorityRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
+        }
+        return new HashSet<>();
+    }
+
 
     /**
      * Update basic information (first name, last name, email, language) for the current user.
@@ -232,11 +241,18 @@ public class UserService {
 
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
-            userRepository.delete(user);
-            userSearchRepository.delete(user);
-            this.clearUserCaches(user);
+            removeUserFromAllRelated(user);
             log.debug("Deleted User: {}", user);
         });
+    }
+
+    private void removeUserFromAllRelated(User user) {
+        userRepository.delete(user);
+        userSearchRepository.delete(user);
+        customerService.deleteByUser(user);
+        companyService.deleteByUser(user);
+        userRepository.flush();
+        this.clearUserCaches(user);
     }
 
     public void changePassword(String currentClearTextPassword, String newPassword) {
@@ -285,9 +301,7 @@ public class UserService {
             .findAllByActivatedIsFalseAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS))
             .forEach(user -> {
                 log.debug("Deleting not activated user {}", user.getLogin());
-                userRepository.delete(user);
-                userSearchRepository.delete(user);
-                this.clearUserCaches(user);
+                removeUserFromAllRelated(user);
             });
     }
 

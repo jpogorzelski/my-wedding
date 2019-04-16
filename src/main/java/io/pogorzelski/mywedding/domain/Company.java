@@ -51,13 +51,11 @@ public class Company implements Serializable {
     @JoinColumn(unique = true)
     private User owner;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties("companies")
     private Country country;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties("companies")
     private Province province;
 

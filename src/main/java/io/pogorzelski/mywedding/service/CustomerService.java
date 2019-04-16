@@ -1,20 +1,21 @@
 package io.pogorzelski.mywedding.service;
 
-import io.pogorzelski.mywedding.domain.Customer;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
-import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.User;
+import io.pogorzelski.mywedding.repository.CustomerRepository;
+import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
 
 /**
  * Service Implementation for managing Customer.
@@ -42,6 +43,23 @@ public class CustomerService {
      */
     public Customer save(Customer customer) {
         log.debug("Request to save Customer : {}", customer);
+        return internalSave(customer);
+    }
+
+    /**
+     * Save a customer.
+     *
+     * @param user to create customer for
+     * @return the persisted entity
+     */
+    public Customer registerCustomer(User user) {
+        log.debug("Request to save User as Customer : {}", user.getLogin());
+        Customer customer = new Customer();
+        customer.setUser(user);
+        return internalSave(customer);
+    }
+
+    private Customer internalSave(Customer customer) {
         Customer result = customerRepository.save(customer);
         customerSearchRepository.save(result);
         return result;
@@ -80,6 +98,21 @@ public class CustomerService {
         log.debug("Request to delete Customer : {}", id);
         customerRepository.deleteById(id);
         customerSearchRepository.deleteById(id);
+    }
+
+    /**
+     * Delete the customer by id.
+     *
+     * @param user user underlying of customer
+     */
+    public void deleteByUser(User user) {
+        log.debug("Request to delete Customer with userId : {}", user.getId());
+        customerRepository.findOneByUser(user).ifPresent(customer -> {
+            Long customerId = customer.getId();
+            customerRepository.deleteById(customerId);
+            customerSearchRepository.deleteById(customerId);
+            customerRepository.flush();
+        });
     }
 
     /**

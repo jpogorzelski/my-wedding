@@ -89,12 +89,12 @@ relationship ManyToOne {
     City{province(provinceName) required} to Province{cities(cityName)}
 
 
-    Customer{country(countryName) required} to Country
-    Customer{province(provinceName) required} to Province
+    Customer{country(countryName)} to Country
+    Customer{province(provinceName)} to Province
     Customer{city(cityName)} to City
 
-    Company{country(countryName) required} to Country
-    Company{province(provinceName) required} to Province
+    Company{country(countryName)} to Country
+    Company{province(provinceName)} to Province
     Company{city(cityName)} to City
 
     WeddingHall{country(countryName) required} to Country

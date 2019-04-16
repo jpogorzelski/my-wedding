@@ -38,7 +38,6 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "country",
             "otherEntityRelationshipName": "company",
-            "relationshipValidateRules": "required",
             "relationshipName": "country",
             "otherEntityField": "countryName"
         },
@@ -46,7 +45,6 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "province",
             "otherEntityRelationshipName": "company",
-            "relationshipValidateRules": "required",
             "relationshipName": "province",
             "otherEntityField": "provinceName"
         },
@@ -72,5 +70,6 @@
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": "elasticsearch"
 }

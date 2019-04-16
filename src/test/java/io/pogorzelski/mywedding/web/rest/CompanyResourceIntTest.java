@@ -3,8 +3,6 @@ package io.pogorzelski.mywedding.web.rest;
 import io.pogorzelski.mywedding.MyWeddingApp;
 
 import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.domain.Country;
-import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.CompanyRepository;
 import io.pogorzelski.mywedding.repository.search.CompanySearchRepository;
 import io.pogorzelski.mywedding.service.CompanyService;
@@ -120,16 +118,6 @@ public class CompanyResourceIntTest {
             .houseNo(DEFAULT_HOUSE_NO)
             .flatNo(DEFAULT_FLAT_NO)
             .postalCode(DEFAULT_POSTAL_CODE);
-        // Add required entity
-        Country country = CountryResourceIntTest.createEntity(em);
-        em.persist(country);
-        em.flush();
-        company.setCountry(country);
-        // Add required entity
-        Province province = ProvinceResourceIntTest.createEntity(em);
-        em.persist(province);
-        em.flush();
-        company.setProvince(province);
         return company;
     }
 

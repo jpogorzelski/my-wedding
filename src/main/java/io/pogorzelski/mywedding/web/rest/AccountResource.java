@@ -1,9 +1,14 @@
 package io.pogorzelski.mywedding.web.rest;
 
 
+import io.pogorzelski.mywedding.domain.Company;
+import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.domain.User;
 import io.pogorzelski.mywedding.repository.UserRepository;
+import io.pogorzelski.mywedding.security.AuthoritiesConstants;
 import io.pogorzelski.mywedding.security.SecurityUtils;
+import io.pogorzelski.mywedding.service.CompanyService;
+import io.pogorzelski.mywedding.service.CustomerService;
 import io.pogorzelski.mywedding.service.MailService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.service.dto.PasswordChangeDTO;
@@ -37,15 +42,21 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final CustomerService customerService;
+
+    private final CompanyService companyService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, CustomerService customerService, CompanyService companyService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.customerService = customerService;
+        this.companyService = companyService;
     }
 
     /**
-     * POST  /register : register the user.
+     * POST  /register : register customer, the regular user.
      *
      * @param managedUserVM the managed user View Model
      * @throws InvalidPasswordException 400 (Bad Request) if the password is incorrect
@@ -54,12 +65,34 @@ public class AccountResource {
      */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public void registerCustomer(@Valid @RequestBody ManagedUserVM managedUserVM) {
         if (!checkPasswordLength(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
+        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.CUSTOMER));
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
+        Customer customer = customerService.registerCustomer(user);
+        mailService.sendActivationEmail(customer.getUser());
+    }
+
+    /**
+     * POST  /register-business : register new company with user as owner
+     *
+     * @param managedUserVM the managed user View Model
+     * @throws InvalidPasswordException 400 (Bad Request) if the password is incorrect
+     * @throws EmailAlreadyUsedException 400 (Bad Request) if the email is already used
+     * @throws LoginAlreadyUsedException 400 (Bad Request) if the login is already used
+     */
+    @PostMapping("/register-business")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerCompany(@Valid @RequestBody ManagedUserVM managedUserVM) {
+        if (!checkPasswordLength(managedUserVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.COMPANY_OWNER));
+        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        Company company = companyService.registerCompany(user);
+        mailService.sendActivationEmail(company.getOwner());
     }
 
     /**

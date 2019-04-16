@@ -44,11 +44,11 @@
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_customer_user_id" />
             </column>
             <column name="country_id" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="province_id" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="city_id" type="bigint">
