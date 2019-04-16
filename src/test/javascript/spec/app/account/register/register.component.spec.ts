@@ -46,7 +46,7 @@ describe('Component Tests', () => {
                 comp.register();
                 tick();
 
-                expect(service.save).toHaveBeenCalledWith({
+                expect(service.saveCustomer).toHaveBeenCalledWith({
                     password: 'password',
                     langKey: 'en'
                 });
