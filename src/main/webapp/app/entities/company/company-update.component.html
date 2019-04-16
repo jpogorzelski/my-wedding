@@ -60,6 +60,13 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.company.owner" for="field_owner">Owner</label>
+                    <select class="form-control" id="field_owner" name="owner" [(ngModel)]="company.owner" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === company.owner?.id ? company.owner : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.company.country" for="field_country">Country</label>
                     <select class="form-control" id="field_country" name="country" [(ngModel)]="company.country"  required>
                         <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>

@@ -21,6 +21,7 @@
             "houseNo": "House No",
             "flatNo": "Flat No",
             "postalCode": "Postal Code",
+            "owner": "Owner",
             "country": "Country",
             "province": "Province",
             "city": "City",

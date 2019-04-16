@@ -50,6 +50,10 @@ public class Company implements Serializable {
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private User owner;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("companies")
@@ -139,6 +143,19 @@ public class Company implements Serializable {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public Company owner(User user) {
+        this.owner = user;
+        return this;
+    }
+
+    public void setOwner(User user) {
+        this.owner = user;
     }
 
     public Country getCountry() {

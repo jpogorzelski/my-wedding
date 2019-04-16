@@ -88,6 +88,7 @@ entity ReservationOrder {
 
 relationship OneToOne {
     Customer{user(login)} to User
+    Company{owner(login)} to User
     ReservationOrder{offer required} to Offer{reservationOrder}
 }
 
