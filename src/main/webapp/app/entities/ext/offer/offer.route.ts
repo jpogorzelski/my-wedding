@@ -39,16 +39,13 @@ export class OfferBookResolve implements Resolve<IOffer> {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<Offer>) => response.ok),
                 map((offer: HttpResponse<Offer>) => {
-                    let body = offer.body;
+                    const body = offer.body;
                     body.reservationOrder = body.reservationOrder || new ReservationOrder();
-                    console.log('####AAAAA');
-                    console.dir(body);
                     return body;
                 })
             );
         }
-        console.log('### NULL');
-        let newOffer = new Offer();
+        const newOffer = new Offer();
         newOffer.reservationOrder = new ReservationOrder();
         return of(newOffer);
     }

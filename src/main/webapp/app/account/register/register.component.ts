@@ -29,16 +29,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private registerService: Register,
         private elementRef: ElementRef,
         private renderer: Renderer,
-        private route: ActivatedRoute
+        public route: ActivatedRoute
     ) {}
 
     ngOnInit() {
         this.success = false;
         this.registerAccount = {};
         this.route.queryParamMap.subscribe(queryParams => {
-            let type = queryParams.get('type');
+            const type = queryParams.get('type');
+            console.log('Register. type: ' + type);
             this.isCompany = type === 'business';
-            console.debug('Register. business: ' + this.isCompany);
+            console.log('Register. business: ' + this.isCompany);
         });
     }
 
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                         .subscribe(() => (this.success = true), response => this.processError(response));
                 } else {
                     this.registerService
-                        .saveCustomer(this.registerAccount)
+                        .save(this.registerAccount)
                         .subscribe(() => (this.success = true), response => this.processError(response));
                 }
             });
