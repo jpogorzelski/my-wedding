@@ -1,14 +1,12 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
-import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.domain.Offer;
 import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
 import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +27,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-
 
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,7 +89,7 @@ public class ReservationOrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService);
+        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, userService, customerService);
         this.restReservationOrderMockMvc = MockMvcBuilders.standaloneSetup(reservationOrderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

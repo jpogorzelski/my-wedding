@@ -142,6 +142,7 @@
         "userexists": "Login name already used!",
         "emailexists": "Email is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
+        "nocustomer": "User {{ userName }} is not a customer",
         "idnull": "Invalid ID"
     },
     "footer": "This is your footer"
