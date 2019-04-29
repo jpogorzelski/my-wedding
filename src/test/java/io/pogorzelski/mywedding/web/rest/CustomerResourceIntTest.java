@@ -1,13 +1,11 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
 import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
 import io.pogorzelski.mywedding.service.CustomerService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +24,6 @@ import org.springframework.validation.Validator;
 import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
-
 
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -96,7 +93,7 @@ public class CustomerResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CustomerResource customerResource = new CustomerResource(customerService);
+        final CustomerResource customerResource = new CustomerResource(customerService, userService);
         this.restCustomerMockMvc = MockMvcBuilders.standaloneSetup(customerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -1,21 +1,20 @@
 package io.pogorzelski.mywedding.service;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.User;
+import io.pogorzelski.mywedding.repository.CustomerRepository;
+import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import io.pogorzelski.mywedding.domain.Customer;
-import io.pogorzelski.mywedding.domain.User;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
-import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * Service Implementation for managing Customer.
@@ -87,6 +86,17 @@ public class CustomerService {
     public Optional<Customer> findOne(Long id) {
         log.debug("Request to get Customer : {}", id);
         return customerRepository.findById(id);
+    }
+    /**
+     * Get one customer by user.
+     *
+     * @param user the user of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<Customer> findOneByUser(User user) {
+        log.debug("Request to get Customer : {}", user.getLogin());
+        return customerRepository.findOneByUser(user);
     }
 
     /**

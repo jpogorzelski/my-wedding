@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 import { IReservationOrder } from 'app/shared/model/reservation-order.model';
 import { IOffer } from 'app/shared/model/offer.model';
-import { ICustomer } from 'app/shared/model/customer.model';
 import { ReservationOrderService } from 'app/entities/reservation-order';
+import { CustomerService } from 'app/entities/ext/customer';
 
 @Component({
     selector: 'jhi-offer-book',
@@ -20,6 +20,7 @@ export class OfferBookComponent implements OnInit {
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected reservationOrderService: ReservationOrderService,
+        protected customerService: CustomerService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -28,6 +29,15 @@ export class OfferBookComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ offer }) => {
             this.offer = offer;
             this.reservationOrder = offer.reservationOrder;
+            this.offer.reservationOrder = {};
+            this.reservationOrder.offer = offer;
+            this.customerService.current().subscribe(customer => {
+                this.reservationOrder.customer = customer.body;
+            });
+            console.log('@@@@@1 ');
+            console.dir(this.offer.reservationOrder);
+            console.log('@@@@@2 ');
+            console.dir(this.offer.reservationOrder.offer);
         });
     }
 

@@ -1,6 +1,7 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.github.jhipster.web.util.ResponseUtil;
+import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
 import io.pogorzelski.mywedding.domain.User;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,9 +59,14 @@ public class ReservationOrderResource {
             throw new BadRequestAlertException("A new reservationOrder cannot already have an ID", ENTITY_NAME, "idexists");
         }
         final Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
-        userWithAuthorities
+        final Customer customer = userWithAuthorities
             .flatMap(customerRepository::findOneByUser)
             .orElseThrow(() -> new BadRequestAlertException("Customer not exist for user " + SecurityUtils.getCurrentUserLogin(), ENTITY_NAME, "nocustomer"));
+        reservationOrder.setCustomer(customer);
+        final LocalDate now = LocalDate.now();
+        reservationOrder.setCreateDate(now);
+        reservationOrder.setModificationDate(now);
+        reservationOrder.setReservationConfirmed(false);
         ReservationOrder result = reservationOrderService.save(reservationOrder);
         return ResponseEntity.created(new URI("/api/reservation-orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

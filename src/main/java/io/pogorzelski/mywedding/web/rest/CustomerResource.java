@@ -1,9 +1,11 @@
 package io.pogorzelski.mywedding.web.rest;
+
+import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.service.CustomerService;
+import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Customer.
@@ -30,9 +28,11 @@ public class CustomerResource {
     private static final String ENTITY_NAME = "customer";
 
     private final CustomerService customerService;
+    private final UserService userService;
 
-    public CustomerResource(CustomerService customerService) {
+    public CustomerResource(CustomerService customerService, UserService userService) {
         this.customerService = customerService;
+        this.userService = userService;
     }
 
     /**
@@ -124,5 +124,20 @@ public class CustomerResource {
         log.debug("REST request to search Customers for query {}", query);
         return customerService.search(query);
     }
+
+
+    /**
+     * GET  /customers/current : get the "current" customer.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the customer, or with status 404 (Not Found)
+     */
+    @GetMapping("/customers/current")
+    public ResponseEntity<Customer> getCurrentCustomer() {
+        log.debug("REST request to get currently logged in Customer");
+        final Optional<Customer> customer = userService.getUserWithAuthorities()
+            .flatMap(customerService::findOneByUser);
+        return ResponseUtil.wrapOrNotFound(customer);
+    }
+
 
 }

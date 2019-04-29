@@ -41,4 +41,8 @@ export class CustomerService {
         const options = createRequestOption(req);
         return this.http.get<ICustomer[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
+
+    current(req?: any): Observable<EntityResponseType> {
+        return this.http.get<ICustomer>(`${this.resourceUrl}/current`, { observe: 'response' });
+    }
 }

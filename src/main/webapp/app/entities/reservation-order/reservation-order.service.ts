@@ -23,6 +23,7 @@ export class ReservationOrderService {
         reservationOrder.modificationDate = moment();
         reservationOrder.downPaymentSettled = false;
         reservationOrder.reservationConfirmed = false;
+
         const copy = this.convertDateFromClient(reservationOrder);
         return this.http
             .post<IReservationOrder>(this.resourceUrl, copy, { observe: 'response' })
