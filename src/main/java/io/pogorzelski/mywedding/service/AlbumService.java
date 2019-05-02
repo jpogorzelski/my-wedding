@@ -38,8 +38,12 @@ public class AlbumService {
      */
     public Album save(Album album) {
         log.debug("Request to save Album : {}", album);
-        final Instant now = Instant.now(clock);
-        album.setCreated(now);
+        if (album.getId() == null) {
+            album.setCreated(Instant.now(clock));
+        } else {
+            Album oldEntity = albumRepository.getOne(album.getId());
+            album.setCreated(oldEntity.getCreated());
+        }
         return albumRepository.save(album);
     }
 
