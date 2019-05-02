@@ -148,5 +148,5 @@
         "nocustomer": "Użytkownik {{ userName }} nie jest klientem",
         "idnull": "Błędne ID"
     },
-    "footer": "To jest stopka"
+    "footer": "Copyright &copy; 2019 <a href='mailto:qba.pogorzelski@gmail.com' target='_blank'>Jakub Pogorzelski</a>"
 }

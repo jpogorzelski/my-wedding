@@ -149,5 +149,5 @@
         "nocustomer": "User {{ userName }} is not a customer",
         "idnull": "Invalid ID"
     },
-    "footer": "This is your footer"
+    "footer": "Copyright &copy; 2019 <a href='mailto:qba.pogorzelski@gmail.com' target='_blank'>Jakub Pogorzelski</a>"
 }
