@@ -44,6 +44,12 @@ export class ReservationOrderService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    findByOffer(id: number): Observable<EntityResponseType> {
+        return this.http
+            .get<IReservationOrder>(`${this.resourceUrl}/offer/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http

@@ -98,6 +98,19 @@ public class ReservationOrderResource {
     }
 
     /**
+     * GET  /reservation-orders/offer/:id : get the reservationOrder by offer "id".
+     *
+     * @param id the id of the offer of reservationOrder to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the reservationOrder, or with status 404 (Not Found)
+     */
+    @GetMapping("/reservation-orders/offer/{id}")
+    public ResponseEntity<ReservationOrder> getReservationOrderByOfferId(@PathVariable Long id) {
+        log.debug("REST request to get ReservationOrder by Offer : {}", id);
+        Optional<ReservationOrder> reservationOrder = reservationOrderService.findByOfferId(id);
+        return ResponseUtil.wrapOrNotFound(reservationOrder);
+    }
+
+    /**
      * DELETE  /reservation-orders/:id : delete the "id" reservationOrder.
      *
      * @param id the id of the reservationOrder to delete

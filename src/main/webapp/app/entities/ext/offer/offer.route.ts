@@ -11,7 +11,8 @@ import { OfferDetailComponent } from './offer-detail.component';
 import { OfferUpdateComponent } from './offer-update.component';
 import { OfferDeletePopupComponent } from './offer-delete-dialog.component';
 import { OfferBookComponent } from 'app/entities/ext/offer/offer-book.component';
-import { ReservationOrder } from 'app/shared/model/reservation-order.model';
+import { IReservationOrder, ReservationOrder } from 'app/shared/model/reservation-order.model';
+import { ReservationOrderService } from 'app/entities/reservation-order';
 
 @Injectable({ providedIn: 'root' })
 export class OfferResolve implements Resolve<IOffer> {
@@ -30,24 +31,18 @@ export class OfferResolve implements Resolve<IOffer> {
 }
 
 @Injectable({ providedIn: 'root' })
-export class OfferBookResolve implements Resolve<IOffer> {
-    constructor(private service: OfferService) {}
+export class OfferBookResolve implements Resolve<IReservationOrder> {
+    constructor(private service: ReservationOrderService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IOffer> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IReservationOrder> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Offer>) => response.ok),
-                map((offer: HttpResponse<Offer>) => {
-                    const body = offer.body;
-                    body.reservationOrder = body.reservationOrder || new ReservationOrder();
-                    return body;
-                })
+            return this.service.findByOffer(id).pipe(
+                filter((response: HttpResponse<ReservationOrder>) => response.ok),
+                map((reservationOrder: HttpResponse<ReservationOrder>) => reservationOrder.body)
             );
         }
-        const newOffer = new Offer();
-        newOffer.reservationOrder = new ReservationOrder();
-        return of(newOffer);
+        return of(new ReservationOrder());
     }
 }
 
@@ -77,7 +72,7 @@ export const offerRoute: Routes = [
         path: ':id/book',
         component: OfferBookComponent,
         resolve: {
-            offer: OfferBookResolve
+            reservationOrder: OfferBookResolve
         },
         data: {
             authorities: ['ROLE_USER'],

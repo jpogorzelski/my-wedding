@@ -99,4 +99,16 @@ public class ReservationOrderService {
         log.debug("Request to delete ReservationOrder : {}", id);
         reservationOrderRepository.deleteById(id);
     }
+
+    /**
+     * Get one reservationOrder by offer id.
+     *
+     * @param id the id of the offer
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<ReservationOrder> findByOfferId(Long id) {
+        log.debug("Request to get ReservationOrder by Offer : {}", id);
+        return reservationOrderRepository.findByOfferId(id);
+    }
 }

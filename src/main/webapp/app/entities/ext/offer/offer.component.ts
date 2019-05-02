@@ -17,7 +17,7 @@ export class OfferComponent implements OnInit, OnDestroy {
     offers: IOffer[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    isCustomer: boolean = false;
+    isCustomer = false;
 
     constructor(
         protected offerService: OfferService,
