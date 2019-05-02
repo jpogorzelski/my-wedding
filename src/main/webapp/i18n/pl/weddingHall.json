@@ -2,26 +2,26 @@
     "myWeddingApp": {
         "weddingHall": {
             "home": {
-                "title": "Wedding Hall",
-                "createLabel": "Dodaj Wedding Hall",
-                "createOrEditLabel": "Dodaj lub edytuj: Wedding Hall"
+                "title": "Sala weselna",
+                "createLabel": "Dodaj Salę weselną",
+                "createOrEditLabel": "Dodaj lub edytuj: Sala weselna"
             },
-            "created": "Utworzono nowy obiekt typu Wedding Hall z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu Wedding Hall z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu Wedding Hall z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Sala weselna z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Sala weselna z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Sala weselna z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Wedding Hall {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Salę weselną {{ id }}?"
             },
             "detail": {
-                "title": "Wedding Hall"
+                "title": "Sala weselna"
             },
-            "hallName": "Hall Name",
-            "country": "Country",
-            "province": "Province",
-            "city": "City",
-            "company": "Company",
+            "hallName": "Nazwa sali",
+            "country": "Państwo",
+            "province": "Województwo",
+            "city": "Miasto",
+            "company": "Firma",
             "album": "Album",
-            "offers": "Offers"
+            "offers": "Oferty"
         }
     }
 }

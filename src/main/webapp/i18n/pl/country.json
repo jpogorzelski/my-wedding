@@ -1,24 +1,24 @@
 {
     "myWeddingApp": {
-        "country": {
+        "państwo": {
             "home": {
-                "title": "Country",
-                "createLabel": "Dodaj Country",
-                "createOrEditLabel": "Dodaj lub edytuj: Country",
-                "search": "Szukaj Country"
+                "title": "Państwo",
+                "createLabel": "Dodaj Państwo",
+                "createOrEditLabel": "Dodaj lub edytuj: Państwo",
+                "search": "Szukaj Państwa"
             },
-            "created": "Utworzono nowy obiekt typu Country z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu Country z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu Country z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Państwo z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Państwo z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Państwo z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Country {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Państwo {{ id }}?"
             },
             "detail": {
-                "title": "Country"
+                "title": "Państwo"
             },
-            "countryName": "Country Name",
-            "provinces": "Provinces",
-            "cities": "Cities"
+            "państwoName": "Nazwa państwa",
+            "provinces": "Województwa",
+            "cities": "Miasta"
         }
     }
 }

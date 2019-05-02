@@ -1,31 +1,31 @@
 {
     "myWeddingApp": {
-        "company": {
+        "firma": {
             "home": {
-                "title": "Company",
-                "createLabel": "Dodaj Company",
-                "createOrEditLabel": "Dodaj lub edytuj: Company",
-                "search": "Szukaj Company"
+                "title": "Firma",
+                "createLabel": "Dodaj Firmę",
+                "createOrEditLabel": "Dodaj lub edytuj: Firma",
+                "search": "Szukaj Firmy"
             },
-            "created": "Utworzono nowy obiekt typu Company z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu Company z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu Company z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Firma z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Firma z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Firma z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Company {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Firmę {{ id }}?"
             },
             "detail": {
-                "title": "Company"
+                "title": "Firma"
             },
-            "companyName": "Company Name",
-            "street": "Street",
-            "houseNo": "House No",
-            "flatNo": "Flat No",
-            "postalCode": "Postal Code",
-            "owner": "Owner",
-            "country": "Country",
-            "province": "Province",
-            "city": "City",
-            "weddingHalls": "Wedding Halls"
+            "firmaName": "Nazwa firmy",
+            "street": "Ulica",
+            "houseNo": "Nr domu",
+            "flatNo": "Nr lokalu",
+            "postalCode": "Kod pocztowy",
+            "owner": "Właściciel",
+            "country": "Państwo",
+            "province": "Województwo",
+            "city": "Miasto",
+            "weddingHalls": "Sale weselne"
         }
     }
 }

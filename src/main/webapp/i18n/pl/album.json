@@ -15,11 +15,11 @@
             "detail": {
                 "title": "Album"
             },
-            "title": "Title",
-            "description": "Description",
-            "created": "Created",
-            "hallName": "Hall Name",
-            "photos": "Photos"
+            "title": "Tytuł",
+            "description": "Opis",
+            "created": "Utworzono",
+            "hallName": "Nazwa sali",
+            "photos": "Zdjęcia"
         }
     }
 }

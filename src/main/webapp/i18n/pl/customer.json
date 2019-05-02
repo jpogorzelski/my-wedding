@@ -1,30 +1,30 @@
 {
     "myWeddingApp": {
-        "customer": {
+        "klient": {
             "home": {
-                "title": "Customer",
-                "createLabel": "Dodaj Customer",
-                "createOrEditLabel": "Dodaj lub edytuj: Customer",
-                "search": "Szukaj Customer"
+                "title": "Klient",
+                "createLabel": "Dodaj Klienta",
+                "createOrEditLabel": "Dodaj lub edytuj: Klient",
+                "search": "Szukaj Klienta"
             },
-            "created": "Utworzono nowy obiekt typu Customer z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu Customer z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu Customer z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Klient z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Klient z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Klient z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Customer {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Klienta {{ id }}?"
             },
             "detail": {
-                "title": "Customer"
+                "title": "Klient"
             },
-            "phoneNumber": "Phone Number",
-            "street": "Street",
-            "houseNo": "House No",
-            "flatNo": "Flat No",
-            "postalCode": "Postal Code",
-            "user": "User",
-            "country": "Country",
-            "province": "Province",
-            "city": "City"
+            "phoneNumber": "Nr telefonu",
+            "street": "Ulica",
+            "houseNo": "Nr domu",
+            "flatNo": "Nr mieszkania",
+            "postalCode": "Kod pocztowy",
+            "user": "Użytkownik",
+            "country": "Państwo",
+            "province": "Województwo",
+            "city": "Miasto"
         }
     }
 }
