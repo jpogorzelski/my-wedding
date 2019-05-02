@@ -34,10 +34,6 @@ export class OfferBookComponent implements OnInit {
             this.customerService.current().subscribe(customer => {
                 this.reservationOrder.customer = customer.body;
             });
-            console.log('@@@@@1 ');
-            console.dir(this.offer.reservationOrder);
-            console.log('@@@@@2 ');
-            console.dir(this.offer.reservationOrder.offer);
         });
     }
 
@@ -46,16 +42,12 @@ export class OfferBookComponent implements OnInit {
     }
 
     save() {
-        console.log('#### SAVE START');
         this.isSaving = true;
         if (this.reservationOrder.id !== undefined) {
-            console.log('#### SAVE UPDATE');
             this.subscribeToSaveResponse(this.reservationOrderService.update(this.reservationOrder));
         } else {
-            console.log('#### SAVE CREATE');
             this.subscribeToSaveResponse(this.reservationOrderService.create(this.reservationOrder));
         }
-        console.log('#### SAVE END');
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IReservationOrder>>) {
