@@ -114,7 +114,8 @@
             "edit": "Edytuj",
             "open": "Otwórz",
             "save": "Zapisz",
-            "view": "Widok"
+            "view": "Widok",
+            "book": "Rezerwuj"
         },
         "detail": {
             "field": "Pole",
