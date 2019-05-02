@@ -5,6 +5,7 @@ import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
 import io.pogorzelski.mywedding.service.CustomerService;
+import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,6 +63,9 @@ public class CustomerResourceIntTest {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * This repository is mocked in the io.pogorzelski.mywedding.repository.search test package.

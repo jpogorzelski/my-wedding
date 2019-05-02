@@ -66,7 +66,11 @@
                 },
                 "register": {
                     "noaccount": "You don't have an account yet?",
-                    "link": "Register a new account"
+                    "link": "Register a new customer account",
+                    "business": {
+                        "noaccount": "You own a wedding hall?",
+                        "link": "Register a new comapny account"
+                    }
                 }
             },
             "error": {

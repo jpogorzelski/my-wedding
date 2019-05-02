@@ -4,8 +4,10 @@ import io.pogorzelski.mywedding.MyWeddingApp;
 import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.domain.Offer;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
+import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
+import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,6 +68,10 @@ public class ReservationOrderResourceIntTest {
 
     @Autowired
     private ReservationOrderService reservationOrderService;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -89,7 +95,7 @@ public class ReservationOrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, userService, customerService);
+        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, userService, customerRepository);
         this.restReservationOrderMockMvc = MockMvcBuilders.standaloneSetup(reservationOrderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
