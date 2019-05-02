@@ -1,13 +1,8 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.github.jhipster.web.util.ResponseUtil;
-import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.domain.User;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
-import io.pogorzelski.mywedding.security.SecurityUtils;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
-import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -18,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,14 +29,8 @@ public class ReservationOrderResource {
 
     private final ReservationOrderService reservationOrderService;
 
-    private final UserService userService;
-
-    private final CustomerRepository customerRepository;
-
-    public ReservationOrderResource(ReservationOrderService reservationOrderService, UserService userService, CustomerRepository customerRepository) {
+    public ReservationOrderResource(ReservationOrderService reservationOrderService) {
         this.reservationOrderService = reservationOrderService;
-        this.userService = userService;
-        this.customerRepository = customerRepository;
     }
 
     /**
@@ -58,15 +46,6 @@ public class ReservationOrderResource {
         if (reservationOrder.getId() != null) {
             throw new BadRequestAlertException("A new reservationOrder cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        final Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
-        final Customer customer = userWithAuthorities
-            .flatMap(customerRepository::findOneByUser)
-            .orElseThrow(() -> new BadRequestAlertException("Customer not exist for user " + SecurityUtils.getCurrentUserLogin(), ENTITY_NAME, "nocustomer"));
-        reservationOrder.setCustomer(customer);
-        final LocalDate now = LocalDate.now();
-        reservationOrder.setCreateDate(now);
-        reservationOrder.setModificationDate(now);
-        reservationOrder.setReservationConfirmed(false);
         ReservationOrder result = reservationOrderService.save(reservationOrder);
         return ResponseEntity.created(new URI("/api/reservation-orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

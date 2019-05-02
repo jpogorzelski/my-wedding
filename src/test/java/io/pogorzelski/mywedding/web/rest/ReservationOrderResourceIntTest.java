@@ -6,18 +6,22 @@ import io.pogorzelski.mywedding.domain.Offer;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
+import io.pogorzelski.mywedding.service.CustomerService;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -26,13 +30,15 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
+import static java.time.ZoneOffset.UTC;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -43,6 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MyWeddingApp.class)
+@WithUserDetails
 public class ReservationOrderResourceIntTest {
 
     private static final Boolean DEFAULT_RESERVATION_CONFIRMED = false;
@@ -57,19 +64,25 @@ public class ReservationOrderResourceIntTest {
     private static final Boolean DEFAULT_DOWN_PAYMENT_SETTLED = false;
     private static final Boolean UPDATED_DOWN_PAYMENT_SETTLED = true;
 
+    private static final Instant EXPECTED_CREATED = Instant.EPOCH;
     private static final LocalDate DEFAULT_CREATE_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate EXPECTED_CREATE_DATE =  LocalDateTime.ofInstant(EXPECTED_CREATED, ZoneOffset.UTC).toLocalDate();
 
+    private static final Instant EXPECTED_UPDATED = Instant.EPOCH.plus(2, ChronoUnit.DAYS);
     private static final LocalDate DEFAULT_MODIFICATION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_MODIFICATION_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate EXPECTED_MODIFICATION_DATE =  LocalDateTime.ofInstant(EXPECTED_UPDATED, ZoneOffset.UTC).toLocalDate();
 
     @Autowired
     private ReservationOrderRepository reservationOrderRepository;
 
-    @Autowired
     private ReservationOrderService reservationOrderService;
+
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerService customerService;
     @Autowired
     private UserService userService;
 
@@ -92,16 +105,23 @@ public class ReservationOrderResourceIntTest {
 
     private ReservationOrder reservationOrder;
 
+    @Mock
+    private Clock clock;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, userService, customerRepository);
+        this.reservationOrderService = new ReservationOrderService(reservationOrderRepository, userService, customerRepository, clock);
+        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService);
+        doReturn(EXPECTED_CREATED).when(clock).instant();
+        doReturn(UTC).when(clock).getZone();
         this.restReservationOrderMockMvc = MockMvcBuilders.standaloneSetup(reservationOrderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter)
             .setValidator(validator).build();
+        userService.getUserWithAuthorities().ifPresent(customerService::registerCustomer);
     }
 
     /**
@@ -157,6 +177,18 @@ public class ReservationOrderResourceIntTest {
         assertThat(testReservationOrder.isDownPaymentSettled()).isEqualTo(DEFAULT_DOWN_PAYMENT_SETTLED);
         assertThat(testReservationOrder.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
         assertThat(testReservationOrder.getModificationDate()).isEqualTo(DEFAULT_MODIFICATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    @WithAnonymousUser
+    public void createReservationOrderNotLoggedIn() throws Exception {
+
+        // Create the ReservationOrder
+        restReservationOrderMockMvc.perform(post("/api/reservation-orders")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(reservationOrder)))
+            .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -299,8 +331,10 @@ public class ReservationOrderResourceIntTest {
     @Test
     @Transactional
     public void updateReservationOrder() throws Exception {
+
+        doReturn(EXPECTED_UPDATED).when(clock).instant();
         // Initialize the database
-        reservationOrderService.save(reservationOrder);
+        reservationOrderRepository.save(reservationOrder);
 
         int databaseSizeBeforeUpdate = reservationOrderRepository.findAll().size();
 
@@ -329,8 +363,8 @@ public class ReservationOrderResourceIntTest {
         assertThat(testReservationOrder.getGuestCount()).isEqualTo(UPDATED_GUEST_COUNT);
         assertThat(testReservationOrder.getDownPaymentAmount()).isEqualTo(UPDATED_DOWN_PAYMENT_AMOUNT);
         assertThat(testReservationOrder.isDownPaymentSettled()).isEqualTo(UPDATED_DOWN_PAYMENT_SETTLED);
-        assertThat(testReservationOrder.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
-        assertThat(testReservationOrder.getModificationDate()).isEqualTo(UPDATED_MODIFICATION_DATE);
+        assertThat(testReservationOrder.getCreateDate()).isEqualTo(EXPECTED_CREATE_DATE);
+        assertThat(testReservationOrder.getModificationDate()).isEqualTo(EXPECTED_MODIFICATION_DATE);
     }
 
     @Test
