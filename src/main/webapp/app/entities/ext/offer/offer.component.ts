@@ -7,7 +7,6 @@ import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { IOffer } from 'app/shared/model/offer.model';
 import { AccountService } from 'app/core';
 import { OfferService } from './offer.service';
-import { CustomerService } from 'app/entities/ext/customer';
 
 @Component({
     selector: 'jhi-offer',
@@ -17,14 +16,12 @@ export class OfferComponent implements OnInit, OnDestroy {
     offers: IOffer[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    isCustomer = false;
 
     constructor(
         protected offerService: OfferService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
-        protected accountService: AccountService,
-        protected customerService: CustomerService
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
@@ -46,9 +43,6 @@ export class OfferComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
-        });
-        this.customerService.current().subscribe(customer => {
-            this.isCustomer = customer.body != null;
         });
         this.registerChangeInOffers();
     }

@@ -41,7 +41,7 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <button *ngIf="isCustomer" type="submit"
+                        <button *jhiHasAnyAuthority="['ROLE_CUSTOMER']" type="submit"
                                 [routerLink]="['/ext/offer', offer.id, 'book' ]"
                                 class="btn btn-success btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
