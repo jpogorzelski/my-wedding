@@ -18,7 +18,11 @@
             </div>
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
-                <a class="alert-link" routerLink="register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+                <a class="alert-link" routerLink="register" jhiTranslate="global.messages.info.register.link">Register a new customer account</a>
+            </div>
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span jhiTranslate="global.messages.info.register.business.noaccount">You own a wedding hall?</span>
+                <a class="alert-link" [routerLink]="['register']" [queryParams]="{ 'type':'business' }" jhiTranslate="global.messages.info.register.business.link">Register a new company account</a>
             </div>
         </div>
 

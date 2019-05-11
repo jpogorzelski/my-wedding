@@ -1,24 +1,24 @@
 {
     "myWeddingApp": {
-        "photo": {
+        "zdjęcie": {
             "home": {
-                "title": "Photo",
-                "createLabel": "Dodaj Photo",
-                "createOrEditLabel": "Dodaj lub edytuj: Photo"
+                "title": "Zdjęcie",
+                "createLabel": "Dodaj Zdjęcie",
+                "createOrEditLabel": "Dodaj lub edytuj: Zdjęcie"
             },
-            "created": "Utworzono nowy obiekt typu Photo z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu Photo z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu Photo z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Zdjęcie z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Zdjęcie z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Zdjęcie z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Photo {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Zdjęcie {{ id }}?"
             },
             "detail": {
-                "title": "Photo"
+                "title": "Zdjęcie"
             },
-            "title": "Title",
-            "description": "Description",
-            "image": "Image",
-            "uploaded": "Uploaded",
+            "title": "Tytuł",
+            "description": "Opis",
+            "image": "Obraz",
+            "uploaded": "Dodano",
             "album": "Album"
         }
     }

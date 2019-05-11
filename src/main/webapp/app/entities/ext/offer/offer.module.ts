@@ -1,25 +1,33 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
 import { MyWeddingSharedModule } from 'app/shared';
 import {
+    OfferBookComponent,
     OfferComponent,
-    OfferDetailComponent,
-    OfferUpdateComponent,
-    OfferDeletePopupComponent,
     OfferDeleteDialogComponent,
+    OfferDeletePopupComponent,
+    OfferDetailComponent,
+    offerPopupRoute,
     offerRoute,
-    offerPopupRoute
+    OfferUpdateComponent
 } from './';
 
 const ENTITY_STATES = [...offerRoute, ...offerPopupRoute];
 
 @NgModule({
     imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [OfferComponent, OfferDetailComponent, OfferUpdateComponent, OfferDeleteDialogComponent, OfferDeletePopupComponent],
-    entryComponents: [OfferComponent, OfferUpdateComponent, OfferDeleteDialogComponent, OfferDeletePopupComponent],
+    declarations: [
+        OfferComponent,
+        OfferDetailComponent,
+        OfferUpdateComponent,
+        OfferDeleteDialogComponent,
+        OfferDeletePopupComponent,
+        OfferBookComponent
+    ],
+    entryComponents: [OfferComponent, OfferUpdateComponent, OfferDeleteDialogComponent, OfferDeletePopupComponent, OfferBookComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

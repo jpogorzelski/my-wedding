@@ -10,6 +10,8 @@ import { IOffer } from 'app/shared/model/offer.model';
 import { OfferService } from './offer.service';
 import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
 import { WeddingHallService } from 'app/entities/wedding-hall';
+import { IReservationOrder } from 'app/shared/model/reservation-order.model';
+import { ReservationOrderService } from 'app/entities/reservation-order';
 
 @Component({
     selector: 'jhi-offer-update',
@@ -20,6 +22,8 @@ export class OfferUpdateComponent implements OnInit {
     isSaving: boolean;
 
     weddinghalls: IWeddingHall[];
+
+    reservationorders: IReservationOrder[];
     eventDate: string;
     startDateDp: any;
     endDateDp: any;
@@ -28,6 +32,7 @@ export class OfferUpdateComponent implements OnInit {
         protected jhiAlertService: JhiAlertService,
         protected offerService: OfferService,
         protected weddingHallService: WeddingHallService,
+        protected reservationOrderService: ReservationOrderService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -44,6 +49,13 @@ export class OfferUpdateComponent implements OnInit {
                 map((response: HttpResponse<IWeddingHall[]>) => response.body)
             )
             .subscribe((res: IWeddingHall[]) => (this.weddinghalls = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.reservationOrderService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IReservationOrder[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IReservationOrder[]>) => response.body)
+            )
+            .subscribe((res: IReservationOrder[]) => (this.reservationorders = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -78,6 +90,10 @@ export class OfferUpdateComponent implements OnInit {
     }
 
     trackWeddingHallById(index: number, item: IWeddingHall) {
+        return item.id;
+    }
+
+    trackReservationOrderById(index: number, item: IReservationOrder) {
         return item.id;
     }
 }

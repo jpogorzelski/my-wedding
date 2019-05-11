@@ -1,27 +1,31 @@
 {
     "myWeddingApp": {
-        "offer": {
+        "oferta": {
             "home": {
-                "title": "Offer",
-                "createLabel": "Dodaj Offer",
-                "createOrEditLabel": "Dodaj lub edytuj: Offer"
+                "title": "Oferta",
+                "createLabel": "Dodaj Ofertę",
+                "createOrEditLabel": "Dodaj lub edytuj: Oferta"
             },
-            "created": "Utworzono nowy obiekt typu Offer z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu Offer z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu Offer z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Oferta z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Oferta z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Oferta z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Offer {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Ofertę {{ id }}?"
             },
             "detail": {
-                "title": "Offer"
+                "title": "Oferta"
             },
-            "eventDate": "Event Date",
-            "description": "Description",
-            "pricePerCapita": "Price Per Capita",
-            "available": "Available",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "weddingHall": "Wedding Hall"
+            "eventDate": "Data imprezy",
+            "description": "Opis",
+            "pricePerCapita": "Cena za osobę",
+            "available": "Dostępna",
+            "startDate": "Aktywna od",
+            "endDate": "Aktywna do",
+            "weddingHall": "Sala weselna",
+            "reservationOrder": "Rezerwacja",
+            "action": {
+                "book": "Zarezerwuj"
+            }
         }
     }
 }

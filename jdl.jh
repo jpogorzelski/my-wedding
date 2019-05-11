@@ -12,22 +12,13 @@ entity City {
 	//country, province
 }
 
-/*
-entity Address {
-	street String required
-	houseNo String required
-	flatNo String
-	postalCode String required
-	//country, province, city
-}
-*/
 entity Customer {
 	phoneNumber String
 
-	street String required
-	houseNo String required
+	street String //required
+	houseNo String //required
 	flatNo String
-	postalCode String required
+	postalCode String //required
 
 	//user, address
 }
@@ -35,10 +26,10 @@ entity Customer {
 entity Company {
 	companyName String required
 
-	street String required
-	houseNo String required
+	street String //required
+	houseNo String //required
 	flatNo String
-	postalCode String required
+	postalCode String //required
 
 	//address, halls
 }
@@ -74,8 +65,22 @@ entity Offer {
 
 }
 
+entity ReservationOrder {
+  reservationConfirmed Boolean
+  guestCount Integer required
+  downPaymentAmount BigDecimal required
+  downPaymentSettled Boolean
+
+  //technical
+  createDate LocalDate required
+  modificationDate LocalDate required
+}
+
+
 relationship OneToOne {
     Customer{user(login)} to User
+    Company{owner(login)} to User
+    ReservationOrder{offer required} to Offer{reservationOrder}
 }
 
 relationship ManyToOne {
@@ -84,12 +89,12 @@ relationship ManyToOne {
     City{province(provinceName) required} to Province{cities(cityName)}
 
 
-    Customer{country(countryName) required} to Country
-    Customer{province(provinceName) required} to Province
+    Customer{country(countryName)} to Country
+    Customer{province(provinceName)} to Province
     Customer{city(cityName)} to City
 
-    Company{country(countryName) required} to Country
-    Company{province(provinceName) required} to Province
+    Company{country(countryName)} to Country
+    Company{province(provinceName)} to Province
     Company{city(cityName)} to City
 
     WeddingHall{country(countryName) required} to Country
@@ -102,6 +107,7 @@ relationship ManyToOne {
     Photo{album(title)} to Album{photos(title)}
 
     Offer{weddingHall(hallName) required} to WeddingHall{offers(eventDate)}
+    ReservationOrder{customer required} to Customer
 
 
 }

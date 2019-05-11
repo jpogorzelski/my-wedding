@@ -1,6 +1,7 @@
 package io.pogorzelski.mywedding.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -55,6 +56,10 @@ public class Offer implements Serializable {
     @NotNull
     @JsonIgnoreProperties("offers")
     private WeddingHall weddingHall;
+
+    @OneToOne(mappedBy = "offer")
+    @JsonIgnore
+    private ReservationOrder reservationOrder;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -154,6 +159,19 @@ public class Offer implements Serializable {
 
     public void setWeddingHall(WeddingHall weddingHall) {
         this.weddingHall = weddingHall;
+    }
+
+    public ReservationOrder getReservationOrder() {
+        return reservationOrder;
+    }
+
+    public Offer reservationOrder(ReservationOrder reservationOrder) {
+        this.reservationOrder = reservationOrder;
+        return this;
+    }
+
+    public void setReservationOrder(ReservationOrder reservationOrder) {
+        this.reservationOrder = reservationOrder;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

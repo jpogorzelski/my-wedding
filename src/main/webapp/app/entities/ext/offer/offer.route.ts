@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Offer } from 'app/shared/model/offer.model';
+import { IOffer, Offer } from 'app/shared/model/offer.model';
 import { OfferService } from './offer.service';
 import { OfferComponent } from './offer.component';
 import { OfferDetailComponent } from './offer-detail.component';
 import { OfferUpdateComponent } from './offer-update.component';
 import { OfferDeletePopupComponent } from './offer-delete-dialog.component';
-import { IOffer } from 'app/shared/model/offer.model';
+import { OfferBookComponent } from 'app/entities/ext/offer/offer-book.component';
+import { IReservationOrder, ReservationOrder } from 'app/shared/model/reservation-order.model';
+import { ReservationOrderService } from 'app/entities/reservation-order';
 
 @Injectable({ providedIn: 'root' })
 export class OfferResolve implements Resolve<IOffer> {
@@ -25,6 +27,22 @@ export class OfferResolve implements Resolve<IOffer> {
             );
         }
         return of(new Offer());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class OfferBookResolve implements Resolve<IReservationOrder> {
+    constructor(private service: ReservationOrderService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IReservationOrder> {
+        const id = route.params['id'] ? route.params['id'] : null;
+        if (id) {
+            return this.service.findByOffer(id).pipe(
+                filter((response: HttpResponse<ReservationOrder>) => response.ok),
+                map((reservationOrder: HttpResponse<ReservationOrder>) => reservationOrder.body)
+            );
+        }
+        return of(new ReservationOrder());
     }
 }
 
@@ -43,6 +61,18 @@ export const offerRoute: Routes = [
         component: OfferDetailComponent,
         resolve: {
             offer: OfferResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'myWeddingApp.offer.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: ':id/book',
+        component: OfferBookComponent,
+        resolve: {
+            reservationOrder: OfferBookResolve
         },
         data: {
             authorities: ['ROLE_USER'],

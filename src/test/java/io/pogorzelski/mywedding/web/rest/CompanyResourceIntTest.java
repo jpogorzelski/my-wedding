@@ -3,8 +3,6 @@ package io.pogorzelski.mywedding.web.rest;
 import io.pogorzelski.mywedding.MyWeddingApp;
 
 import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.domain.Country;
-import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.CompanyRepository;
 import io.pogorzelski.mywedding.repository.search.CompanySearchRepository;
 import io.pogorzelski.mywedding.service.CompanyService;
@@ -120,16 +118,6 @@ public class CompanyResourceIntTest {
             .houseNo(DEFAULT_HOUSE_NO)
             .flatNo(DEFAULT_FLAT_NO)
             .postalCode(DEFAULT_POSTAL_CODE);
-        // Add required entity
-        Country country = CountryResourceIntTest.createEntity(em);
-        em.persist(country);
-        em.flush();
-        company.setCountry(country);
-        // Add required entity
-        Province province = ProvinceResourceIntTest.createEntity(em);
-        em.persist(province);
-        em.flush();
-        company.setProvince(province);
         return company;
     }
 
@@ -191,60 +179,6 @@ public class CompanyResourceIntTest {
         int databaseSizeBeforeTest = companyRepository.findAll().size();
         // set the field null
         company.setCompanyName(null);
-
-        // Create the Company, which fails.
-
-        restCompanyMockMvc.perform(post("/api/companies")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(company)))
-            .andExpect(status().isBadRequest());
-
-        List<Company> companyList = companyRepository.findAll();
-        assertThat(companyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkStreetIsRequired() throws Exception {
-        int databaseSizeBeforeTest = companyRepository.findAll().size();
-        // set the field null
-        company.setStreet(null);
-
-        // Create the Company, which fails.
-
-        restCompanyMockMvc.perform(post("/api/companies")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(company)))
-            .andExpect(status().isBadRequest());
-
-        List<Company> companyList = companyRepository.findAll();
-        assertThat(companyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkHouseNoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = companyRepository.findAll().size();
-        // set the field null
-        company.setHouseNo(null);
-
-        // Create the Company, which fails.
-
-        restCompanyMockMvc.perform(post("/api/companies")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(company)))
-            .andExpect(status().isBadRequest());
-
-        List<Company> companyList = companyRepository.findAll();
-        assertThat(companyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPostalCodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = companyRepository.findAll().size();
-        // set the field null
-        company.setPostalCode(null);
 
         // Create the Company, which fails.
 

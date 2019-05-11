@@ -1,0 +1,122 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-reservation-order-heading" jhiTranslate="myWeddingApp.reservationOrder.home.createOrEditLabel">Create or edit a Reservation Order</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!reservationOrder.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="reservationOrder.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.reservationConfirmed" for="field_reservationConfirmed">Reservation Confirmed</label>
+                    <input type="checkbox" class="form-control" name="reservationConfirmed" id="field_reservationConfirmed"
+                        [(ngModel)]="reservationOrder.reservationConfirmed" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.guestCount" for="field_guestCount">Guest Count</label>
+                    <input type="number" class="form-control" name="guestCount" id="field_guestCount"
+                        [(ngModel)]="reservationOrder.guestCount" required/>
+                    <div [hidden]="!(editForm.controls.guestCount?.dirty && editForm.controls.guestCount?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.guestCount?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.guestCount?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.downPaymentAmount" for="field_downPaymentAmount">Down Payment Amount</label>
+                    <input type="number" class="form-control" name="downPaymentAmount" id="field_downPaymentAmount"
+                        [(ngModel)]="reservationOrder.downPaymentAmount" required/>
+                    <div [hidden]="!(editForm.controls.downPaymentAmount?.dirty && editForm.controls.downPaymentAmount?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.downPaymentAmount?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.downPaymentAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.downPaymentSettled" for="field_downPaymentSettled">Down Payment Settled</label>
+                    <input type="checkbox" class="form-control" name="downPaymentSettled" id="field_downPaymentSettled"
+                        [(ngModel)]="reservationOrder.downPaymentSettled" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.createDate" for="field_createDate">Create Date</label>
+                    <div class="input-group">
+                        <input id="field_createDate" type="text" class="form-control" name="createDate" ngbDatepicker  #createDateDp="ngbDatepicker" [(ngModel)]="reservationOrder.createDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="createDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.modificationDate" for="field_modificationDate">Modification Date</label>
+                    <div class="input-group">
+                        <input id="field_modificationDate" type="text" class="form-control" name="modificationDate" ngbDatepicker  #modificationDateDp="ngbDatepicker" [(ngModel)]="reservationOrder.modificationDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="modificationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.modificationDate?.dirty && editForm.controls.modificationDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.modificationDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.offer" for="field_offer">Offer</label>
+                    <select class="form-control" id="field_offer" name="offer" [(ngModel)]="reservationOrder.offer" required>
+                        <option *ngIf="!editForm.value.offer" [ngValue]="null" selected></option>
+                        <option [ngValue]="offerOption.id === reservationOrder.offer?.id ? reservationOrder.offer : offerOption" *ngFor="let offerOption of offers; trackBy: trackOfferById">{{offerOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.offer?.dirty && editForm.controls.offer?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.offer?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.reservationOrder.customer" for="field_customer">Customer</label>
+                    <select class="form-control" id="field_customer" name="customer" [(ngModel)]="reservationOrder.customer"  required>
+                        <option *ngIf="!editForm.value.customer" [ngValue]="null" selected></option>
+                        <option [ngValue]="customerOption.id === reservationOrder.customer?.id ? reservationOrder.customer : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.customer?.dirty && editForm.controls.customer?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.customer?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,20 +1,21 @@
 package io.pogorzelski.mywedding.service;
 
-import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.repository.CompanyRepository;
-import io.pogorzelski.mywedding.repository.search.CompanySearchRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import io.pogorzelski.mywedding.domain.Company;
+import io.pogorzelski.mywedding.domain.User;
+import io.pogorzelski.mywedding.repository.CompanyRepository;
+import io.pogorzelski.mywedding.repository.search.CompanySearchRepository;
 
 /**
  * Service Implementation for managing Company.
@@ -42,6 +43,24 @@ public class CompanyService {
      */
     public Company save(Company company) {
         log.debug("Request to save Company : {}", company);
+        return internalSave(company);
+    }
+
+    /**
+     * Create new company along with user registration.
+     *
+     * @param user to create company for
+     * @return the persisted entity
+     */
+    public Company registerCompany(User user) {
+        log.debug("Request to save User as Company : {}", user.getLogin());
+        Company company = new Company();
+        company.setOwner(user);
+        company.setCompanyName(user.getLogin());
+        return internalSave(company);
+    }
+
+    private Company internalSave(Company company) {
         Company result = companyRepository.save(company);
         companySearchRepository.save(result);
         return result;
@@ -69,6 +88,22 @@ public class CompanyService {
     public Optional<Company> findOne(Long id) {
         log.debug("Request to get Company : {}", id);
         return companyRepository.findById(id);
+    }
+
+
+    /**
+     * Delete the company by id.
+     *
+     * @param user user underlying of company
+     */
+    public void deleteByUser(User user) {
+        log.debug("Request to delete Company with userId : {}", user.getId());
+        companyRepository.findOneByOwner(user).ifPresent(company -> {
+            Long companyId = company.getId();
+            companyRepository.deleteById(companyId);
+            companySearchRepository.deleteById(companyId);
+            companyRepository.flush();
+        });
     }
 
     /**

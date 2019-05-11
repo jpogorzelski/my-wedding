@@ -228,7 +228,7 @@ public class PhotoResourceIntTest {
     @Transactional
     public void updatePhoto() throws Exception {
         // Initialize the database
-        photoService.save(photo);
+        photoRepository.save(photo);
 
         int databaseSizeBeforeUpdate = photoRepository.findAll().size();
 

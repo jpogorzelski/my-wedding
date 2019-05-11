@@ -1,0 +1,28 @@
+{
+    "myWeddingApp": {
+        "reservationOrder": {
+            "home": {
+                "title": "Rezerwacja",
+                "createLabel": "Dodaj Rezerwacja",
+                "createOrEditLabel": "Dodaj lub edytuj: Rezerwacja"
+            },
+            "created": "Utworzono nowy obiekt typu Rezerwacja z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Rezerwacja z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Rezerwacja z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Rezerwację {{ id }}?"
+            },
+            "detail": {
+                "title": "Rezerwacja"
+            },
+            "reservationConfirmed": "Rezerwacja potwierdzona",
+            "guestCount": "Liczba gości",
+            "downPaymentAmount": "Kwota zaliczki",
+            "downPaymentSettled": "Zaliczka wpłacona",
+            "createDate": "Utworzono",
+            "modificationDate": "Zmodyfikowano",
+            "offer": "Oferta",
+            "customer": "Klient"
+        }
+    }
+}

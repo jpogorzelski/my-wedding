@@ -10,17 +10,11 @@
         },
         {
             "fieldName": "street",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "houseNo",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "flatNo",
@@ -28,18 +22,22 @@
         },
         {
             "fieldName": "postalCode",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         }
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "owner",
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "country",
             "otherEntityRelationshipName": "company",
-            "relationshipValidateRules": "required",
             "relationshipName": "country",
             "otherEntityField": "countryName"
         },
@@ -47,7 +45,6 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "province",
             "otherEntityRelationshipName": "company",
-            "relationshipValidateRules": "required",
             "relationshipName": "province",
             "otherEntityField": "provinceName"
         },
@@ -73,5 +70,6 @@
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": "elasticsearch"
 }

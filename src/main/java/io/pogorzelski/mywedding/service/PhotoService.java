@@ -38,7 +38,12 @@ public class PhotoService {
      */
     public Photo save(Photo photo) {
         log.debug("Request to save Photo : {}", photo);
-        photo.setUploaded(Instant.now(clock));
+        if (photo.getId() == null) {
+            photo.setUploaded(Instant.now(clock));
+        } else {
+            Photo oldEntity = photoRepository.getOne(photo.getId());
+            photo.setUploaded(oldEntity.getUploaded());
+        }
         return photoRepository.save(photo);
     }
 

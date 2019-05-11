@@ -25,6 +25,10 @@
                 <dd>
                     <span>{{company.postalCode}}</span>
                 </dd>
+                <dt><span jhiTranslate="myWeddingApp.company.owner">Owner</span></dt>
+                <dd>
+                    {{company.owner?.login}}
+                </dd>
                 <dt><span jhiTranslate="myWeddingApp.company.country">Country</span></dt>
                 <dd>
                     <div *ngIf="company.country">

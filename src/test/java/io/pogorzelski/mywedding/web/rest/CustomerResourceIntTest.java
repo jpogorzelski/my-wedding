@@ -1,15 +1,12 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.pogorzelski.mywedding.MyWeddingApp;
-
 import io.pogorzelski.mywedding.domain.Customer;
-import io.pogorzelski.mywedding.domain.Country;
-import io.pogorzelski.mywedding.domain.Province;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
 import io.pogorzelski.mywedding.service.CustomerService;
+import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +25,6 @@ import org.springframework.validation.Validator;
 import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
-
 
 import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,6 +64,9 @@ public class CustomerResourceIntTest {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * This repository is mocked in the io.pogorzelski.mywedding.repository.search test package.
      *
@@ -98,7 +97,7 @@ public class CustomerResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CustomerResource customerResource = new CustomerResource(customerService);
+        final CustomerResource customerResource = new CustomerResource(customerService, userService);
         this.restCustomerMockMvc = MockMvcBuilders.standaloneSetup(customerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -120,16 +119,6 @@ public class CustomerResourceIntTest {
             .houseNo(DEFAULT_HOUSE_NO)
             .flatNo(DEFAULT_FLAT_NO)
             .postalCode(DEFAULT_POSTAL_CODE);
-        // Add required entity
-        Country country = CountryResourceIntTest.createEntity(em);
-        em.persist(country);
-        em.flush();
-        customer.setCountry(country);
-        // Add required entity
-        Province province = ProvinceResourceIntTest.createEntity(em);
-        em.persist(province);
-        em.flush();
-        customer.setProvince(province);
         return customer;
     }
 
@@ -183,60 +172,6 @@ public class CustomerResourceIntTest {
 
         // Validate the Customer in Elasticsearch
         verify(mockCustomerSearchRepository, times(0)).save(customer);
-    }
-
-    @Test
-    @Transactional
-    public void checkStreetIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setStreet(null);
-
-        // Create the Customer, which fails.
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customer)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkHouseNoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setHouseNo(null);
-
-        // Create the Customer, which fails.
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customer)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPostalCodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setPostalCode(null);
-
-        // Create the Customer, which fails.
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customer)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

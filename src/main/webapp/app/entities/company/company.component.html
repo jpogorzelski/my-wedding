@@ -35,6 +35,7 @@
             <th><span jhiTranslate="myWeddingApp.company.houseNo">House No</span></th>
             <th><span jhiTranslate="myWeddingApp.company.flatNo">Flat No</span></th>
             <th><span jhiTranslate="myWeddingApp.company.postalCode">Postal Code</span></th>
+            <th><span jhiTranslate="myWeddingApp.company.owner">Owner</span></th>
             <th><span jhiTranslate="myWeddingApp.company.country">Country</span></th>
             <th><span jhiTranslate="myWeddingApp.company.province">Province</span></th>
             <th><span jhiTranslate="myWeddingApp.company.city">City</span></th>
@@ -49,6 +50,9 @@
                 <td>{{company.houseNo}}</td>
                 <td>{{company.flatNo}}</td>
                 <td>{{company.postalCode}}</td>
+                <td>
+                    {{company.owner?.login}}
+                </td>
                 <td>
                     <div *ngIf="company.country">
                         <a [routerLink]="['../country', company.country?.id, 'view' ]" >{{company.country?.countryName}}</a>

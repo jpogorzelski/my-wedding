@@ -1,24 +1,24 @@
 {
     "myWeddingApp": {
-        "city": {
+        "miasto": {
             "home": {
-                "title": "City",
-                "createLabel": "Dodaj City",
-                "createOrEditLabel": "Dodaj lub edytuj: City",
-                "search": "Szukaj City"
+                "title": "Miasto",
+                "createLabel": "Dodaj Miasto",
+                "createOrEditLabel": "Dodaj lub edytuj: Miasto",
+                "search": "Szukaj Miasta"
             },
-            "created": "Utworzono nowy obiekt typu City z identyfikatorem {{ param }}",
-            "updated": "Uaktualniono obiekt typu City z identyfikatorem {{ param }}",
-            "deleted": "Usunięto obiekt typu City z identyfikatorem {{ param }}",
+            "created": "Utworzono nowy obiekt typu Miasto z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Miasto z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Miasto z identyfikatorem {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć City {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć Miasto {{ id }}?"
             },
             "detail": {
-                "title": "City"
+                "title": "Miasto"
             },
-            "cityName": "City Name",
-            "country": "Country",
-            "province": "Province"
+            "miastoName": "Nazwa miasta",
+            "country": "Państwo",
+            "province": "Województwo"
         }
     }
 }

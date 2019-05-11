@@ -7,6 +7,8 @@ import io.pogorzelski.mywedding.domain.User;
 import io.pogorzelski.mywedding.repository.AuthorityRepository;
 import io.pogorzelski.mywedding.repository.UserRepository;
 import io.pogorzelski.mywedding.security.AuthoritiesConstants;
+import io.pogorzelski.mywedding.service.CompanyService;
+import io.pogorzelski.mywedding.service.CustomerService;
 import io.pogorzelski.mywedding.service.MailService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.service.dto.PasswordChangeDTO;
@@ -61,6 +63,12 @@ public class AccountResourceIntTest {
     private UserService userService;
 
     @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -84,10 +92,10 @@ public class AccountResourceIntTest {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(any());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService);
+            new AccountResource(userRepository, userService, mockMailService, customerService, companyService);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService);
+            new AccountResource(userRepository, mockUserService, mockMailService, customerService, companyService);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)
@@ -435,8 +443,56 @@ public class AccountResourceIntTest {
 
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
-        assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findById(AuthoritiesConstants.USER).get());
+        assertThat(userDup.get().getAuthorities())
+            .doesNotContain(authorityRepository.findById(AuthoritiesConstants.ADMIN).get());
+    }
+
+    @Test
+    @Transactional
+    public void testRegisterCustomer() throws Exception {
+        String endpoint = "/api/register";
+        Optional<User> userDup = registerUser(endpoint);
+        assertThat(userDup.isPresent()).isTrue();
+        assertThat(userDup.get().getAuthorities())
+            .hasSize(2)
+            .containsExactlyInAnyOrder(authorityRepository.findAllById(Arrays.asList(AuthoritiesConstants.USER, AuthoritiesConstants.CUSTOMER)).toArray(new Authority[0]));
+        assertThat(userDup.get().getAuthorities())
+            .doesNotContain(authorityRepository.findById(AuthoritiesConstants.ADMIN).get())
+            .doesNotContain(authorityRepository.findById(AuthoritiesConstants.COMPANY_OWNER).get());
+    }
+
+    @Test
+    @Transactional
+    public void testRegisterCompany() throws Exception {
+        String endpoint = "/api/register-business";
+        Optional<User> userDup = registerUser(endpoint);
+        assertThat(userDup.isPresent()).isTrue();
+        assertThat(userDup.get().getAuthorities())
+            .hasSize(2)
+            .containsExactlyInAnyOrder(authorityRepository.findAllById(Arrays.asList(AuthoritiesConstants.USER, AuthoritiesConstants.COMPANY_OWNER)).toArray(new Authority[0]));
+        assertThat(userDup.get().getAuthorities())
+            .doesNotContain(authorityRepository.findById(AuthoritiesConstants.ADMIN).get())
+            .doesNotContain(authorityRepository.findById(AuthoritiesConstants.CUSTOMER).get());
+    }
+
+    private Optional<User> registerUser(String endpoint) throws Exception {
+        ManagedUserVM validUser = new ManagedUserVM();
+        validUser.setLogin("badguy");
+        validUser.setPassword("password");
+        validUser.setFirstName("Bad");
+        validUser.setLastName("Guy");
+        validUser.setEmail("badguy@example.com");
+        validUser.setActivated(true);
+        validUser.setImageUrl("http://placehold.it/50x50");
+        validUser.setLangKey(Constants.DEFAULT_LANGUAGE);
+
+        restMvc.perform(
+            post(endpoint)
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(validUser)))
+            .andExpect(status().isCreated());
+
+        return userRepository.findOneByLogin("badguy");
     }
 
     @Test

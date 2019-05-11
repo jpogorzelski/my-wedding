@@ -35,28 +35,27 @@ public class Company implements Serializable {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @NotNull
-    @Column(name = "street", nullable = false)
+    @Column(name = "street")
     private String street;
 
-    @NotNull
-    @Column(name = "house_no", nullable = false)
+    @Column(name = "house_no")
     private String houseNo;
 
     @Column(name = "flat_no")
     private String flatNo;
 
-    @NotNull
-    @Column(name = "postal_code", nullable = false)
+    @Column(name = "postal_code")
     private String postalCode;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToOne
+    @JoinColumn(unique = true)
+    private User owner;
+
+    @ManyToOne
     @JsonIgnoreProperties("companies")
     private Country country;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties("companies")
     private Province province;
 
@@ -139,6 +138,19 @@ public class Company implements Serializable {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public Company owner(User user) {
+        this.owner = user;
+        return this;
+    }
+
+    public void setOwner(User user) {
+        this.owner = user;
     }
 
     public Country getCountry() {

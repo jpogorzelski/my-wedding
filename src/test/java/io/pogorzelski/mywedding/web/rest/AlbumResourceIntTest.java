@@ -214,7 +214,7 @@ public class AlbumResourceIntTest {
     @Transactional
     public void updateAlbum() throws Exception {
         // Initialize the database
-        albumService.save(album);
+        albumRepository.save(album);
 
         int databaseSizeBeforeUpdate = albumRepository.findAll().size();
 

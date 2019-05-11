@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
+import { IReservationOrder } from 'app/shared/model/reservation-order.model';
 
 export interface IOffer {
     id?: number;
@@ -10,6 +11,7 @@ export interface IOffer {
     startDate?: Moment;
     endDate?: Moment;
     weddingHall?: IWeddingHall;
+    reservationOrder?: IReservationOrder;
 }
 
 export class Offer implements IOffer {
@@ -21,7 +23,8 @@ export class Offer implements IOffer {
         public available?: boolean,
         public startDate?: Moment,
         public endDate?: Moment,
-        public weddingHall?: IWeddingHall
+        public weddingHall?: IWeddingHall,
+        public reservationOrder?: IReservationOrder
     ) {
         this.available = this.available || false;
     }

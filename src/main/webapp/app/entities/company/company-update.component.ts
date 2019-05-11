@@ -6,6 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { ICompany } from 'app/shared/model/company.model';
 import { CompanyService } from './company.service';
+import { IUser, UserService } from 'app/core';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country';
 import { IProvince } from 'app/shared/model/province.model';
@@ -21,6 +22,8 @@ export class CompanyUpdateComponent implements OnInit {
     company: ICompany;
     isSaving: boolean;
 
+    users: IUser[];
+
     countries: ICountry[];
 
     provinces: IProvince[];
@@ -30,6 +33,7 @@ export class CompanyUpdateComponent implements OnInit {
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected companyService: CompanyService,
+        protected userService: UserService,
         protected countryService: CountryService,
         protected provinceService: ProvinceService,
         protected cityService: CityService,
@@ -41,6 +45,13 @@ export class CompanyUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ company }) => {
             this.company = company;
         });
+        this.userService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
+            )
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.countryService
             .query()
             .pipe(
@@ -92,6 +103,10 @@ export class CompanyUpdateComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackUserById(index: number, item: IUser) {
+        return item.id;
     }
 
     trackCountryById(index: number, item: ICountry) {

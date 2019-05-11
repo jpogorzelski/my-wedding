@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Offer.
@@ -77,10 +78,15 @@ public class OfferResource {
     /**
      * GET  /offers : get all the offers.
      *
+     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of offers in body
      */
     @GetMapping("/offers")
-    public List<Offer> getAllOffers() {
+    public List<Offer> getAllOffers(@RequestParam(required = false) String filter) {
+        if ("reservationorder-is-null".equals(filter)) {
+            log.debug("REST request to get all Offers where reservationOrder is null");
+            return offerService.findAllWhereReservationOrderIsNull();
+        }
         log.debug("REST request to get all Offers");
         return offerService.findAll();
     }
