@@ -90,6 +90,17 @@ public class CompanyService {
         return companyRepository.findById(id);
     }
 
+    /**
+     * Get one company by owner.
+     *
+     * @param user the user of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<Company> findOneByOwner(User user) {
+        log.debug("Request to get Company : {}", user.getLogin());
+        return companyRepository.findOneByOwner(user);
+    }
 
     /**
      * Delete the company by id.

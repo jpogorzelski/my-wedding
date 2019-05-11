@@ -1,23 +1,24 @@
 package io.pogorzelski.mywedding.service;
 
-import io.pogorzelski.mywedding.domain.Customer;
-import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.domain.User;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
-import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
-import io.pogorzelski.mywedding.security.SecurityUtils;
-import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import static org.hibernate.id.IdentifierGenerator.*;
 
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import io.pogorzelski.mywedding.domain.Company;
+import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
+import io.pogorzelski.mywedding.repository.CustomerRepository;
+import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
+import io.pogorzelski.mywedding.security.SecurityUtils;
+import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 
 /**
  * Service Implementation for managing ReservationOrder.
@@ -48,9 +49,7 @@ public class ReservationOrderService {
      */
     public ReservationOrder save(ReservationOrder reservationOrder) {
         log.debug("Request to save ReservationOrder : {}", reservationOrder);
-        final Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
-        final Customer customer = userWithAuthorities
-            .flatMap(customerRepository::findOneByUser)
+        final Customer customer = userService.getCustomer()
             .orElseThrow(() -> new BadRequestAlertException("Customer not exist for user " + SecurityUtils.getCurrentUserLogin(), ENTITY_NAME, "nocustomer"));
         reservationOrder.setCustomer(customer);
 
@@ -110,5 +109,29 @@ public class ReservationOrderService {
     public Optional<ReservationOrder> findByOfferId(Long id) {
         log.debug("Request to get ReservationOrder by Offer : {}", id);
         return reservationOrderRepository.findByOfferId(id);
+    }
+
+    /**
+     * Get one reservationOrder by customer
+     *
+     * @param customer who made reservation
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<ReservationOrder> findByCustomer(Customer customer) {
+        log.debug("Request to get ReservationOrders by customer : {}", customer.getId());
+        return reservationOrderRepository.findByCustomer(customer);
+    }
+
+    /**
+     * Get one reservationOrder by company
+     *
+     * @param company owner of reserved wedding hall
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<ReservationOrder> findByCompany(Company company) {
+        log.debug("Request to get ReservationOrders by customer : {}", company.getId());
+        return reservationOrderRepository.findByOffer_WeddingHall_Company(company);
     }
 }
