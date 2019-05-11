@@ -26,22 +26,9 @@ export class OfferBookComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        /* this.activatedRoute.data.subscribe(({ offer }) => {
-            this.offer = offer;
-            this.reservationOrder = offer.reservationOrder;
-            this.offer.reservationOrder = {};
-            this.reservationOrder.offer = offer;
-            this.customerService.current().subscribe(customer => {
-                this.reservationOrder.customer = customer.body;
-            });
-        });*/
         this.activatedRoute.data.subscribe(({ reservationOrder }) => {
-            console.log('AAAA rezerwacja: ');
-            console.dir(reservationOrder);
             this.offer = reservationOrder.offer;
             this.reservationOrder = reservationOrder;
-            // this.offer.reservationOrder = {};
-            // this.reservationOrder.offer = offer;
             this.customerService.current().subscribe(customer => {
                 this.reservationOrder.customer = customer.body;
             });
