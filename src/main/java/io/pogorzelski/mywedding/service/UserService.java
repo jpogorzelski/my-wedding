@@ -1,16 +1,13 @@
 package io.pogorzelski.mywedding.service;
 
-import io.pogorzelski.mywedding.config.Constants;
-import io.pogorzelski.mywedding.domain.Authority;
-import io.pogorzelski.mywedding.domain.User;
-import io.pogorzelski.mywedding.repository.AuthorityRepository;
-import io.pogorzelski.mywedding.repository.UserRepository;
-import io.pogorzelski.mywedding.repository.search.UserSearchRepository;
-import io.pogorzelski.mywedding.security.AuthoritiesConstants;
-import io.pogorzelski.mywedding.security.SecurityUtils;
-import io.pogorzelski.mywedding.service.dto.UserDTO;
-import io.pogorzelski.mywedding.service.util.RandomUtil;
-import io.pogorzelski.mywedding.web.rest.errors.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +19,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import io.pogorzelski.mywedding.config.Constants;
+import io.pogorzelski.mywedding.domain.Authority;
+import io.pogorzelski.mywedding.domain.Company;
+import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.User;
+import io.pogorzelski.mywedding.repository.AuthorityRepository;
+import io.pogorzelski.mywedding.repository.UserRepository;
+import io.pogorzelski.mywedding.repository.search.UserSearchRepository;
+import io.pogorzelski.mywedding.security.AuthoritiesConstants;
+import io.pogorzelski.mywedding.security.SecurityUtils;
+import io.pogorzelski.mywedding.service.dto.UserDTO;
+import io.pogorzelski.mywedding.service.util.RandomUtil;
+import io.pogorzelski.mywedding.web.rest.errors.EmailAlreadyUsedException;
+import io.pogorzelski.mywedding.web.rest.errors.InvalidPasswordException;
+import io.pogorzelski.mywedding.web.rest.errors.LoginAlreadyUsedException;
 
 /**
  * Service class for managing users.
@@ -288,6 +296,18 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Customer> getCustomer() {
+        return getUserWithAuthorities()
+            .flatMap(customerService::findOneByUser);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Company> getCompany() {
+        return getUserWithAuthorities()
+            .flatMap(companyService::findOneByOwner);
     }
 
     /**
