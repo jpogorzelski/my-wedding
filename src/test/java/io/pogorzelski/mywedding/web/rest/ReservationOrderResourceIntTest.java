@@ -1,12 +1,17 @@
 package io.pogorzelski.mywedding.web.rest;
 
-import static io.pogorzelski.mywedding.web.rest.TestUtil.*;
-import static java.time.ZoneOffset.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
+import static java.time.ZoneOffset.UTC;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.time.Clock;
@@ -291,6 +296,7 @@ public class ReservationOrderResourceIntTest {
 
     @Test
     @Transactional
+    @WithUserDetails("admin")
     public void getAllReservationOrders() throws Exception {
         // Initialize the database
         reservationOrderRepository.saveAndFlush(reservationOrder);
@@ -307,7 +313,9 @@ public class ReservationOrderResourceIntTest {
             .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE.toString())))
             .andExpect(jsonPath("$.[*].modificationDate").value(hasItem(DEFAULT_MODIFICATION_DATE.toString())));
     }
-    
+
+    //TODO create test for role permissions (customer, company owner)
+
     @Test
     @Transactional
     public void getReservationOrder() throws Exception {
