@@ -111,11 +111,11 @@ public class ReservationOrderResource {
         } else if (roles.contains(AuthoritiesConstants.COMPANY_OWNER)) {
             return userService.getCompany()
                 .map(reservationOrderService::findByCompany)
-                .orElseThrow(() -> new RuntimeException("Error getting reservation orders for company"));
+                .orElse(Collections.emptyList());
         } else if (roles.contains(AuthoritiesConstants.CUSTOMER)) {
             return userService.getCustomer()
                 .map(reservationOrderService::findByCustomer)
-                .orElseThrow(() -> new RuntimeException("Error getting reservation orders for customer"));
+                .orElse(Collections.emptyList());
         }
         return Collections.emptyList();
     }
