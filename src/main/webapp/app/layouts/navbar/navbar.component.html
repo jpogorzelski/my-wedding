@@ -16,8 +16,87 @@
                     </span>
                 </a>
             </li>
+            <li *jhiHasAnyAuthority="'ROLE_COMPANY_OWNER'" [routerLinkActiveOptions]="{exact: true}"
+                class="nav-item dropdown pointer"
+                ngbDropdown routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="company-menu" ngbDropdownToggle>
+                    <span>
+                        <fa-icon icon="th-list"></fa-icon>
+                        <span jhiTranslate="global.menu.company.main">
+                            Company menu
+                        </span>
+                    </span>
+                </a>
+                <ul aria-labelledby="company-menu" class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/company/current/edit" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.company.profile">Edit company details</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/company/current/reservation-order" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.company.reservation-orders">Manage reservations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/company/current/wedding-hall" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.company.wedding-halls">Manage wedding halls</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/company/current/offer" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.company.offers">Manage offers</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_CUSTOMER'" [routerLinkActiveOptions]="{exact: true}"
+                class="nav-item dropdown pointer"
+                ngbDropdown routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="customer-menu" ngbDropdownToggle>
+                    <span>
+                        <fa-icon icon="th-list"></fa-icon>
+                        <span jhiTranslate="global.menu.customer.main">
+                            Customer menu
+                        </span>
+                    </span>
+                </a>
+                <ul aria-labelledby="customer-menu" class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/customer/current/edit" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.customer.profile">Edit my profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/customer/current/reservation-order" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.customer.reservation-orders">Manage reservations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
+                           routerLink="ext/customer/favorites" routerLinkActive="active">
+                            <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
+                            <span jhiTranslate="global.menu.customer.favorites">Favorites</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLinkActiveOptions]="{exact: true}"
+                class="nav-item dropdown pointer" ngbDropdown routerLinkActive="active">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon icon="th-list"></fa-icon>

@@ -7,18 +7,31 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Encje",
-                "country": "Country",
-                "province": "Province",
-                "city": "City",
-                "address": "Address",
-                "customer": "Customer",
-                "company": "Company",
-                "weddingHall": "Wedding Hall",
+                "country": "Państwo",
+                "province": "Województwo",
+                "city": "Miasto",
+                "address": "Adres",
+                "customer": "Klient",
+                "company": "Firma",
+                "weddingHall": "Sala weselna",
                 "album": "Album",
-                "photo": "Photo",
-                "offer": "Offer",
-                "reservationOrder": "Reservation Order",
+                "photo": "Zdjęcie",
+                "offer": "Offrta",
+                "reservationOrder": "Rezerwacja",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+            "customer": {
+                "main": "Panel klienta",
+                "profile": "Edycja profilu",
+                "reservation-orders": "Moje rezerwacje",
+                "favorites": "Ulubione"
+            },
+            "company": {
+                "main": "Panel firmy",
+                "profile": "Edycja danych",
+                "reservation-orders": "Zarządzanie rezerwacjami",
+                "wedding-halls": "Zarządzanie salami weselnymi",
+                "offers": "Zarządzanie ofertami"
             },
             "account": {
                 "main": "Konto",

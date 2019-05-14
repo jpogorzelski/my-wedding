@@ -20,6 +20,19 @@
                 "reservationOrder": "Reservation Order",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
+            "customer": {
+                "main": "Customer menu",
+                "profile": "Edit my profile",
+                "reservation-orders": "Manage reservations",
+                "favorites": "Favorites"
+            },
+            "company": {
+                "main": "Company menu",
+                "profile": "Edit company details",
+                "reservation-orders": "Manage reservations",
+                "wedding-halls": "Manage wedding halls",
+                "offers": "Manage offers"
+            },
             "account": {
                 "main": "Account",
                 "settings": "Settings",
