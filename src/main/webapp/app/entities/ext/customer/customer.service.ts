@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<ICustomer[]>;
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
     public resourceUrl = SERVER_API_URL + 'api/customers';
+    public resourceExtUrl = SERVER_API_URL + 'api/ext/customers';
     public resourceSearchUrl = SERVER_API_URL + 'api/_search/customers';
 
     constructor(protected http: HttpClient) {}
@@ -43,6 +44,10 @@ export class CustomerService {
     }
 
     current(req?: any): Observable<EntityResponseType> {
-        return this.http.get<ICustomer>(`${this.resourceUrl}/current`, { observe: 'response' });
+        return this.http.get<ICustomer>(`${this.resourceExtUrl}/current`, { observe: 'response' });
+    }
+
+    updateCurrent(customer: ICustomer): Observable<EntityResponseType> {
+        return this.http.put<ICustomer>(this.resourceExtUrl, customer, { observe: 'response' });
     }
 }
