@@ -4,7 +4,8 @@
             "home": {
                 "title": "Sala weselna",
                 "createLabel": "Dodaj Salę weselną",
-                "createOrEditLabel": "Dodaj lub edytuj: Sala weselna"
+                "createOrEditLabel": "Dodaj lub edytuj: Sala weselna",
+                "search": "Szukaj Sali weselnej"
             },
             "created": "Utworzono nowy obiekt typu Sala weselna z identyfikatorem {{ param }}",
             "updated": "Uaktualniono obiekt typu Sala weselna z identyfikatorem {{ param }}",

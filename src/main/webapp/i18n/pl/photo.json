@@ -1,6 +1,6 @@
 {
     "myWeddingApp": {
-        "zdjęcie": {
+        "photo": {
             "home": {
                 "title": "Zdjęcie",
                 "createLabel": "Dodaj Zdjęcie",

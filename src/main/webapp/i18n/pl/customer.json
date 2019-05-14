@@ -1,6 +1,6 @@
 {
     "myWeddingApp": {
-        "klient": {
+        "customer": {
             "home": {
                 "title": "Klient",
                 "createLabel": "Dodaj Klienta",

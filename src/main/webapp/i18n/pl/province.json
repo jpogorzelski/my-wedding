@@ -1,6 +1,6 @@
 {
     "myWeddingApp": {
-        "województwo": {
+        "province": {
             "home": {
                 "title": "Województwo",
                 "createLabel": "Dodaj Województwo",
@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Województwo"
             },
-            "województwoName": "Nazwa województwa",
+            "provinceName": "Nazwa województwa",
             "country": "Państwo",
             "cities": "Miasta"
         }

@@ -1,6 +1,6 @@
 {
     "myWeddingApp": {
-        "firma": {
+        "company": {
             "home": {
                 "title": "Firma",
                 "createLabel": "Dodaj Firmę",
@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Firma"
             },
-            "firmaName": "Nazwa firmy",
+            "companyName": "Nazwa firmy",
             "street": "Ulica",
             "houseNo": "Nr domu",
             "flatNo": "Nr lokalu",

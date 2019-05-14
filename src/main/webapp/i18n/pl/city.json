@@ -1,6 +1,6 @@
 {
     "myWeddingApp": {
-        "miasto": {
+        "city": {
             "home": {
                 "title": "Miasto",
                 "createLabel": "Dodaj Miasto",
@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Miasto"
             },
-            "miastoName": "Nazwa miasta",
+            "cityName": "Nazwa miasta",
             "country": "Państwo",
             "province": "Województwo"
         }
