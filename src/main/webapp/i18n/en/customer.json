@@ -5,6 +5,7 @@
                 "title": "Customers",
                 "createLabel": "Create a new Customer",
                 "createOrEditLabel": "Create or edit a Customer",
+                "updateProfileLabel": "Edit profile details",
                 "search": "Search for Customer"
             },
             "created": "A new Customer is created with identifier {{ param }}",

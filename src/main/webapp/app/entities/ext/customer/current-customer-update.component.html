@@ -1,8 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form #editForm="ngForm" (ngSubmit)="save()" name="editForm" novalidate role="form">
-            <h2 id="jhi-customer-heading" jhiTranslate="myWeddingApp.customer.home.createOrEditLabel">Create or edit a
-                Customer</h2>
+            <h2 id="jhi-customer-heading" jhiTranslate="myWeddingApp.customer.home.updateProfileLabel">Edit profile details</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div [hidden]="!customer.id" class="form-group">

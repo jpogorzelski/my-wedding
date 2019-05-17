@@ -5,6 +5,7 @@
                 "title": "Klient",
                 "createLabel": "Dodaj Klienta",
                 "createOrEditLabel": "Dodaj lub edytuj: Klient",
+                "updateProfileLabel": "Edytuj szczegóły profilu",
                 "search": "Szukaj Klienta"
             },
             "created": "Utworzono nowy obiekt typu Klient z identyfikatorem {{ param }}",
