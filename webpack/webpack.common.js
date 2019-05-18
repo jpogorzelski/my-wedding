@@ -60,7 +60,7 @@ module.exports = (options) => ({
             'process.env': {
                 NODE_ENV: `'${options.env}'`,
                 BUILD_TIMESTAMP: `'${new Date().getTime()}'`,
-                BUILD_DATE: `'${new Date().toISOString()}'`,
+                BUILD_DATE: `'${new Date()}'`,
                 VERSION: `'${utils.parseVersion()}'`,
                 COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
                 BRANCH: JSON.stringify(gitRevisionPlugin.branch()),

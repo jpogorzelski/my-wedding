@@ -7,5 +7,5 @@ import { BUILD_DATE, BRANCH } from 'app/app.constants';
 })
 export class FooterComponent {
     buildDate = BUILD_DATE;
-    branch = BRANCH;
+    branch = BRANCH.substring(BRANCH.indexOf('origin'), BRANCH.indexOf(')'));
 }
