@@ -37,3 +37,7 @@ spring:
             tls: false
             auth: true
 
+jhipster:
+    mail:
+        from: no-reply@mojewesele.herokuapp.com
+        base-url: https://mojewesele.herokuapp.com
