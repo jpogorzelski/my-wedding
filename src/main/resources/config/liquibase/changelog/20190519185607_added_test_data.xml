@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <changeSet id="20190519185700-1" author="jhipster">
+        <loadData
+            file="config/liquibase/companies.csv"
+            separator=";"
+            tableName="company"/>
+
+        <loadData
+            file="config/liquibase/customers.csv"
+            separator=";"
+            tableName="customer"/>
+
+        <loadData
+            file="config/liquibase/wedding-halls.csv"
+            separator=";"
+            tableName="wedding_hall"/>
+    </changeSet>
+</databaseChangeLog>
