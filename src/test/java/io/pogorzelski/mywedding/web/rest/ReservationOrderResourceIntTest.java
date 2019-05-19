@@ -1,30 +1,16 @@
 package io.pogorzelski.mywedding.web.rest;
 
-import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
-import static java.time.ZoneOffset.UTC;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.math.BigDecimal;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
+import io.pogorzelski.mywedding.MyWeddingApp;
+import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
+import io.pogorzelski.mywedding.repository.CustomerRepository;
+import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
+import io.pogorzelski.mywedding.service.CustomerService;
+import io.pogorzelski.mywedding.service.OfferService;
+import io.pogorzelski.mywedding.service.ReservationOrderService;
+import io.pogorzelski.mywedding.service.UserService;
+import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,16 +29,19 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import io.pogorzelski.mywedding.MyWeddingApp;
-import io.pogorzelski.mywedding.domain.Customer;
-import io.pogorzelski.mywedding.domain.Offer;
-import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
-import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
-import io.pogorzelski.mywedding.service.CustomerService;
-import io.pogorzelski.mywedding.service.ReservationOrderService;
-import io.pogorzelski.mywedding.service.UserService;
-import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
+import javax.persistence.EntityManager;
+import java.math.BigDecimal;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import static io.pogorzelski.mywedding.web.rest.TestUtil.createFormattingConversionService;
+import static java.time.ZoneOffset.UTC;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test class for the ReservationOrderResource REST controller.
@@ -99,6 +88,9 @@ public class ReservationOrderResourceIntTest {
     private UserService userService;
 
     @Autowired
+    private OfferService offerService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -124,7 +116,7 @@ public class ReservationOrderResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         this.reservationOrderService = new ReservationOrderService(reservationOrderRepository, userService, customerRepository, clock);
-        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, userService);
+        final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, offerService, userService);
         doReturn(EXPECTED_CREATED).when(clock).instant();
         doReturn(UTC).when(clock).getZone();
         this.restReservationOrderMockMvc = MockMvcBuilders.standaloneSetup(reservationOrderResource)

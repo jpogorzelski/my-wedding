@@ -1,36 +1,25 @@
 package io.pogorzelski.mywedding.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.Authority;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
 import io.pogorzelski.mywedding.domain.User;
 import io.pogorzelski.mywedding.security.AuthoritiesConstants;
+import io.pogorzelski.mywedding.service.OfferService;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing ReservationOrder.
@@ -44,10 +33,12 @@ public class ReservationOrderResource {
     private static final String ENTITY_NAME = "reservationOrder";
 
     private final ReservationOrderService reservationOrderService;
+    private final OfferService offerService;
     private final UserService userService;
 
-    public ReservationOrderResource(ReservationOrderService reservationOrderService, UserService userService) {
+    public ReservationOrderResource(ReservationOrderService reservationOrderService, OfferService offerService, UserService userService) {
         this.reservationOrderService = reservationOrderService;
+        this.offerService = offerService;
         this.userService = userService;
     }
 
@@ -142,8 +133,11 @@ public class ReservationOrderResource {
     @GetMapping("/reservation-orders/offer/{id}")
     public ResponseEntity<ReservationOrder> getReservationOrderByOfferId(@PathVariable Long id) {
         log.debug("REST request to get ReservationOrder by Offer : {}", id);
-        Optional<ReservationOrder> reservationOrder = reservationOrderService.findByOfferId(id);
-        return ResponseUtil.wrapOrNotFound(reservationOrder);
+        ReservationOrder result = reservationOrderService.findByOfferId(id)
+            .orElse(new ReservationOrder()
+                .offer(offerService.findOne(id)
+                    .orElseThrow(NoSuchElementException::new)));
+        return ResponseEntity.ok().body(result);
     }
 
     /**
