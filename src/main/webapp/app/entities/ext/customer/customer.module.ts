@@ -16,6 +16,7 @@ import {
 } from './';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 const ENTITY_STATES = [...customerRoute, ...customerPopupRoute];
 
@@ -27,7 +28,8 @@ const ENTITY_STATES = [...customerRoute, ...customerPopupRoute];
         CustomerUpdateComponent,
         CurrentCustomerUpdateComponent,
         CustomerDeleteDialogComponent,
-        CustomerDeletePopupComponent
+        CustomerDeletePopupComponent,
+        FavoritesComponent
     ],
     entryComponents: [
         CustomerComponent,

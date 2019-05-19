@@ -11,6 +11,7 @@ import { CustomerDetailComponent } from './customer-detail.component';
 import { CustomerUpdateComponent } from './customer-update.component';
 import { CustomerDeletePopupComponent } from './customer-delete-dialog.component';
 import { CurrentCustomerUpdateComponent } from './current-customer-update.component';
+import { FavoritesComponent } from 'app/entities/ext/customer/favorites/favorites.component';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerResolve implements Resolve<ICustomer> {
@@ -89,6 +90,18 @@ export const customerRoute: Routes = [
     {
         path: 'profile',
         component: CurrentCustomerUpdateComponent,
+        resolve: {
+            customer: CurrentCustomerResolve
+        },
+        data: {
+            authorities: ['ROLE_CUSTOMER'],
+            pageTitle: 'myWeddingApp.customer.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'favorites',
+        component: FavoritesComponent,
         resolve: {
             customer: CurrentCustomerResolve
         },
