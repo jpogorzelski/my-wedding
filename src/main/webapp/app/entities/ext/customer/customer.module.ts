@@ -17,11 +17,12 @@ import {
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { MyWeddingReservationOrderModule } from 'app/entities/reservation-order/reservation-order.module';
 
 const ENTITY_STATES = [...customerRoute, ...customerPopupRoute];
 
 @NgModule({
-    imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES), NgSelectModule, FormsModule],
+    imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES), NgSelectModule, FormsModule, MyWeddingReservationOrderModule],
     declarations: [
         CustomerComponent,
         CustomerDetailComponent,

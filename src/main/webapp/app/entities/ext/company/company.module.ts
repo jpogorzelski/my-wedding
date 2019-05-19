@@ -11,24 +11,43 @@ import {
     CompanyDetailComponent,
     companyPopupRoute,
     companyRoute,
-    CompanyUpdateComponent
+    CompanyUpdateComponent,
+    CurrentCompanyUpdateComponent
 } from './';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { MyWeddingReservationOrderModule } from 'app/entities/reservation-order/reservation-order.module';
+import { MyWeddingWeddingHallExtModule } from 'app/entities/ext/wedding-hall/wedding-hall.module';
+import { MyWeddingOfferExtModule } from 'app/entities/ext/offer/offer.module';
 
 const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
 
 @NgModule({
-    imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES), NgSelectModule, FormsModule],
+    imports: [
+        MyWeddingSharedModule,
+        RouterModule.forChild(ENTITY_STATES),
+        NgSelectModule,
+        FormsModule,
+        MyWeddingReservationOrderModule,
+        MyWeddingWeddingHallExtModule,
+        MyWeddingOfferExtModule
+    ],
     declarations: [
         CompanyComponent,
         CompanyDetailComponent,
         CompanyUpdateComponent,
         CompanyDeleteDialogComponent,
+        CompanyDeletePopupComponent,
+        CurrentCompanyUpdateComponent
+    ],
+    entryComponents: [
+        CompanyComponent,
+        CompanyUpdateComponent,
+        CurrentCompanyUpdateComponent,
+        CompanyDeleteDialogComponent,
         CompanyDeletePopupComponent
     ],
-    entryComponents: [CompanyComponent, CompanyUpdateComponent, CompanyDeleteDialogComponent, CompanyDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

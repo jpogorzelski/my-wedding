@@ -5,6 +5,8 @@
                 "title": "Firma",
                 "createLabel": "Dodaj Firmę",
                 "createOrEditLabel": "Dodaj lub edytuj: Firma",
+                "updateProfileLabel": "Edytuj szczegóły profilu",
+                "addressLabel": "Adres",
                 "search": "Szukaj Firmy"
             },
             "created": "Utworzono nowy obiekt typu Firma z identyfikatorem {{ param }}",

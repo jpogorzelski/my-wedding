@@ -144,7 +144,7 @@ public class CompanyResource {
      * @return the ResponseEntity with status 200 (OK) and with body the customer, or with status 404 (Not Found)
      */
     @GetMapping("/companies/current")
-    @Secured(AuthoritiesConstants.CUSTOMER)
+    @Secured(AuthoritiesConstants.COMPANY_OWNER)
     public ResponseEntity<Company> getCurrentCompany() {
         log.debug("REST request to get currently logged in company");
         final Optional<Company> company = userService.getCompany();

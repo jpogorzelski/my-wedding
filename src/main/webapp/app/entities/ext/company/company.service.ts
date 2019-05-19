@@ -41,4 +41,24 @@ export class CompanyService {
         const options = createRequestOption(req);
         return this.http.get<ICompany[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
+
+    current(req?: any): Observable<EntityResponseType> {
+        return this.http.get<ICompany>(`${this.resourceUrl}/current`, { observe: 'response' });
+    }
+
+    currentWeddingHalls(req?: any): Observable<EntityResponseType> {
+        return this.http.get<ICompany>(`${this.resourceUrl}/current/wedding-halls`, { observe: 'response' });
+    }
+
+    currentOffers(req?: any): Observable<EntityResponseType> {
+        return this.http.get<ICompany>(`${this.resourceUrl}/current/offers`, { observe: 'response' });
+    }
+
+    currentReservationOrders(req?: any): Observable<EntityResponseType> {
+        return this.http.get<ICompany>(`${this.resourceUrl}/current/reservation-orders`, { observe: 'response' });
+    }
+
+    updateCurrent(company: ICompany): Observable<EntityResponseType> {
+        return this.http.put<ICompany>(this.resourceUrl, company, { observe: 'response' });
+    }
 }
