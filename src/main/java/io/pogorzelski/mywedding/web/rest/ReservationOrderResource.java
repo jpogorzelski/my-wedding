@@ -88,6 +88,12 @@ public class ReservationOrderResource {
     public List<ReservationOrder> getAllReservationOrders() {
         log.debug("REST request to get all ReservationOrders");
 
+        /*
+        return reservationOrderService.findAll();
+        */
+
+        //TODO remove when UI is connected to methods in customer/company resources
+
         final Set<String> roles = userService.getUserRoles();
 
         if (roles.contains(AuthoritiesConstants.ADMIN)) {

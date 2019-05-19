@@ -1,11 +1,11 @@
 package io.pogorzelski.mywedding.service;
 
+import io.pogorzelski.mywedding.domain.Company;
 import io.pogorzelski.mywedding.domain.WeddingHall;
 import io.pogorzelski.mywedding.repository.WeddingHallRepository;
 import io.pogorzelski.mywedding.repository.search.WeddingHallSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * Service Implementation for managing WeddingHall.
@@ -95,4 +95,17 @@ public class WeddingHallService {
             .stream(weddingHallSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+
+    /**
+     * Get wedding halls by company
+     *
+     * @param company owner of reserved wedding hall
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<WeddingHall> findByCompany(Company company) {
+        log.debug("Request to get WeddingHalls by company : {}", company.getId());
+        return weddingHallRepository.findByCompany(company);
+    }
+
 }

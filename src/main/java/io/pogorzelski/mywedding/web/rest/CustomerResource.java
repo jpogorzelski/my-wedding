@@ -2,17 +2,22 @@ package io.pogorzelski.mywedding.web.rest;
 
 import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
+import io.pogorzelski.mywedding.security.AuthoritiesConstants;
 import io.pogorzelski.mywedding.service.CustomerService;
+import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +34,12 @@ public class CustomerResource {
 
     private final CustomerService customerService;
     private final UserService userService;
+    private final ReservationOrderService reservationOrderService;
 
-    public CustomerResource(CustomerService customerService, UserService userService) {
+    public CustomerResource(CustomerService customerService, UserService userService, ReservationOrderService reservationOrderService) {
         this.customerService = customerService;
         this.userService = userService;
+        this.reservationOrderService = reservationOrderService;
     }
 
     /**
@@ -132,12 +139,26 @@ public class CustomerResource {
      * @return the ResponseEntity with status 200 (OK) and with body the customer, or with status 404 (Not Found)
      */
     @GetMapping("/customers/current")
+    @Secured(AuthoritiesConstants.CUSTOMER)
     public ResponseEntity<Customer> getCurrentCustomer() {
         log.debug("REST request to get currently logged in Customer");
-        final Optional<Customer> customer = userService.getUserWithAuthorities()
-            .flatMap(customerService::findOneByUser);
+        final Optional<Customer> customer = userService.getCustomer();
         return ResponseUtil.wrapOrNotFound(customer);
     }
 
+
+    /**
+     * GET  /companies/current/reservation-orders : get all the reservation-orders for currently logged in customer.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of reservation-orders in body
+     */
+    @GetMapping("/customers/current/reservation-orders")
+    @Secured(AuthoritiesConstants.CUSTOMER)
+    public List<ReservationOrder> getCurrentCustomerReservationOrders() {
+        log.debug("REST request to get Customer's ReservationOrders");
+        return userService.getCustomer()
+            .map(reservationOrderService::findByCustomer)
+            .orElse(Collections.emptyList());
+    }
 
 }

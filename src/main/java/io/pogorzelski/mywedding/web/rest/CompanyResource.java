@@ -1,23 +1,26 @@
 package io.pogorzelski.mywedding.web.rest;
+
+import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.service.CompanyService;
+import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
+import io.pogorzelski.mywedding.domain.WeddingHall;
+import io.pogorzelski.mywedding.security.AuthoritiesConstants;
+import io.pogorzelski.mywedding.service.*;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Company.
@@ -31,9 +34,17 @@ public class CompanyResource {
     private static final String ENTITY_NAME = "company";
 
     private final CompanyService companyService;
+    private final UserService userService;
+    private final WeddingHallService weddingHallService;
+    private final OfferService offerService;
+    private final ReservationOrderService reservationOrderService;
 
-    public CompanyResource(CompanyService companyService) {
+    public CompanyResource(CompanyService companyService, UserService userService, WeddingHallService weddingHallService, OfferService offerService, ReservationOrderService reservationOrderService) {
         this.companyService = companyService;
+        this.userService = userService;
+        this.weddingHallService = weddingHallService;
+        this.offerService = offerService;
+        this.reservationOrderService = reservationOrderService;
     }
 
     /**
@@ -126,4 +137,60 @@ public class CompanyResource {
         return companyService.search(query);
     }
 
+
+    /**
+     * GET  /companies/current : get the "current" company.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the customer, or with status 404 (Not Found)
+     */
+    @GetMapping("/companies/current")
+    @Secured(AuthoritiesConstants.CUSTOMER)
+    public ResponseEntity<Company> getCurrentCompany() {
+        log.debug("REST request to get currently logged in company");
+        final Optional<Company> company = userService.getCompany();
+        return ResponseUtil.wrapOrNotFound(company);
+    }
+
+
+    /**
+     * GET  /companies/current/wedding-halls : get all the weddingHalls for currently logged in company owner.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of weddingHalls in body
+     */
+    @GetMapping("/companies/current/wedding-halls")
+    @Secured(AuthoritiesConstants.COMPANY_OWNER)
+    public List<WeddingHall> getCurrentCompanyWeddingHalls() {
+        log.debug("REST request to get company's WeddingHalls");
+        return userService.getCompany()
+            .map(weddingHallService::findByCompany)
+            .orElse(Collections.emptyList());
+    }
+
+    /**
+     * GET  /companies/current/offers : get all the offers for currently logged in company owner.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of offers in body
+     */
+    @GetMapping("/companies/current/offers")
+    @Secured(AuthoritiesConstants.COMPANY_OWNER)
+    public List<Offer> getCurrentCompanyOffers() {
+        log.debug("REST request to get company's Offers");
+        return userService.getCompany()
+            .map(offerService::findByCompany)
+            .orElse(Collections.emptyList());
+    }
+
+    /**
+     * GET  /companies/current/reservation-orders : get all the reservation-orders for currently logged in company owner.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of reservation-orders in body
+     */
+    @GetMapping("/companies/current/reservation-orders")
+    @Secured(AuthoritiesConstants.COMPANY_OWNER)
+    public List<ReservationOrder> getCurrentCompanyReservationOrders() {
+        log.debug("REST request to get company's ReservationOrders");
+        return userService.getCompany()
+            .map(reservationOrderService::findByCompany)
+            .orElse(Collections.emptyList());
+    }
 }
