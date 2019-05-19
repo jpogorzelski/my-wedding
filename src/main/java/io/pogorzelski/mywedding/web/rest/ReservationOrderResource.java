@@ -1,9 +1,7 @@
 package io.pogorzelski.mywedding.web.rest;
 
 import io.github.jhipster.web.util.ResponseUtil;
-import io.pogorzelski.mywedding.domain.Authority;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.domain.User;
 import io.pogorzelski.mywedding.security.AuthoritiesConstants;
 import io.pogorzelski.mywedding.service.OfferService;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
@@ -19,7 +17,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing ReservationOrder.
@@ -91,11 +88,7 @@ public class ReservationOrderResource {
     public List<ReservationOrder> getAllReservationOrders() {
         log.debug("REST request to get all ReservationOrders");
 
-        final Set<String> roles = userService.getUserWithAuthorities()
-            .map(User::getAuthorities)
-            .orElse(Collections.emptySet()).stream()
-            .map(Authority::getName)
-            .collect(Collectors.toSet());
+        final Set<String> roles = userService.getUserRoles();
 
         if (roles.contains(AuthoritiesConstants.ADMIN)) {
             return reservationOrderService.findAll();
