@@ -55,6 +55,7 @@ public class ExtCustomerResource {
         }
         return userService.getCustomer()
             .filter(customerFromSession -> customerFromSession.getId().equals(customer.getId()))
+            .map(c -> customer)
             .map(customerService::save)
             .map(result -> ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, customer.getId().toString()))

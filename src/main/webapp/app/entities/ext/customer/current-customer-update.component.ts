@@ -41,13 +41,9 @@ export class CurrentCustomerUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        window.alert('BUUUU');
-        console.log('BUUUUUUUUU');
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ customer }) => {
-            console.log('BUUUUUUUUU');
             this.customer = customer;
-            console.log('BUUUUUUUUU');
         });
         this.userService
             .query()
@@ -84,10 +80,8 @@ export class CurrentCustomerUpdateComponent implements OnInit {
     }
 
     save() {
-        console.log('BUUUUUUUUU');
         this.isSaving = true;
         if (this.customer.id !== undefined) {
-            window.alert('AAAAA');
             this.subscribeToSaveResponse(this.customerService.updateCurrent(this.customer));
         }
     }

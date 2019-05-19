@@ -87,13 +87,13 @@ export const customerRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'current/edit',
+        path: 'profile',
         component: CurrentCustomerUpdateComponent,
         resolve: {
             customer: CurrentCustomerResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_CUSTOMER'],
             pageTitle: 'myWeddingApp.customer.home.title'
         },
         canActivate: [UserRouteAccessService]

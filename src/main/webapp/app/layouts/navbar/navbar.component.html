@@ -30,7 +30,7 @@
                 <ul aria-labelledby="company-menu" class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
-                           routerLink="ext/company/current/edit" routerLinkActive="active">
+                           routerLink="ext/company/profile" routerLinkActive="active">
                             <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
                             <span jhiTranslate="global.menu.company.profile">Edit company details</span>
                         </a>
@@ -72,7 +72,7 @@
                 <ul aria-labelledby="customer-menu" class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a (click)="collapseNavbar()" [routerLinkActiveOptions]="{ exact: true }" class="dropdown-item"
-                           routerLink="ext/customer/current/edit" routerLinkActive="active">
+                           routerLink="ext/customer/profile" routerLinkActive="active">
                             <fa-icon fixedWidth="true" icon="asterisk"></fa-icon>
                             <span jhiTranslate="global.menu.customer.profile">Edit my profile</span>
                         </a>
