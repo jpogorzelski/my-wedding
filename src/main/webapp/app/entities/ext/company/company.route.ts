@@ -103,7 +103,7 @@ export const companyRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'current/reservation-order',
+        path: 'current/reservation-orders',
         component: ReservationOrderComponent,
         data: {
             authorities: ['ROLE_COMPANY_OWNER'],
@@ -112,7 +112,7 @@ export const companyRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'current/offer',
+        path: 'current/offers',
         component: OfferComponent,
         data: {
             authorities: ['ROLE_COMPANY_OWNER'],
@@ -121,7 +121,7 @@ export const companyRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'current/wedding-hall',
+        path: 'current/wedding-halls',
         component: WeddingHallComponent,
         data: {
             authorities: ['ROLE_COMPANY_OWNER'],

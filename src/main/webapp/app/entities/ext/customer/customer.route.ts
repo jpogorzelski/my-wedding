@@ -101,7 +101,7 @@ export const customerRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'current/reservation-order',
+        path: 'current/reservation-orders',
         component: ReservationOrderComponent,
         data: {
             authorities: ['ROLE_CUSTOMER'],
