@@ -11,18 +11,18 @@ import {
     CustomerDeletePopupComponent,
     CustomerDetailComponent,
     customerPopupRoute,
+    CustomerReservationOrderComponent,
     customerRoute,
     CustomerUpdateComponent
 } from './';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites/favorites.component';
-import { MyWeddingReservationOrderModule } from 'app/entities/reservation-order/reservation-order.module';
 
 const ENTITY_STATES = [...customerRoute, ...customerPopupRoute];
 
 @NgModule({
-    imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES), NgSelectModule, FormsModule, MyWeddingReservationOrderModule],
+    imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES), NgSelectModule, FormsModule],
     declarations: [
         CustomerComponent,
         CustomerDetailComponent,
@@ -30,14 +30,16 @@ const ENTITY_STATES = [...customerRoute, ...customerPopupRoute];
         CurrentCustomerUpdateComponent,
         CustomerDeleteDialogComponent,
         CustomerDeletePopupComponent,
-        FavoritesComponent
+        FavoritesComponent,
+        CustomerReservationOrderComponent
     ],
     entryComponents: [
         CustomerComponent,
         CustomerUpdateComponent,
         CurrentCustomerUpdateComponent,
         CustomerDeleteDialogComponent,
-        CustomerDeletePopupComponent
+        CustomerDeletePopupComponent,
+        CustomerReservationOrderComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

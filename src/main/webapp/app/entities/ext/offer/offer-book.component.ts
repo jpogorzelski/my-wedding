@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 import { IReservationOrder } from 'app/shared/model/reservation-order.model';
 import { IOffer } from 'app/shared/model/offer.model';
-import { ReservationOrderService } from 'app/entities/reservation-order';
+import { ReservationOrderService } from 'app/entities/ext/reservation-order';
 import { CustomerService } from 'app/entities/ext/customer';
 
 @Component({

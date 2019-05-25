@@ -12,7 +12,7 @@ import { CustomerUpdateComponent } from './customer-update.component';
 import { CustomerDeletePopupComponent } from './customer-delete-dialog.component';
 import { CurrentCustomerUpdateComponent } from './current-customer-update.component';
 import { FavoritesComponent } from 'app/entities/ext/customer/favorites/favorites.component';
-import { ReservationOrderComponent } from 'app/entities/reservation-order';
+import { CustomerReservationOrderComponent } from 'app/entities/ext/customer/customer-reservation-order.component';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerResolve implements Resolve<ICustomer> {
@@ -102,7 +102,7 @@ export const customerRoute: Routes = [
     },
     {
         path: 'current/reservation-orders',
-        component: ReservationOrderComponent,
+        component: CustomerReservationOrderComponent,
         data: {
             authorities: ['ROLE_CUSTOMER'],
             pageTitle: 'myWeddingApp.customer.home.title'

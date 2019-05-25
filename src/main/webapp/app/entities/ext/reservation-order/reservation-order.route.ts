@@ -16,6 +16,7 @@ export class ReservationOrderResolve implements Resolve<IReservationOrder> {
     constructor(private service: ReservationOrderService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IReservationOrder> {
+        console.log('## ext resolver');
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
             return this.service.find(id).pipe(

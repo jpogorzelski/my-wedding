@@ -12,7 +12,7 @@ import { OfferUpdateComponent } from './offer-update.component';
 import { OfferDeletePopupComponent } from './offer-delete-dialog.component';
 import { OfferBookComponent } from 'app/entities/ext/offer/offer-book.component';
 import { IReservationOrder, ReservationOrder } from 'app/shared/model/reservation-order.model';
-import { ReservationOrderService } from 'app/entities/reservation-order';
+import { ReservationOrderService } from 'app/entities/ext/reservation-order';
 
 @Injectable({ providedIn: 'root' })
 export class OfferResolve implements Resolve<IOffer> {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ICustomer } from 'app/shared/model/customer.model';
+import { IReservationOrder } from 'app/shared/model/reservation-order.model';
 
 type EntityResponseType = HttpResponse<ICustomer>;
 type EntityArrayResponseType = HttpResponse<ICustomer[]>;
@@ -45,6 +46,10 @@ export class CustomerService {
 
     current(req?: any): Observable<EntityResponseType> {
         return this.http.get<ICustomer>(`${this.resourceExtUrl}/current`, { observe: 'response' });
+    }
+
+    currentReservationOrders(req?: any): Observable<HttpResponse<IReservationOrder[]>> {
+        return this.http.get<IReservationOrder[]>(`${this.resourceUrl}/current/reservation-orders`, { observe: 'response' });
     }
 
     updateCurrent(customer: ICustomer): Observable<EntityResponseType> {

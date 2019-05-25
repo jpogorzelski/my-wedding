@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { MyWeddingTestModule } from '../../../test.module';
-import { ReservationOrderDetailComponent } from 'app/entities/reservation-order/reservation-order-detail.component';
+import { ReservationOrderDetailComponent } from 'app/entities/ext/reservation-order/reservation-order-detail.component';
 import { ReservationOrder } from 'app/shared/model/reservation-order.model';
 
 describe('Component Tests', () => {

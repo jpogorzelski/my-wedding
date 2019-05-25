@@ -32,13 +32,13 @@
                 <dt><span jhiTranslate="myWeddingApp.reservationOrder.offer">Offer</span></dt>
                 <dd>
                     <div *ngIf="reservationOrder.offer">
-                        <a [routerLink]="['/offer', reservationOrder.offer?.id, 'view']">{{reservationOrder.offer?.id}}</a>
+                        <a [routerLink]="['/ext/offer', reservationOrder.offer?.id, 'view']">{{reservationOrder.offer?.id}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="myWeddingApp.reservationOrder.customer">Customer</span></dt>
                 <dd>
                     <div *ngIf="reservationOrder.customer">
-                        <a [routerLink]="['/customer', reservationOrder.customer?.id, 'view']">{{reservationOrder.customer?.id}}</a>
+                        <a [routerLink]="['/ext/customer', reservationOrder.customer?.id, 'view']">{{reservationOrder.customer?.id}}</a>
                     </div>
                 </dd>
             </dl>
@@ -50,7 +50,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/reservation-order', reservationOrder.id, 'edit']"
+                    [routerLink]="['/ext/reservation-order', reservationOrder.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>

@@ -2,7 +2,6 @@ package io.pogorzelski.mywedding.web.rest;
 
 import io.github.jhipster.web.util.ResponseUtil;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.security.AuthoritiesConstants;
 import io.pogorzelski.mywedding.service.OfferService;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.service.UserService;
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * REST controller for managing ReservationOrder.
@@ -87,27 +88,7 @@ public class ReservationOrderResource {
     @GetMapping("/reservation-orders")
     public List<ReservationOrder> getAllReservationOrders() {
         log.debug("REST request to get all ReservationOrders");
-
-        /*
         return reservationOrderService.findAll();
-        */
-
-        //TODO remove when UI is connected to methods in customer/company resources
-
-        final Set<String> roles = userService.getUserRoles();
-
-        if (roles.contains(AuthoritiesConstants.ADMIN)) {
-            return reservationOrderService.findAll();
-        } else if (roles.contains(AuthoritiesConstants.COMPANY_OWNER)) {
-            return userService.getCompany()
-                .map(reservationOrderService::findByCompany)
-                .orElse(Collections.emptyList());
-        } else if (roles.contains(AuthoritiesConstants.CUSTOMER)) {
-            return userService.getCustomer()
-                .map(reservationOrderService::findByCustomer)
-                .orElse(Collections.emptyList());
-        }
-        return Collections.emptyList();
     }
 
     /**

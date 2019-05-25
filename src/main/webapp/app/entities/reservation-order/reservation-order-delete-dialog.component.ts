@@ -54,11 +54,11 @@ export class ReservationOrderDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.reservationOrder = reservationOrder;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate(['/ext/reservation-order', { outlets: { popup: null } }]);
+                        this.router.navigate(['/reservation-order', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate(['/ext/reservation-order', { outlets: { popup: null } }]);
+                        this.router.navigate(['/reservation-order', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

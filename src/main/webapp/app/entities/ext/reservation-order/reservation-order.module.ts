@@ -12,7 +12,7 @@ import {
     reservationOrderPopupRoute,
     reservationOrderRoute,
     ReservationOrderUpdateComponent
-} from './';
+} from './index';
 
 const ENTITY_STATES = [...reservationOrderRoute, ...reservationOrderPopupRoute];
 

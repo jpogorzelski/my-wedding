@@ -1,11 +1,11 @@
 /* tslint:disable max-line-length */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { MyWeddingTestModule } from '../../../test.module';
-import { ReservationOrderComponent } from 'app/entities/reservation-order/reservation-order.component';
-import { ReservationOrderService } from 'app/entities/reservation-order/reservation-order.service';
+import { ReservationOrderComponent } from 'app/entities/ext/reservation-order/reservation-order.component';
+import { ReservationOrderService } from 'app/entities/ext/reservation-order/reservation-order.service';
 import { ReservationOrder } from 'app/shared/model/reservation-order.model';
 
 describe('Component Tests', () => {

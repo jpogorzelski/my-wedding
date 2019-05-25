@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="myWeddingApp.reservationOrder.home.title">Reservation Orders</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-reservation-order" [routerLink]="['/ext/reservation-order/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-reservation-order" [routerLink]="['/reservation-order/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="myWeddingApp.reservationOrder.home.createLabel">
             Create new Reservation Order
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let reservationOrder of reservationOrders ;trackBy: trackId">
-                <td><a [routerLink]="['/ext/reservation-order', reservationOrder.id, 'view' ]">{{reservationOrder.id}}</a></td>
+                <td><a [routerLink]="['/reservation-order', reservationOrder.id, 'view' ]">{{reservationOrder.id}}</a></td>
                 <td>{{reservationOrder.reservationConfirmed}}</td>
                 <td>{{reservationOrder.guestCount}}</td>
                 <td>{{reservationOrder.downPaymentAmount}}</td>
@@ -48,19 +48,19 @@
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/ext/reservation-order', reservationOrder.id, 'view' ]"
+                                [routerLink]="['/reservation-order', reservationOrder.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/ext/reservation-order', reservationOrder.id, 'edit']"
+                                [routerLink]="['/reservation-order', reservationOrder.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/ext/reservation-order', { outlets: { popup: reservationOrder.id + '/delete'} }]"
+                                [routerLink]="['/', 'reservation-order', { outlets: { popup: reservationOrder.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
