@@ -15,36 +15,36 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="myWeddingApp.reservationOrder.offer">Offer</span></th>
+            <th><span jhiTranslate="myWeddingApp.reservationOrder.createDate">Create Date</span></th>
+            <th><span jhiTranslate="myWeddingApp.reservationOrder.modificationDate">Modification Date</span></th>
+            <th><span jhiTranslate="myWeddingApp.reservationOrder.customer">Customer</span></th>
             <th><span jhiTranslate="myWeddingApp.reservationOrder.reservationConfirmed">Reservation Confirmed</span></th>
             <th><span jhiTranslate="myWeddingApp.reservationOrder.guestCount">Guest Count</span></th>
             <th><span jhiTranslate="myWeddingApp.reservationOrder.downPaymentAmount">Down Payment Amount</span></th>
             <th><span jhiTranslate="myWeddingApp.reservationOrder.downPaymentSettled">Down Payment Settled</span></th>
-            <th><span jhiTranslate="myWeddingApp.reservationOrder.createDate">Create Date</span></th>
-            <th><span jhiTranslate="myWeddingApp.reservationOrder.modificationDate">Modification Date</span></th>
-            <th><span jhiTranslate="myWeddingApp.reservationOrder.offer">Offer</span></th>
-            <th><span jhiTranslate="myWeddingApp.reservationOrder.customer">Customer</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let reservationOrder of reservationOrders ;trackBy: trackId">
                 <td><a [routerLink]="['/ext/reservation-order', reservationOrder.id, 'view' ]">{{reservationOrder.id}}</a></td>
-                <td>{{reservationOrder.reservationConfirmed}}</td>
-                <td>{{reservationOrder.guestCount}}</td>
-                <td>{{reservationOrder.downPaymentAmount}}</td>
-                <td>{{reservationOrder.downPaymentSettled}}</td>
-                <td>{{reservationOrder.createDate | date:'mediumDate'}}</td>
-                <td>{{reservationOrder.modificationDate | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="reservationOrder.offer">
                         <a [routerLink]="['../offer', reservationOrder.offer?.id, 'view' ]" >{{reservationOrder.offer?.id}}</a>
                     </div>
                 </td>
+                <td>{{reservationOrder.createDate | date:'mediumDate'}}</td>
+                <td>{{reservationOrder.modificationDate | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="reservationOrder.customer">
                         <a [routerLink]="['../customer', reservationOrder.customer?.id, 'view' ]" >{{reservationOrder.customer?.id}}</a>
                     </div>
                 </td>
+                <td>{{reservationOrder.reservationConfirmed}}</td>
+                <td>{{reservationOrder.guestCount}}</td>
+                <td>{{reservationOrder.downPaymentAmount}}</td>
+                <td>{{reservationOrder.downPaymentSettled}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
