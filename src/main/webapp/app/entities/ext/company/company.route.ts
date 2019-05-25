@@ -12,8 +12,8 @@ import { CompanyUpdateComponent } from './company-update.component';
 import { CompanyDeletePopupComponent } from './company-delete-dialog.component';
 import { ReservationOrderComponent } from 'app/entities/reservation-order';
 import { WeddingHallComponent } from 'app/entities/ext/wedding-hall';
-import { OfferComponent } from 'app/entities/ext/offer';
 import { CurrentCompanyUpdateComponent } from 'app/entities/ext/company/current-company-update.component';
+import { CompanyOfferComponent } from 'app/entities/ext/company/company-offer.component';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyResolve implements Resolve<ICompany> {
@@ -50,6 +50,33 @@ export const companyRoute: Routes = [
         component: CompanyComponent,
         data: {
             authorities: ['ROLE_USER'],
+            pageTitle: 'myWeddingApp.company.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'current/reservation-orders',
+        component: ReservationOrderComponent,
+        data: {
+            authorities: ['ROLE_COMPANY_OWNER'],
+            pageTitle: 'myWeddingApp.company.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'current/offers',
+        component: CompanyOfferComponent,
+        data: {
+            authorities: ['ROLE_COMPANY_OWNER'],
+            pageTitle: 'myWeddingApp.company.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'current/wedding-halls',
+        component: WeddingHallComponent,
+        data: {
+            authorities: ['ROLE_COMPANY_OWNER'],
             pageTitle: 'myWeddingApp.company.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -96,33 +123,6 @@ export const companyRoute: Routes = [
         resolve: {
             company: CurrentCompanyResolve
         },
-        data: {
-            authorities: ['ROLE_COMPANY_OWNER'],
-            pageTitle: 'myWeddingApp.company.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'current/reservation-orders',
-        component: ReservationOrderComponent,
-        data: {
-            authorities: ['ROLE_COMPANY_OWNER'],
-            pageTitle: 'myWeddingApp.company.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'current/offers',
-        component: OfferComponent,
-        data: {
-            authorities: ['ROLE_COMPANY_OWNER'],
-            pageTitle: 'myWeddingApp.company.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'current/wedding-halls',
-        component: WeddingHallComponent,
         data: {
             authorities: ['ROLE_COMPANY_OWNER'],
             pageTitle: 'myWeddingApp.company.home.title'

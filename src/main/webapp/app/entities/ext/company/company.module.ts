@@ -9,6 +9,7 @@ import {
     CompanyDeleteDialogComponent,
     CompanyDeletePopupComponent,
     CompanyDetailComponent,
+    CompanyOfferComponent,
     companyPopupRoute,
     companyRoute,
     CompanyUpdateComponent,
@@ -39,14 +40,16 @@ const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
         CompanyUpdateComponent,
         CompanyDeleteDialogComponent,
         CompanyDeletePopupComponent,
-        CurrentCompanyUpdateComponent
+        CurrentCompanyUpdateComponent,
+        CompanyOfferComponent
     ],
     entryComponents: [
         CompanyComponent,
         CompanyUpdateComponent,
         CurrentCompanyUpdateComponent,
         CompanyDeleteDialogComponent,
-        CompanyDeletePopupComponent
+        CompanyDeletePopupComponent,
+        CompanyOfferComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

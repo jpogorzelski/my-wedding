@@ -28,6 +28,17 @@ export class OfferComponent implements OnInit, OnDestroy {
     ) {}
 
     loadAll() {
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.customerService.current().subscribe(customer => {
+            this.isCustomer = customer.body != null;
+        });
+        this.loadOffers();
+        this.registerChangeInOffers();
+    }
+
+    loadOffers() {
         this.offerService
             .query()
             .pipe(
@@ -44,13 +55,6 @@ export class OfferComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.customerService.current().subscribe(customer => {
-            this.isCustomer = customer.body != null;
-        });
-        this.registerChangeInOffers();
     }
 
     ngOnDestroy() {

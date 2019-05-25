@@ -4,4 +4,5 @@ export * from './current-company-update.component';
 export * from './company-delete-dialog.component';
 export * from './company-detail.component';
 export * from './company.component';
+export * from './company-offer.component';
 export * from './company.route';

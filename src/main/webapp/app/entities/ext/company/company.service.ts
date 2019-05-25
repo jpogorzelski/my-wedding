@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ICompany } from 'app/shared/model/company.model';
+import { IOffer } from 'app/shared/model/offer.model';
+import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
+import { IReservationOrder } from 'app/shared/model/reservation-order.model';
 
 type EntityResponseType = HttpResponse<ICompany>;
 type EntityArrayResponseType = HttpResponse<ICompany[]>;
@@ -46,16 +49,16 @@ export class CompanyService {
         return this.http.get<ICompany>(`${this.resourceUrl}/current`, { observe: 'response' });
     }
 
-    currentWeddingHalls(req?: any): Observable<EntityResponseType> {
-        return this.http.get<ICompany>(`${this.resourceUrl}/current/wedding-halls`, { observe: 'response' });
+    currentWeddingHalls(req?: any): Observable<HttpResponse<IWeddingHall[]>> {
+        return this.http.get<IWeddingHall[]>(`${this.resourceUrl}/current/wedding-halls`, { observe: 'response' });
     }
 
-    currentOffers(req?: any): Observable<EntityResponseType> {
-        return this.http.get<ICompany>(`${this.resourceUrl}/current/offers`, { observe: 'response' });
+    currentOffers(req?: any): Observable<HttpResponse<IOffer[]>> {
+        return this.http.get<IOffer[]>(`${this.resourceUrl}/current/offers`, { observe: 'response' });
     }
 
-    currentReservationOrders(req?: any): Observable<EntityResponseType> {
-        return this.http.get<ICompany>(`${this.resourceUrl}/current/reservation-orders`, { observe: 'response' });
+    currentReservationOrders(req?: any): Observable<HttpResponse<IReservationOrder[]>> {
+        return this.http.get<IReservationOrder[]>(`${this.resourceUrl}/current/reservation-orders`, { observe: 'response' });
     }
 
     updateCurrent(company: ICompany): Observable<EntityResponseType> {
