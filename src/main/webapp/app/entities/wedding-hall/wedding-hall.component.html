@@ -44,22 +44,22 @@
                 <td>{{weddingHall.hallName}}</td>
                 <td>
                     <div *ngIf="weddingHall.country">
-                        <a [routerLink]="['../country', weddingHall.country?.id, 'view' ]" >{{weddingHall.country?.countryName}}</a>
+                        <a [routerLink]="['/country', weddingHall.country?.id, 'view' ]" >{{weddingHall.country?.countryName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="weddingHall.province">
-                        <a [routerLink]="['../province', weddingHall.province?.id, 'view' ]" >{{weddingHall.province?.provinceName}}</a>
+                        <a [routerLink]="['/province', weddingHall.province?.id, 'view' ]" >{{weddingHall.province?.provinceName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="weddingHall.city">
-                        <a [routerLink]="['../city', weddingHall.city?.id, 'view' ]" >{{weddingHall.city?.cityName}}</a>
+                        <a [routerLink]="['/city', weddingHall.city?.id, 'view' ]" >{{weddingHall.city?.cityName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="weddingHall.company">
-                        <a [routerLink]="['../company', weddingHall.company?.id, 'view' ]" >{{weddingHall.company?.companyName}}</a>
+                        <a [routerLink]="['/company', weddingHall.company?.id, 'view' ]" >{{weddingHall.company?.companyName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

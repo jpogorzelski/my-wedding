@@ -57,17 +57,17 @@
                 </td>
                 <td>
                     <div *ngIf="customer.country">
-                        <a [routerLink]="['../country', customer.country?.id, 'view' ]">{{customer.country?.countryName}}</a>
+                        <a [routerLink]="['/ext/country', customer.country?.id, 'view' ]">{{customer.country?.countryName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="customer.province">
-                        <a [routerLink]="['../province', customer.province?.id, 'view' ]">{{customer.province?.provinceName}}</a>
+                        <a [routerLink]="['/ext/province', customer.province?.id, 'view' ]">{{customer.province?.provinceName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="customer.city">
-                        <a [routerLink]="['../city', customer.city?.id, 'view' ]">{{customer.city?.cityName}}</a>
+                        <a [routerLink]="['/ext/city', customer.city?.id, 'view' ]">{{customer.city?.cityName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
