@@ -11,30 +11,20 @@ import {
     CompanyDetailComponent,
     CompanyOfferComponent,
     companyPopupRoute,
+    CompanyReservationOrderComponent,
     companyRoute,
     CompanyUpdateComponent,
+    CompanyWeddingHallComponent,
     CurrentCompanyUpdateComponent
 } from './';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-import { MyWeddingReservationOrderModule } from 'app/entities/reservation-order/reservation-order.module';
-import { MyWeddingWeddingHallExtModule } from 'app/entities/ext/wedding-hall/wedding-hall.module';
-import { MyWeddingOfferExtModule } from 'app/entities/ext/offer/offer.module';
-import { CompanyWeddingHallComponent } from 'app/entities/ext/company/company-wedding-hall.component';
 
 const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
 
 @NgModule({
-    imports: [
-        MyWeddingSharedModule,
-        RouterModule.forChild(ENTITY_STATES),
-        NgSelectModule,
-        FormsModule,
-        MyWeddingReservationOrderModule,
-        MyWeddingWeddingHallExtModule,
-        MyWeddingOfferExtModule
-    ],
+    imports: [MyWeddingSharedModule, RouterModule.forChild(ENTITY_STATES), NgSelectModule, FormsModule],
     declarations: [
         CompanyComponent,
         CompanyDetailComponent,
@@ -43,7 +33,8 @@ const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
         CompanyDeletePopupComponent,
         CurrentCompanyUpdateComponent,
         CompanyOfferComponent,
-        CompanyWeddingHallComponent
+        CompanyWeddingHallComponent,
+        CompanyReservationOrderComponent
     ],
     entryComponents: [
         CompanyComponent,
@@ -52,7 +43,8 @@ const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
         CompanyDeleteDialogComponent,
         CompanyDeletePopupComponent,
         CompanyOfferComponent,
-        CompanyWeddingHallComponent
+        CompanyWeddingHallComponent,
+        CompanyReservationOrderComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

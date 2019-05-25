@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
                     this.router.navigate(['/ext/offer']);
                 } else if (this.accountService.hasAnyAuthority(['ROLE_COMPANY_OWNER'])) {
                     console.log('role: ROLE_COMPANY_OWNER');
-                    this.router.navigate(['/reservation-order']);
+                    this.router.navigate(['/ext/company/current/reservation-orders']);
                 } else if (this.accountService.hasAnyAuthority(['ROLE_ADMIN'])) {
                     console.log('role: ROLE_ADMIN);');
                     this.router.navigate(['/admin/user-management']);

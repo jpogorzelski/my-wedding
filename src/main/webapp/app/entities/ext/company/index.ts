@@ -6,4 +6,5 @@ export * from './company-detail.component';
 export * from './company.component';
 export * from './company-offer.component';
 export * from './company-wedding-hall.component';
+export * from './company-reservation-order.component';
 export * from './company.route';

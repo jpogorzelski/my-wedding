@@ -27,17 +27,6 @@ export class ReservationOrderComponent implements OnInit, OnDestroy {
     ) {}
 
     loadAll() {
-        this.activatedRoute.data.subscribe(({ reservationOrders }) => {
-            this.reservationOrders = reservationOrders;
-        });
-        this.loadOrders();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInReservationOrders();
-    }
-
-    loadOrders() {
         this.reservationOrderService
             .query()
             .pipe(
@@ -53,7 +42,14 @@ export class ReservationOrderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.activatedRoute.data.subscribe(({ reservationOrders }) => {
+            this.reservationOrders = reservationOrders;
+        });
         this.loadAll();
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInReservationOrders();
     }
 
     ngOnDestroy() {

@@ -10,10 +10,10 @@ import { CompanyComponent } from './company.component';
 import { CompanyDetailComponent } from './company-detail.component';
 import { CompanyUpdateComponent } from './company-update.component';
 import { CompanyDeletePopupComponent } from './company-delete-dialog.component';
-import { ReservationOrderComponent } from 'app/entities/reservation-order';
 import { CurrentCompanyUpdateComponent } from 'app/entities/ext/company/current-company-update.component';
 import { CompanyOfferComponent } from 'app/entities/ext/company/company-offer.component';
 import { CompanyWeddingHallComponent } from 'app/entities/ext/company/company-wedding-hall.component';
+import { CompanyReservationOrderComponent } from 'app/entities/ext/company/company-reservation-order.component';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyResolve implements Resolve<ICompany> {
@@ -36,7 +36,6 @@ export class CurrentCompanyResolve implements Resolve<ICompany> {
     constructor(private service: CompanyService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICompany> {
-        //TODO handle halls, offers and orders for current
         return this.service.current().pipe(
             filter((response: HttpResponse<Company>) => response.ok),
             map((company: HttpResponse<Company>) => company.body)
@@ -56,7 +55,7 @@ export const companyRoute: Routes = [
     },
     {
         path: 'current/reservation-orders',
-        component: ReservationOrderComponent,
+        component: CompanyReservationOrderComponent,
         data: {
             authorities: ['ROLE_COMPANY_OWNER'],
             pageTitle: 'myWeddingApp.company.home.title'
