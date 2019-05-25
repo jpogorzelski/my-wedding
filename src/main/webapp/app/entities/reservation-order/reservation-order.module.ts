@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
@@ -6,13 +6,13 @@ import { JhiLanguageHelper } from 'app/core';
 import { MyWeddingSharedModule } from 'app/shared';
 import {
     ReservationOrderComponent,
-    ReservationOrderDetailComponent,
-    ReservationOrderUpdateComponent,
-    ReservationOrderDeletePopupComponent,
     ReservationOrderDeleteDialogComponent,
+    ReservationOrderDeletePopupComponent,
+    ReservationOrderDetailComponent,
+    reservationOrderPopupRoute,
     reservationOrderRoute,
-    reservationOrderPopupRoute
-} from './';
+    ReservationOrderUpdateComponent
+} from './index';
 
 const ENTITY_STATES = [...reservationOrderRoute, ...reservationOrderPopupRoute];
 

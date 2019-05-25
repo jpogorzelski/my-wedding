@@ -1,10 +1,10 @@
 package io.pogorzelski.mywedding.service;
 
+import io.pogorzelski.mywedding.domain.Company;
 import io.pogorzelski.mywedding.domain.Offer;
 import io.pogorzelski.mywedding.repository.OfferRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,5 +85,11 @@ public class OfferService {
     public void delete(Long id) {
         log.debug("Request to delete Offer : {}", id);
         offerRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Offer> findByCompany(Company company) {
+        log.debug("Request to get all Offers for company: {}", company);
+        return offerRepository.findByWeddingHall_Company(company);
     }
 }

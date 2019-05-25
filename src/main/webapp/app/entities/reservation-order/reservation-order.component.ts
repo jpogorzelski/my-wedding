@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { IReservationOrder } from 'app/shared/model/reservation-order.model';
 import { AccountService } from 'app/core';
 import { ReservationOrderService } from './reservation-order.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-reservation-order',
@@ -21,7 +22,8 @@ export class ReservationOrderComponent implements OnInit, OnDestroy {
         protected reservationOrderService: ReservationOrderService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
-        protected accountService: AccountService
+        protected accountService: AccountService,
+        protected activatedRoute: ActivatedRoute
     ) {}
 
     loadAll() {
@@ -40,6 +42,9 @@ export class ReservationOrderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.activatedRoute.data.subscribe(({ reservationOrders }) => {
+            this.reservationOrders = reservationOrders;
+        });
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;

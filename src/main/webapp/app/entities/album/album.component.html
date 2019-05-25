@@ -30,7 +30,7 @@
                 <td>{{album.created | date:'medium'}}</td>
                 <td>
                     <div *ngIf="album.hallName">
-                        <a [routerLink]="['../wedding-hall', album.hallName?.id, 'view' ]" >{{album.hallName?.id}}</a>
+                        <a [routerLink]="['/wedding-hall', album.hallName?.id, 'view' ]" >{{album.hallName?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

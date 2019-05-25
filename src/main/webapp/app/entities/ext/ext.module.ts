@@ -17,6 +17,10 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './wedding-hall/wedding-hall.module#MyWeddingWeddingHallExtModule'
             },
             {
+                path: 'reservation-order',
+                loadChildren: './reservation-order/reservation-order.module#MyWeddingReservationOrderExtModule'
+            },
+            {
                 path: 'offer',
                 loadChildren: './offer/offer.module#MyWeddingOfferExtModule'
             }

@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="reservationOrder">
+            <h2><span jhiTranslate="myWeddingApp.reservationOrder.detail.title">Reservation Order</span> {{reservationOrder.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.reservationConfirmed">Reservation Confirmed</span></dt>
+                <dd>
+                    <span>{{reservationOrder.reservationConfirmed}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.guestCount">Guest Count</span></dt>
+                <dd>
+                    <span>{{reservationOrder.guestCount}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.downPaymentAmount">Down Payment Amount</span></dt>
+                <dd>
+                    <span>{{reservationOrder.downPaymentAmount}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.downPaymentSettled">Down Payment Settled</span></dt>
+                <dd>
+                    <span>{{reservationOrder.downPaymentSettled}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.createDate">Create Date</span></dt>
+                <dd>
+                    <span>{{reservationOrder.createDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.modificationDate">Modification Date</span></dt>
+                <dd>
+                    <span>{{reservationOrder.modificationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.offer">Offer</span></dt>
+                <dd>
+                    <div *ngIf="reservationOrder.offer">
+                        <a [routerLink]="['/ext/offer', reservationOrder.offer?.id, 'view']">{{reservationOrder.offer?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.reservationOrder.customer">Customer</span></dt>
+                <dd>
+                    <div *ngIf="reservationOrder.customer">
+                        <a [routerLink]="['/ext/customer', reservationOrder.customer?.id, 'view']">{{reservationOrder.customer?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/ext/reservation-order', reservationOrder.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

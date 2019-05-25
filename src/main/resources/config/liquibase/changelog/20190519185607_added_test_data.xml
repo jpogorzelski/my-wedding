@@ -25,5 +25,11 @@
             file="config/liquibase/wedding-halls.csv"
             separator=";"
             tableName="wedding_hall"/>
+
+        <loadData
+            file="config/liquibase/offers.csv"
+            separator=";"
+            tableName="offer"/>
+
     </changeSet>
 </databaseChangeLog>

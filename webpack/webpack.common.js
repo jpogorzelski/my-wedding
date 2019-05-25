@@ -5,7 +5,10 @@ const rxPaths = require('rxjs/_esm5/path-mapping');
 const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 
 const utils = require('./utils.js');
-
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const gitRevisionPlugin = new GitRevisionPlugin({
+    branchCommand: 'log -n 1 --pretty=%d HEAD'
+});
 module.exports = (options) => ({
     resolve: {
         extensions: ['.ts', '.js'],
@@ -57,7 +60,10 @@ module.exports = (options) => ({
             'process.env': {
                 NODE_ENV: `'${options.env}'`,
                 BUILD_TIMESTAMP: `'${new Date().getTime()}'`,
+                BUILD_DATE: `'${new Date()}'`,
                 VERSION: `'${utils.parseVersion()}'`,
+                COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
+                BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
                 DEBUG_INFO_ENABLED: options.env === 'development',
                 // The root URL for API calls, ending with a '/' - for example: `"https://www.jhipster.tech:8081/myservice/"`.
                 // If this URL is left empty (""), then it will be relative to the current context.

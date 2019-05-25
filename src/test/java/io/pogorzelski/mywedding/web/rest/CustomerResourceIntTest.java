@@ -5,6 +5,7 @@ import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.repository.CustomerRepository;
 import io.pogorzelski.mywedding.repository.search.CustomerSearchRepository;
 import io.pogorzelski.mywedding.service.CustomerService;
+import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
@@ -67,6 +68,9 @@ public class CustomerResourceIntTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ReservationOrderService reservationOrderService;
+
     /**
      * This repository is mocked in the io.pogorzelski.mywedding.repository.search test package.
      *
@@ -97,7 +101,7 @@ public class CustomerResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CustomerResource customerResource = new CustomerResource(customerService, userService);
+        final CustomerResource customerResource = new CustomerResource(customerService, userService, reservationOrderService);
         this.restCustomerMockMvc = MockMvcBuilders.standaloneSetup(customerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

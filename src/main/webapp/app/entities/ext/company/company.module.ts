@@ -9,9 +9,13 @@ import {
     CompanyDeleteDialogComponent,
     CompanyDeletePopupComponent,
     CompanyDetailComponent,
+    CompanyOfferComponent,
     companyPopupRoute,
+    CompanyReservationOrderComponent,
     companyRoute,
-    CompanyUpdateComponent
+    CompanyUpdateComponent,
+    CompanyWeddingHallComponent,
+    CurrentCompanyUpdateComponent
 } from './';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -26,9 +30,22 @@ const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
         CompanyDetailComponent,
         CompanyUpdateComponent,
         CompanyDeleteDialogComponent,
-        CompanyDeletePopupComponent
+        CompanyDeletePopupComponent,
+        CurrentCompanyUpdateComponent,
+        CompanyOfferComponent,
+        CompanyWeddingHallComponent,
+        CompanyReservationOrderComponent
     ],
-    entryComponents: [CompanyComponent, CompanyUpdateComponent, CompanyDeleteDialogComponent, CompanyDeletePopupComponent],
+    entryComponents: [
+        CompanyComponent,
+        CompanyUpdateComponent,
+        CurrentCompanyUpdateComponent,
+        CompanyDeleteDialogComponent,
+        CompanyDeletePopupComponent,
+        CompanyOfferComponent,
+        CompanyWeddingHallComponent,
+        CompanyReservationOrderComponent
+    ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -27,3 +27,17 @@ spring:
     data:
         jest:
             uri: ${BONSAI_URL}
+    mail:
+        host: smtp.sendgrid.net
+        port: 587
+        username: ${SENDGRID_USERNAME}
+        password: ${SENDGRID_PASSWORD}
+        protocol: smtp
+        properties:
+            tls: false
+            auth: true
+
+jhipster:
+    mail:
+        from: no-reply@mojewesele.herokuapp.com
+        base-url: https://mojewesele.herokuapp.com

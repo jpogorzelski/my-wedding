@@ -37,7 +37,7 @@
                 <td>{{photo.uploaded | date:'medium'}}</td>
                 <td>
                     <div *ngIf="photo.album">
-                        <a [routerLink]="['../album', photo.album?.id, 'view' ]" >{{photo.album?.title}}</a>
+                        <a [routerLink]="['/album', photo.album?.id, 'view' ]" >{{photo.album?.title}}</a>
                     </div>
                 </td>
                 <td class="text-right">

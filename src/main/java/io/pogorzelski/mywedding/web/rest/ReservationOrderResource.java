@@ -1,36 +1,23 @@
 package io.pogorzelski.mywedding.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.github.jhipster.web.util.ResponseUtil;
-import io.pogorzelski.mywedding.domain.Authority;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.domain.User;
-import io.pogorzelski.mywedding.security.AuthoritiesConstants;
+import io.pogorzelski.mywedding.service.OfferService;
 import io.pogorzelski.mywedding.service.ReservationOrderService;
 import io.pogorzelski.mywedding.service.UserService;
 import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
 import io.pogorzelski.mywedding.web.rest.util.HeaderUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * REST controller for managing ReservationOrder.
@@ -44,10 +31,12 @@ public class ReservationOrderResource {
     private static final String ENTITY_NAME = "reservationOrder";
 
     private final ReservationOrderService reservationOrderService;
+    private final OfferService offerService;
     private final UserService userService;
 
-    public ReservationOrderResource(ReservationOrderService reservationOrderService, UserService userService) {
+    public ReservationOrderResource(ReservationOrderService reservationOrderService, OfferService offerService, UserService userService) {
         this.reservationOrderService = reservationOrderService;
+        this.offerService = offerService;
         this.userService = userService;
     }
 
@@ -99,25 +88,7 @@ public class ReservationOrderResource {
     @GetMapping("/reservation-orders")
     public List<ReservationOrder> getAllReservationOrders() {
         log.debug("REST request to get all ReservationOrders");
-
-        final Set<String> roles = userService.getUserWithAuthorities()
-            .map(User::getAuthorities)
-            .orElse(Collections.emptySet()).stream()
-            .map(Authority::getName)
-            .collect(Collectors.toSet());
-
-        if (roles.contains(AuthoritiesConstants.ADMIN)) {
-            return reservationOrderService.findAll();
-        } else if (roles.contains(AuthoritiesConstants.COMPANY_OWNER)) {
-            return userService.getCompany()
-                .map(reservationOrderService::findByCompany)
-                .orElse(Collections.emptyList());
-        } else if (roles.contains(AuthoritiesConstants.CUSTOMER)) {
-            return userService.getCustomer()
-                .map(reservationOrderService::findByCustomer)
-                .orElse(Collections.emptyList());
-        }
-        return Collections.emptyList();
+        return reservationOrderService.findAll();
     }
 
     /**
@@ -142,8 +113,11 @@ public class ReservationOrderResource {
     @GetMapping("/reservation-orders/offer/{id}")
     public ResponseEntity<ReservationOrder> getReservationOrderByOfferId(@PathVariable Long id) {
         log.debug("REST request to get ReservationOrder by Offer : {}", id);
-        Optional<ReservationOrder> reservationOrder = reservationOrderService.findByOfferId(id);
-        return ResponseUtil.wrapOrNotFound(reservationOrder);
+        ReservationOrder result = reservationOrderService.findByOfferId(id)
+            .orElse(new ReservationOrder()
+                .offer(offerService.findOne(id)
+                    .orElseThrow(NoSuchElementException::new)));
+        return ResponseEntity.ok().body(result);
     }
 
     /**

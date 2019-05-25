@@ -1,0 +1,126 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form #editForm="ngForm" (ngSubmit)="save()" name="editForm" novalidate role="form">
+            <h2 id="jhi-customer-heading" jhiTranslate="myWeddingApp.customer.home.updateProfileLabel">Edit profile
+                details</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div [hidden]="true" class="form-group">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input [(ngModel)]="customer.id" class="form-control" id="id" name="id"
+                           readonly type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_phoneNumber"
+                           jhiTranslate="myWeddingApp.customer.phoneNumber">Phone Number</label>
+                    <input [(ngModel)]="customer.phoneNumber" class="form-control" id="field_phoneNumber"
+                           name="phoneNumber"
+                           type="text"/>
+                </div>
+                <div class="address-details">
+                    <h4 id="jhi-customer-address-heading"
+                        jhiTranslate="myWeddingApp.customer.home.addressLabel">Address</h4>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_country"
+                               jhiTranslate="myWeddingApp.customer.country">Country</label>
+                        <ng-select [(ngModel)]="customer.country"
+                                   [items]="countries"
+                                   bindLabel="countryName"
+                                   id="field_country"
+                                   name="country"
+                                   required="true">
+                        </ng-select>
+                    </div>
+                    <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                        <small [hidden]="!editForm.controls.country?.errors?.required"
+                               class="form-text text-danger" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_province"
+                               jhiTranslate="myWeddingApp.customer.province">Province</label>
+                        <ng-select [(ngModel)]="customer.province"
+                                   [items]="provinces"
+                                   bindLabel="provinceName"
+                                   id="field_province"
+                                   name="province"
+                                   required="true">
+                        </ng-select>
+                    </div>
+                    <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                        <small [hidden]="!editForm.controls.province?.errors?.required"
+                               class="form-text text-danger" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_city"
+                               jhiTranslate="myWeddingApp.customer.city">City</label>
+                        <ng-select [(ngModel)]="customer.city"
+                                   [items]="cities"
+                                   bindLabel="cityName"
+                                   id="field_city"
+                                   name="city"
+                                   required="true">
+                        </ng-select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_street"
+                               jhiTranslate="myWeddingApp.customer.street">Street</label>
+                        <input [(ngModel)]="customer.street" class="form-control" id="field_street" name="street"
+                               required type="text"/>
+                        <div [hidden]="!(editForm.controls.street?.dirty && editForm.controls.street?.invalid)">
+                            <small [hidden]="!editForm.controls.street?.errors?.required"
+                                   class="form-text text-danger" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_houseNo"
+                               jhiTranslate="myWeddingApp.customer.houseNo">House
+                            No</label>
+                        <input [(ngModel)]="customer.houseNo" class="form-control" id="field_houseNo" name="houseNo"
+                               required type="text"/>
+                        <div [hidden]="!(editForm.controls.houseNo?.dirty && editForm.controls.houseNo?.invalid)">
+                            <small [hidden]="!editForm.controls.houseNo?.errors?.required"
+                                   class="form-text text-danger" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_flatNo"
+                               jhiTranslate="myWeddingApp.customer.flatNo">Flat
+                            No</label>
+                        <input [(ngModel)]="customer.flatNo" class="form-control" id="field_flatNo" name="flatNo"
+                               type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_postalCode"
+                               jhiTranslate="myWeddingApp.customer.postalCode">Postal Code</label>
+                        <input [(ngModel)]="customer.postalCode" class="form-control" id="field_postalCode"
+                               name="postalCode"
+                               required type="text"/>
+                        <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                            <small [hidden]="!editForm.controls.postalCode?.errors?.required"
+                                   class="form-text text-danger" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button (click)="previousState()" class="btn btn-secondary" id="cancel-save" type="button">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" id="save-entity"
+                        type="submit">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

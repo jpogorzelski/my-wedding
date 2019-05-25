@@ -1,24 +1,24 @@
 package io.pogorzelski.mywedding.service;
 
-import static org.hibernate.id.IdentifierGenerator.*;
+import io.pogorzelski.mywedding.domain.Company;
+import io.pogorzelski.mywedding.domain.Customer;
+import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.ReservationOrder;
+import io.pogorzelski.mywedding.repository.OfferRepository;
+import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
+import io.pogorzelski.mywedding.security.SecurityUtils;
+import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.domain.Customer;
-import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
-import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
-import io.pogorzelski.mywedding.security.SecurityUtils;
-import io.pogorzelski.mywedding.web.rest.errors.BadRequestAlertException;
+import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 /**
  * Service Implementation for managing ReservationOrder.
@@ -30,14 +30,14 @@ public class ReservationOrderService {
     private final Logger log = LoggerFactory.getLogger(ReservationOrderService.class);
 
     private final ReservationOrderRepository reservationOrderRepository;
+    private final OfferRepository offerRepository;
     private final UserService userService;
-    private final CustomerRepository customerRepository;
     private final Clock clock;
 
-    public ReservationOrderService(ReservationOrderRepository reservationOrderRepository, UserService userService, CustomerRepository customerRepository, Clock clock) {
+    public ReservationOrderService(ReservationOrderRepository reservationOrderRepository, OfferRepository offerRepository, UserService userService, Clock clock) {
         this.reservationOrderRepository = reservationOrderRepository;
+        this.offerRepository = offerRepository;
         this.userService = userService;
-        this.customerRepository = customerRepository;
         this.clock = clock;
     }
 
@@ -62,6 +62,9 @@ public class ReservationOrderService {
             reservationOrder.setCreateDate(oldEntity.getCreateDate());
         }
         reservationOrder.setModificationDate(now);
+        final Offer offer = reservationOrder.getOffer();
+        offer.setAvailable(false);
+        offerRepository.save(offer);
         return reservationOrderRepository.save(reservationOrder);
     }
 

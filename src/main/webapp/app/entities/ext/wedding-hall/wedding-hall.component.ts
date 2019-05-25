@@ -33,6 +33,9 @@ export class WeddingHallComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
         if (this.currentSearch) {
             this.weddingHallService
                 .search({
@@ -45,6 +48,11 @@ export class WeddingHallComponent implements OnInit, OnDestroy {
                 .subscribe((res: IWeddingHall[]) => (this.weddingHalls = res), (res: HttpErrorResponse) => this.onError(res.message));
             return;
         }
+        this.loadHalls();
+        this.registerChangeInWeddingHalls();
+    }
+
+    loadHalls() {
         this.weddingHallService
             .query()
             .pipe(
@@ -75,10 +83,6 @@ export class WeddingHallComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInWeddingHalls();
     }
 
     ngOnDestroy() {

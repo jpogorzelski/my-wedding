@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
                 console.log('logged in!');
                 if (this.accountService.hasAnyAuthority(['ROLE_CUSTOMER'])) {
                     console.log('role: ROLE_CUSTOMER');
-                    this.router.navigate(['/offer']);
+                    this.router.navigate(['/ext/offer']);
                 } else if (this.accountService.hasAnyAuthority(['ROLE_COMPANY_OWNER'])) {
                     console.log('role: ROLE_COMPANY_OWNER');
-                    this.router.navigate(['/reservation-order']);
+                    this.router.navigate(['/ext/company/current/reservation-orders']);
                 } else if (this.accountService.hasAnyAuthority(['ROLE_ADMIN'])) {
                     console.log('role: ROLE_ADMIN);');
                     this.router.navigate(['/admin/user-management']);

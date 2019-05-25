@@ -36,7 +36,7 @@
                 <td>{{offer.endDate | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="offer.weddingHall">
-                        <a [routerLink]="['../wedding-hall', offer.weddingHall?.id, 'view' ]" >{{offer.weddingHall?.hallName}}</a>
+                        <a [routerLink]="['/wedding-hall', offer.weddingHall?.id, 'view' ]" >{{offer.weddingHall?.hallName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
