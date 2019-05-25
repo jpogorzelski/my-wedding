@@ -5,4 +5,5 @@ export * from './company-delete-dialog.component';
 export * from './company-detail.component';
 export * from './company.component';
 export * from './company-offer.component';
+export * from './company-wedding-hall.component';
 export * from './company.route';

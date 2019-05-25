@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { MyWeddingReservationOrderModule } from 'app/entities/reservation-order/reservation-order.module';
 import { MyWeddingWeddingHallExtModule } from 'app/entities/ext/wedding-hall/wedding-hall.module';
 import { MyWeddingOfferExtModule } from 'app/entities/ext/offer/offer.module';
+import { CompanyWeddingHallComponent } from 'app/entities/ext/company/company-wedding-hall.component';
 
 const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
 
@@ -41,7 +42,8 @@ const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
         CompanyDeleteDialogComponent,
         CompanyDeletePopupComponent,
         CurrentCompanyUpdateComponent,
-        CompanyOfferComponent
+        CompanyOfferComponent,
+        CompanyWeddingHallComponent
     ],
     entryComponents: [
         CompanyComponent,
@@ -49,7 +51,8 @@ const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
         CurrentCompanyUpdateComponent,
         CompanyDeleteDialogComponent,
         CompanyDeletePopupComponent,
-        CompanyOfferComponent
+        CompanyOfferComponent,
+        CompanyWeddingHallComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

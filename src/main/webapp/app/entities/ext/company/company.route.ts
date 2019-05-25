@@ -11,9 +11,9 @@ import { CompanyDetailComponent } from './company-detail.component';
 import { CompanyUpdateComponent } from './company-update.component';
 import { CompanyDeletePopupComponent } from './company-delete-dialog.component';
 import { ReservationOrderComponent } from 'app/entities/reservation-order';
-import { WeddingHallComponent } from 'app/entities/ext/wedding-hall';
 import { CurrentCompanyUpdateComponent } from 'app/entities/ext/company/current-company-update.component';
 import { CompanyOfferComponent } from 'app/entities/ext/company/company-offer.component';
+import { CompanyWeddingHallComponent } from 'app/entities/ext/company/company-wedding-hall.component';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyResolve implements Resolve<ICompany> {
@@ -74,7 +74,7 @@ export const companyRoute: Routes = [
     },
     {
         path: 'current/wedding-halls',
-        component: WeddingHallComponent,
+        component: CompanyWeddingHallComponent,
         data: {
             authorities: ['ROLE_COMPANY_OWNER'],
             pageTitle: 'myWeddingApp.company.home.title'
