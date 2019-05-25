@@ -1,4 +1,5 @@
 id;company_id;hall_name;country_id;province_id;city_id
 1;1;Lipcowy ogród;161;10;1451
 2;2;Dwór Czarneckiego;161;9;1351
-3;3;Hotel Triumf 3;161;8;1251
+3;3;Hotel Triumf;161;8;1251
+4;1;Hotel Traugutta 3;161;10;1451

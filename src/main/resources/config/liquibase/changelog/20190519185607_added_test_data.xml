@@ -30,5 +30,6 @@
             file="config/liquibase/offers.csv"
             separator=";"
             tableName="offer"/>
+
     </changeSet>
 </databaseChangeLog>
