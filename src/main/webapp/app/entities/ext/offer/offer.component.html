@@ -41,12 +41,14 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <button *jhiHasAnyAuthority="['ROLE_CUSTOMER']" type="submit"
-                                [routerLink]="['/ext/offer', offer.id, 'book' ]"
-                                class="btn btn-success btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.book">Book</span>
-                        </button>
+                        <span *jhiHasAnyAuthority="['ROLE_CUSTOMER']">
+                            <button *ngIf="offer.available" type="submit"
+                                    [routerLink]="['/ext/offer', offer.id, 'book' ]"
+                                    class="btn btn-success btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.book">Book</span>
+                            </button>
+                        </span>
                         <button type="submit"
                                 [routerLink]="['/ext/offer', offer.id, 'view' ]"
                                 class="btn btn-info btn-sm">

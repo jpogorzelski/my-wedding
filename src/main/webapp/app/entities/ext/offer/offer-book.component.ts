@@ -41,9 +41,11 @@ export class OfferBookComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.reservationOrder.id !== undefined) {
+        if (this.reservationOrder.id) {
+            console.log('#### update: ' + this.reservationOrder.id);
             this.subscribeToSaveResponse(this.reservationOrderService.update(this.reservationOrder));
         } else {
+            console.log('#### create');
             this.subscribeToSaveResponse(this.reservationOrderService.create(this.reservationOrder));
         }
     }

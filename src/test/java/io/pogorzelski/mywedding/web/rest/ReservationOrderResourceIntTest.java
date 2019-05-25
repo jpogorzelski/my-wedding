@@ -4,7 +4,7 @@ import io.pogorzelski.mywedding.MyWeddingApp;
 import io.pogorzelski.mywedding.domain.Customer;
 import io.pogorzelski.mywedding.domain.Offer;
 import io.pogorzelski.mywedding.domain.ReservationOrder;
-import io.pogorzelski.mywedding.repository.CustomerRepository;
+import io.pogorzelski.mywedding.repository.OfferRepository;
 import io.pogorzelski.mywedding.repository.ReservationOrderRepository;
 import io.pogorzelski.mywedding.service.CustomerService;
 import io.pogorzelski.mywedding.service.OfferService;
@@ -81,12 +81,11 @@ public class ReservationOrderResourceIntTest {
     private ReservationOrderService reservationOrderService;
 
     @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
     private CustomerService customerService;
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private OfferRepository offerRepository;
     @Autowired
     private OfferService offerService;
 
@@ -115,7 +114,7 @@ public class ReservationOrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        this.reservationOrderService = new ReservationOrderService(reservationOrderRepository, userService, customerRepository, clock);
+        this.reservationOrderService = new ReservationOrderService(reservationOrderRepository, offerRepository, userService, clock);
         final ReservationOrderResource reservationOrderResource = new ReservationOrderResource(reservationOrderService, offerService, userService);
         doReturn(EXPECTED_CREATED).when(clock).instant();
         doReturn(UTC).when(clock).getZone();
