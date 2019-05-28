@@ -13,7 +13,7 @@ import { ProvinceService } from 'app/entities/province';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
 import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company';
+import { CompanyService } from 'app/entities/ext/company';
 
 @Component({
     selector: 'jhi-wedding-hall-update',
@@ -29,7 +29,7 @@ export class WeddingHallUpdateComponent implements OnInit {
 
     cities: ICity[];
 
-    companies: ICompany[];
+    company: ICompany;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -68,12 +68,17 @@ export class WeddingHallUpdateComponent implements OnInit {
             )
             .subscribe((res: ICity[]) => (this.cities = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.companyService
-            .query()
+            .current()
             .pipe(
-                filter((mayBeOk: HttpResponse<ICompany[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ICompany[]>) => response.body)
+                filter((mayBeOk: HttpResponse<ICompany>) => mayBeOk.ok),
+                map((response: HttpResponse<ICompany>) => response.body)
             )
-            .subscribe((res: ICompany[]) => (this.companies = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe(
+                (res: ICompany) => {
+                    this.company = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     previousState() {
@@ -98,10 +103,6 @@ export class WeddingHallUpdateComponent implements OnInit {
     }
 
     trackCityById(index: number, item: ICity) {
-        return item.id;
-    }
-
-    trackCompanyById(index: number, item: ICompany) {
         return item.id;
     }
 

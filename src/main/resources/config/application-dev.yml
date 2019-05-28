@@ -62,6 +62,8 @@ spring:
             properties:
                 path:
                     home: build/elasticsearch
+        jest:
+            uri: http://localhost:9200
     liquibase:
         contexts: dev
     mail:
