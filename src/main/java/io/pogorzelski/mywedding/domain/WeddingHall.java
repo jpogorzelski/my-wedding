@@ -1,27 +1,17 @@
 package io.pogorzelski.mywedding.domain;
 
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * A WeddingHall.
@@ -33,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class WeddingHall implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -61,10 +51,10 @@ public class WeddingHall implements Serializable {
     @JsonIgnoreProperties("weddingHalls")
     private Company company;
 
-    @OneToMany(mappedBy = "hallName")
+    @OneToMany(mappedBy = "hallName", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Album> albums = new HashSet<>();
-    @OneToMany(mappedBy = "weddingHall")
+    @OneToMany(mappedBy = "weddingHall", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Offer> offers = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

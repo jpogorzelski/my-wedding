@@ -5,7 +5,8 @@
                 "title": "Sala weselna",
                 "createLabel": "Dodaj Salę weselną",
                 "createOrEditLabel": "Dodaj lub edytuj: Sala weselna",
-                "search": "Szukaj Sali weselnej"
+                "search": "Szukaj Sali weselnej",
+                "galleryLabel": "Galeria"
             },
             "created": "Utworzono nowy obiekt typu Sala weselna z identyfikatorem {{ param }}",
             "updated": "Uaktualniono obiekt typu Sala weselna z identyfikatorem {{ param }}",
