@@ -12,7 +12,7 @@ import { IProvince } from 'app/shared/model/province.model';
 import { ProvinceService } from 'app/entities/province';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
-import { CompanyService } from 'app/entities/ext/company';
+import { CompanyService } from 'app/entities/ext/company/company.service';
 import { IPhoto } from 'app/shared/model/photo.model';
 
 @Component({
