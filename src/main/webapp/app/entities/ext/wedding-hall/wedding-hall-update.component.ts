@@ -46,7 +46,7 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ weddingHall }) => {
             this.weddingHall = weddingHall;
             this.weddingHall.albums = this.weddingHall.albums || [];
-            if (this.weddingHall.albums.length == 0) {
+            if (this.weddingHall.albums.length === 0) {
                 this.weddingHall.albums[0] = {};
             }
             this.weddingHall.albums[0].photos = this.weddingHall.albums[0].photos || [];
@@ -116,7 +116,7 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    //photo related
+    // photo related
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }
