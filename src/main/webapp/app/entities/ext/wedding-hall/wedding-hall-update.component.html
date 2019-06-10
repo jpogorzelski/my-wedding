@@ -82,77 +82,94 @@
                     <h4 id="jhi-wedding-hall-gallery-heading"
                         jhiTranslate="myWeddingApp.weddingHall.home.galleryLabel">Gallery</h4>
                     <div class="form-group">
-                        <label class="form-control-label" jhiTranslate="myWeddingApp.album.title" for="field_album_title">Album Title</label>
-                        <input type="text" class="form-control" name="title" id="field_album_title"
-                               [(ngModel)]="weddingHall.albums[0].title" required/>
+                        <label class="form-control-label" jhiTranslate="myWeddingApp.album.title"
+                               for="field_album_title">Album Title</label>
+                        <input type="text" class="form-control" name="album_title" id="field_album_title"
+                               [(ngModel)]="weddingHall.album.title" required/>
                         <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
                             <small class="form-text text-danger"
-                                   [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
+                                   [hidden]="!editForm.controls.title?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
                                 This field is required.
                             </small>
                         </div>
                     </div>
-                    <div *ngFor="let photo of weddingHall.albums[0].photos">
-                        <div class="form-group" [hidden]="!photo.id">
-                            <label for="id" jhiTranslate="global.field.id">ID</label>
-                            <input type="text" class="form-control" id="id" name="id"
-                                   [(ngModel)]="photo.id" readonly/>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="myWeddingApp.photo.title" for="field_title">Title</label>
-                            <input type="text" class="form-control" name="title" id="field_title"
-                                   [(ngModel)]="photo.title" required/>
-                            <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.title?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
+                    <div *ngFor="let photo of weddingHall.album.photos; trackBy: trackPhotosById">
+                        <fieldset>
+                            <button type="button"
+                                    (click)="deleteImage(photo)"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                Remove photo
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                            <div class="form-group" [hidden]="!photo.id">
+                                <label for="id" jhiTranslate="global.field.id">ID</label>
+                                <input type="text" class="form-control" id="photo_${i}_id" name="photo_${i}_id"
+                                       [(ngModel)]="photo.id" readonly/>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="myWeddingApp.photo.description"
-                                   for="field_description">Description</label>
-                            <textarea class="form-control" name="description" id="field_description"
-                                      [(ngModel)]="photo.description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="myWeddingApp.photo.image" for="field_image">Image</label>
-                            <div>
-                                <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image"
-                                     style="max-height: 100px;" *ngIf="photo.image" alt="photo image"/>
-                                <div *ngIf="photo.image" class="form-text text-danger clearfix">
-                                    <span class="pull-left">{{photo.imageContentType}}, {{byteSize(photo.image)}}</span>
-                                    <button type="button"
-                                            (click)="clearInputImage(photo, 'image', 'imageContentType', 'fileImage')"
-                                            class="btn btn-secondary btn-xs pull-right">
-                                        <fa-icon [icon]="'times'"></fa-icon>
-                                    </button>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="myWeddingApp.photo.title"
+                                       for="field_photo_${i}_title">Title</label>
+                                <input type="text" class="form-control" name="photo_${i}_title" id="field_photo_${i}_title"
+                                       [(ngModel)]="photo.title" required/>
+                                <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.title?.errors?.required"
+                                           jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
                                 </div>
-                                <input type="file" id="file_image" (change)="setFileData($event, photo, 'image', true)"
-                                       accept="image/*" jhiTranslate="entity.action.addimage"/>
                             </div>
-                            <input type="hidden" class="form-control" name="image" id="field_image"
-                                   [(ngModel)]="photo.image" required/>
-                            <input type="hidden" class="form-control" name="imageContentType"
-                                   id="field_imageContentType"
-                                   [(ngModel)]="photo.imageContentType"/>
-                            <div [hidden]="!(editForm.controls.image?.dirty && editForm.controls.image?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.image?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="myWeddingApp.photo.description"
+                                       for="field_photo_${i}_description">Description</label>
+                                <textarea class="form-control" name="photo_${i}_description" id="field_photo_${i}_description"
+                                          [(ngModel)]="photo.description"></textarea>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="myWeddingApp.photo.image"
+                                       for="field_photo_${i}_image">Image</label>
+                                <div>
+                                    <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image"
+                                         style="max-height: 100px;" *ngIf="photo.image" alt="photo image"/>
+                                    <div *ngIf="photo.image" class="form-text text-danger clearfix">
+                                        <span class="pull-left">{{photo.imageContentType}}
+                                            , {{byteSize(photo.image)}}</span>
+                                        <button type="button"
+                                                (click)="clearInputImage(photo, 'image', 'imageContentType', 'fileImage')"
+                                                class="btn btn-secondary btn-xs pull-right">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="file_photo_${i}_image"
+                                           (change)="setFileData($event, photo, 'image', true)"
+                                           accept="image/*" jhiTranslate="entity.action.addimage"/>
+                                </div>
+                                <input type="hidden" class="form-control" name="photo_${i}_image" id="field_photo_${i}_image"
+                                       [(ngModel)]="photo.image" required/>
+                                <input type="hidden" class="form-control" name="imageContentType"
+                                       id="field_imageContentType"
+                                       [(ngModel)]="photo.imageContentType"/>
+                                <div [hidden]="!(editForm.controls.image?.dirty && editForm.controls.image?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.image?.errors?.required"
+                                           jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <hr />
+                        </fieldset>
                     </div>
 
                     <div>
                         <button type="button"
                                 (click)="newImage()"
                                 class="btn btn-secondary btn-xs pull-right">
-                            New image <fa-icon [icon]="'plus'"></fa-icon>
+                            New image
+                            <fa-icon [icon]="'plus'"></fa-icon>
                         </button>
+                        <br />
                     </div>
                 </div>
             </div>

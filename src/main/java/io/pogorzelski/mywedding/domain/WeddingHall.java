@@ -34,7 +34,7 @@ public class WeddingHall implements Serializable {
     @Column(name = "hall_name", nullable = false)
     private String hallName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Album album;
 

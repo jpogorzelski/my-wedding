@@ -13,7 +13,8 @@ import { ProvinceService } from 'app/entities/province';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
 import { CompanyService } from 'app/entities/ext/company/company.service';
-import { IPhoto } from 'app/shared/model/photo.model';
+import { IPhoto, Photo } from 'app/shared/model/photo.model';
+import { Album } from 'app/shared/model/album.model';
 
 @Component({
     selector: 'jhi-wedding-hall-update',
@@ -45,7 +46,7 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ weddingHall }) => {
             this.weddingHall = weddingHall;
-            this.weddingHall.album = this.weddingHall.album || {};
+            this.weddingHall.album = this.weddingHall.album || new Album();
             this.weddingHall.album.photos = this.weddingHall.album.photos || [];
         });
         this.countryService
@@ -96,6 +97,10 @@ export class WeddingHallUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackPhotosById(index: number, item: IPhoto) {
+        return item.id;
+    }
+
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IWeddingHall>>) {
         result.subscribe((res: HttpResponse<IWeddingHall>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
@@ -131,8 +136,12 @@ export class WeddingHallUpdateComponent implements OnInit {
     }
 
     newImage() {
-        const idx = this.weddingHall.album.photos.length;
-        console.log('new image clicked. creating photo no. ' + idx);
-        this.weddingHall.album.photos[idx] = {};
+        console.log('adding new image.');
+        this.weddingHall.album.photos.push({ album: this.weddingHall.album });
+    }
+
+    deleteImage(photo: IPhoto) {
+        console.log('removing photo: ' + photo);
+        this.weddingHall.album.photos.splice(this.weddingHall.album.photos.indexOf(photo), 1);
     }
 }

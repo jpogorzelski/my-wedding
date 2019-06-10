@@ -23,7 +23,7 @@ import java.util.Objects;
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -40,7 +40,7 @@ public class Album implements Serializable {
     @Column(name = "created")
     private Instant created;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Photo> photos = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
