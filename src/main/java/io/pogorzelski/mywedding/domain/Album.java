@@ -40,7 +40,7 @@ public class Album implements Serializable {
     @Column(name = "created")
     private Instant created;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Photo> photos = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

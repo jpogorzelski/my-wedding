@@ -137,7 +137,7 @@ export class WeddingHallUpdateComponent implements OnInit {
 
     newImage() {
         console.log('adding new image.');
-        this.weddingHall.album.photos.push({ album: this.weddingHall.album });
+        this.weddingHall.album.photos.push({ album: { id: this.weddingHall.album.id } });
     }
 
     deleteImage(photo: IPhoto) {

@@ -21,6 +21,8 @@ export class WeddingHallService {
     }
 
     update(weddingHall: IWeddingHall): Observable<EntityResponseType> {
+        console.log('update wedding hall call api');
+        console.dir(weddingHall);
         return this.http.put<IWeddingHall>(this.resourceUrl, weddingHall, { observe: 'response' });
     }
 

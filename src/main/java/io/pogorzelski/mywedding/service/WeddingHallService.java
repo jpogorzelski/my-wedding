@@ -1,6 +1,8 @@
 package io.pogorzelski.mywedding.service;
 
 import io.pogorzelski.mywedding.domain.Company;
+import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.Photo;
 import io.pogorzelski.mywedding.domain.WeddingHall;
 import io.pogorzelski.mywedding.repository.WeddingHallRepository;
 import io.pogorzelski.mywedding.repository.search.WeddingHallSearchRepository;
@@ -42,6 +44,9 @@ public class WeddingHallService {
      */
     public WeddingHall save(WeddingHall weddingHall) {
         log.debug("Request to save WeddingHall : {}", weddingHall);
+        for (Photo photo: weddingHall.getAlbum().getPhotos()){
+            photo.setAlbum(weddingHall.getAlbum());
+        }
         WeddingHall result = weddingHallRepository.save(weddingHall);
         weddingHallSearchRepository.save(result);
         return result;
