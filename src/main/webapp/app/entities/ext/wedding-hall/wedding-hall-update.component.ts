@@ -45,11 +45,8 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ weddingHall }) => {
             this.weddingHall = weddingHall;
-            this.weddingHall.albums = this.weddingHall.albums || [];
-            if (this.weddingHall.albums.length === 0) {
-                this.weddingHall.albums[0] = {};
-            }
-            this.weddingHall.albums[0].photos = this.weddingHall.albums[0].photos || [];
+            this.weddingHall.album = this.weddingHall.album || {};
+            this.weddingHall.album.photos = this.weddingHall.album.photos || [];
         });
         this.countryService
             .query()
@@ -134,8 +131,8 @@ export class WeddingHallUpdateComponent implements OnInit {
     }
 
     newImage() {
-        const idx = this.weddingHall.albums[0].photos.length;
+        const idx = this.weddingHall.album.photos.length;
         console.log('new image clicked. creating photo no. ' + idx);
-        this.weddingHall.albums[0].photos[idx] = {};
+        this.weddingHall.album.photos[idx] = {};
     }
 }

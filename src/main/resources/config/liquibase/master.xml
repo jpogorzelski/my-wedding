@@ -21,7 +21,6 @@
     <include file="config/liquibase/changelog/20190316150828_added_entity_constraints_Customer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150829_added_entity_constraints_Company.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150830_added_entity_constraints_WeddingHall.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190405154403_added_entity_constraints_Album.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190405154404_added_entity_constraints_Photo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408075219_added_entity_constraints_Offer.xml"
              relativeToChangelogFile="false"/>

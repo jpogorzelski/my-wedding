@@ -1,17 +1,18 @@
 package io.pogorzelski.mywedding.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Album.
@@ -22,7 +23,7 @@ import java.util.Set;
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -39,11 +40,7 @@ public class Album implements Serializable {
     @Column(name = "created")
     private Instant created;
 
-    @ManyToOne
-    @JsonIgnoreProperties("albums")
-    private WeddingHall hallName;
-
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Photo> photos = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -92,19 +89,6 @@ public class Album implements Serializable {
 
     public void setCreated(Instant created) {
         this.created = created;
-    }
-
-    public WeddingHall getHallName() {
-        return hallName;
-    }
-
-    public Album hallName(WeddingHall weddingHall) {
-        this.hallName = weddingHall;
-        return this;
-    }
-
-    public void setHallName(WeddingHall weddingHall) {
-        this.hallName = weddingHall;
     }
 
     public Set<Photo> getPhotos() {
