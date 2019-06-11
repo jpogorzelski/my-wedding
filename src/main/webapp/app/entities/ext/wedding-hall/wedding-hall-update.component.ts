@@ -46,7 +46,7 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ weddingHall }) => {
             this.weddingHall = weddingHall;
-            this.weddingHall.album = this.weddingHall.album || new Album();
+            this.weddingHall.album = this.weddingHall.album || { title: '' };
             this.weddingHall.album.photos = this.weddingHall.album.photos || [];
         });
         this.countryService

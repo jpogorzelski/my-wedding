@@ -81,19 +81,6 @@
                 <div class="gallery-details">
                     <h4 id="jhi-wedding-hall-gallery-heading"
                         jhiTranslate="myWeddingApp.weddingHall.home.galleryLabel">Gallery</h4>
-                    <div class="form-group">
-                        <label class="form-control-label" jhiTranslate="myWeddingApp.album.title"
-                               for="field_album_title">Album Title</label>
-                        <input type="text" class="form-control" name="album_title" id="field_album_title"
-                               [(ngModel)]="weddingHall.album.title" required/>
-                        <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
-                            <small class="form-text text-danger"
-                                   [hidden]="!editForm.controls.title?.errors?.required"
-                                   jhiTranslate="entity.validation.required">
-                                This field is required.
-                            </small>
-                        </div>
-                    </div>
                     <div *ngFor="let photo of weddingHall.album.photos; trackBy: trackPhotosById">
                         <fieldset>
                             <button type="button"
