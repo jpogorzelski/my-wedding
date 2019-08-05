@@ -1,7 +1,6 @@
 package io.pogorzelski.mywedding.service;
 
 import io.pogorzelski.mywedding.domain.Company;
-import io.pogorzelski.mywedding.domain.Offer;
 import io.pogorzelski.mywedding.domain.Photo;
 import io.pogorzelski.mywedding.domain.WeddingHall;
 import io.pogorzelski.mywedding.repository.WeddingHallRepository;
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,8 +44,10 @@ public class WeddingHallService {
      */
     public WeddingHall save(WeddingHall weddingHall) {
         log.debug("Request to save WeddingHall : {}", weddingHall);
-        for (Photo photo: weddingHall.getAlbum().getPhotos()){
-            photo.setAlbum(weddingHall.getAlbum());
+        if (weddingHall.getAlbum() != null && !CollectionUtils.isEmpty(weddingHall.getAlbum().getPhotos())) {
+            for (Photo photo : weddingHall.getAlbum().getPhotos()) {
+                photo.setAlbum(weddingHall.getAlbum());
+            }
         }
         WeddingHall result = weddingHallRepository.save(weddingHall);
         weddingHallSearchRepository.save(result);
