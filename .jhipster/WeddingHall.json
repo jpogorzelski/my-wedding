@@ -11,6 +11,14 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "album",
+            "otherEntityRelationshipName": "weddingHall",
+            "relationshipName": "album",
+            "otherEntityField": "title",
+            "ownerSide": true
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "country",
             "otherEntityRelationshipName": "weddingHall",
@@ -39,12 +47,6 @@
             "otherEntityRelationshipName": "weddingHalls",
             "relationshipName": "company",
             "otherEntityField": "companyName"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "album",
-            "otherEntityRelationshipName": "hallName",
-            "relationshipName": "album"
         },
         {
             "relationshipType": "one-to-many",

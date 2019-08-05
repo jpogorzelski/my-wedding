@@ -81,6 +81,7 @@ relationship OneToOne {
     Customer{user(login)} to User
     Company{owner(login)} to User
     ReservationOrder{offer required} to Offer{reservationOrder}
+    WeddingHall{album(title)} to Album
 }
 
 relationship ManyToOne {
@@ -103,7 +104,6 @@ relationship ManyToOne {
 
     WeddingHall{company(companyName)} to Company{weddingHalls(hallName)}
 
-    Album{hallName} to WeddingHall{album(title)}
     Photo{album(title)} to Album{photos(title)}
 
     Offer{weddingHall(hallName) required} to WeddingHall{offers(eventDate)}

@@ -15,10 +15,9 @@
             "detail": {
                 "title": "Album"
             },
-            "title": "Tytuł",
+            "title": "Tytuł albumu",
             "description": "Opis",
             "created": "Utworzono",
-            "hallName": "Nazwa sali",
             "photos": "Zdjęcia"
         }
     }

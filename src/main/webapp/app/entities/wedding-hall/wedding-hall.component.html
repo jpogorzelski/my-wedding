@@ -31,6 +31,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="myWeddingApp.weddingHall.hallName">Hall Name</span></th>
+            <th><span jhiTranslate="myWeddingApp.weddingHall.album">Album</span></th>
             <th><span jhiTranslate="myWeddingApp.weddingHall.country">Country</span></th>
             <th><span jhiTranslate="myWeddingApp.weddingHall.province">Province</span></th>
             <th><span jhiTranslate="myWeddingApp.weddingHall.city">City</span></th>
@@ -42,6 +43,11 @@
             <tr *ngFor="let weddingHall of weddingHalls ;trackBy: trackId">
                 <td><a [routerLink]="['/wedding-hall', weddingHall.id, 'view' ]">{{weddingHall.id}}</a></td>
                 <td>{{weddingHall.hallName}}</td>
+                <td>
+                    <div *ngIf="weddingHall.album">
+                        <a [routerLink]="['/album', weddingHall.album?.id, 'view' ]" >{{weddingHall.album?.title}}</a>
+                    </div>
+                </td>
                 <td>
                     <div *ngIf="weddingHall.country">
                         <a [routerLink]="['/country', weddingHall.country?.id, 'view' ]" >{{weddingHall.country?.countryName}}</a>

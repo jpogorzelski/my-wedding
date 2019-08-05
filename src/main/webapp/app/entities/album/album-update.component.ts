@@ -5,11 +5,9 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiDataUtils } from 'ng-jhipster';
 import { IAlbum } from 'app/shared/model/album.model';
 import { AlbumService } from './album.service';
-import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
-import { WeddingHallService } from 'app/entities/wedding-hall';
 
 @Component({
     selector: 'jhi-album-update',
@@ -18,17 +16,9 @@ import { WeddingHallService } from 'app/entities/wedding-hall';
 export class AlbumUpdateComponent implements OnInit {
     album: IAlbum;
     isSaving: boolean;
-
-    weddinghalls: IWeddingHall[];
     created: string;
 
-    constructor(
-        protected dataUtils: JhiDataUtils,
-        protected jhiAlertService: JhiAlertService,
-        protected albumService: AlbumService,
-        protected weddingHallService: WeddingHallService,
-        protected activatedRoute: ActivatedRoute
-    ) {}
+    constructor(protected dataUtils: JhiDataUtils, protected albumService: AlbumService, protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -36,13 +26,6 @@ export class AlbumUpdateComponent implements OnInit {
             this.album = album;
             this.created = this.album.created != null ? this.album.created.format(DATE_TIME_FORMAT) : null;
         });
-        this.weddingHallService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IWeddingHall[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IWeddingHall[]>) => response.body)
-            )
-            .subscribe((res: IWeddingHall[]) => (this.weddinghalls = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -82,13 +65,5 @@ export class AlbumUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
-    }
-
-    protected onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackWeddingHallById(index: number, item: IWeddingHall) {
-        return item.id;
     }
 }

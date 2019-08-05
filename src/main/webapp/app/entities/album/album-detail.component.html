@@ -17,12 +17,6 @@
                 <dd>
                     <span>{{album.created}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.album.hallName">Hall Name</span></dt>
-                <dd>
-                    <div *ngIf="album.hallName">
-                        <a [routerLink]="['/wedding-hall', album.hallName?.id, 'view']">{{album.hallName?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

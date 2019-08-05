@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
 import { WeddingHallService } from './wedding-hall.service';
 import { ICountry } from 'app/shared/model/country.model';
@@ -12,8 +12,9 @@ import { IProvince } from 'app/shared/model/province.model';
 import { ProvinceService } from 'app/entities/province';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company';
+import { CompanyService } from 'app/entities/ext/company/company.service';
+import { IPhoto, Photo } from 'app/shared/model/photo.model';
+import { Album } from 'app/shared/model/album.model';
 
 @Component({
     selector: 'jhi-wedding-hall-update',
@@ -29,8 +30,6 @@ export class WeddingHallUpdateComponent implements OnInit {
 
     cities: ICity[];
 
-    companies: ICompany[];
-
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected weddingHallService: WeddingHallService,
@@ -38,13 +37,17 @@ export class WeddingHallUpdateComponent implements OnInit {
         protected provinceService: ProvinceService,
         protected cityService: CityService,
         protected companyService: CompanyService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected dataUtils: JhiDataUtils,
+        protected elementRef: ElementRef
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ weddingHall }) => {
             this.weddingHall = weddingHall;
+            this.weddingHall.album = this.weddingHall.album || { title: '' };
+            this.weddingHall.album.photos = this.weddingHall.album.photos || [];
         });
         this.countryService
             .query()
@@ -67,13 +70,6 @@ export class WeddingHallUpdateComponent implements OnInit {
                 map((response: HttpResponse<ICity[]>) => response.body)
             )
             .subscribe((res: ICity[]) => (this.cities = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.companyService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<ICompany[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ICompany[]>) => response.body)
-            )
-            .subscribe((res: ICompany[]) => (this.companies = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -101,7 +97,7 @@ export class WeddingHallUpdateComponent implements OnInit {
         return item.id;
     }
 
-    trackCompanyById(index: number, item: ICompany) {
+    trackPhotosById(index: number, item: IPhoto) {
         return item.id;
     }
 
@@ -120,5 +116,32 @@ export class WeddingHallUpdateComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    // photo related
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    clearInputImage(photo: IPhoto, field: string, fieldContentType: string, idInput: string) {
+        this.dataUtils.clearInputImage(photo, this.elementRef, field, fieldContentType, idInput);
+    }
+
+    newImage() {
+        console.log('adding new image.');
+        this.weddingHall.album.photos.push({ album: { id: this.weddingHall.album.id } });
+    }
+
+    deleteImage(photo: IPhoto) {
+        console.log('removing photo: ' + photo);
+        this.weddingHall.album.photos.splice(this.weddingHall.album.photos.indexOf(photo), 1);
     }
 }

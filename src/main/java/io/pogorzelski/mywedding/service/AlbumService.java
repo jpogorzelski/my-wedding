@@ -58,7 +58,6 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-
     /**
      * Get one album by id.
      *

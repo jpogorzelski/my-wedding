@@ -20,13 +20,6 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "weddingHall",
-            "otherEntityRelationshipName": "album",
-            "relationshipName": "hallName",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipType": "one-to-many",
             "otherEntityName": "photo",
             "otherEntityRelationshipName": "album",

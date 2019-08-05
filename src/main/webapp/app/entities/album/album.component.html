@@ -18,7 +18,6 @@
             <th><span jhiTranslate="myWeddingApp.album.title">Title</span></th>
             <th><span jhiTranslate="myWeddingApp.album.description">Description</span></th>
             <th><span jhiTranslate="myWeddingApp.album.created">Created</span></th>
-            <th><span jhiTranslate="myWeddingApp.album.hallName">Hall Name</span></th>
             <th></th>
             </tr>
             </thead>
@@ -28,11 +27,6 @@
                 <td>{{album.title}}</td>
                 <td>{{album.description}}</td>
                 <td>{{album.created | date:'medium'}}</td>
-                <td>
-                    <div *ngIf="album.hallName">
-                        <a [routerLink]="['/wedding-hall', album.hallName?.id, 'view' ]" >{{album.hallName?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

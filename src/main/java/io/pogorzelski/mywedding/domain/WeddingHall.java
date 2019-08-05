@@ -1,27 +1,18 @@
 package io.pogorzelski.mywedding.domain;
 
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * A WeddingHall.
@@ -33,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class WeddingHall implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -42,6 +33,10 @@ public class WeddingHall implements Serializable {
     @NotNull
     @Column(name = "hall_name", nullable = false)
     private String hallName;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Album album;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -61,9 +56,6 @@ public class WeddingHall implements Serializable {
     @JsonIgnoreProperties("weddingHalls")
     private Company company;
 
-    @OneToMany(mappedBy = "hallName")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Album> albums = new HashSet<>();
     @OneToMany(mappedBy = "weddingHall")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Offer> offers = new HashSet<>();
@@ -87,6 +79,19 @@ public class WeddingHall implements Serializable {
 
     public void setHallName(String hallName) {
         this.hallName = hallName;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public WeddingHall album(Album album) {
+        this.album = album;
+        return this;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
     public Country getCountry() {
@@ -141,37 +146,8 @@ public class WeddingHall implements Serializable {
         this.company = company;
     }
 
-    public Set<Album> getAlbums() {
-        return albums;
-    }
-
-    public WeddingHall albums(Set<Album> albums) {
-        this.albums = albums;
-        return this;
-    }
-
-    public WeddingHall addAlbum(Album album) {
-        this.albums.add(album);
-        album.setHallName(this);
-        return this;
-    }
-
-    public WeddingHall removeAlbum(Album album) {
-        this.albums.remove(album);
-        album.setHallName(null);
-        return this;
-    }
-
-    public void setAlbums(Set<Album> albums) {
-        this.albums = albums;
-    }
-
     public Set<Offer> getOffers() {
         return offers;
-    }
-
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
     }
 
     public WeddingHall offers(Set<Offer> offers) {
@@ -189,6 +165,10 @@ public class WeddingHall implements Serializable {
         this.offers.remove(offer);
         offer.setWeddingHall(null);
         return this;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -33,6 +33,22 @@
                         <a [routerLink]="['/ext/company', weddingHall.company?.id, 'view']">{{weddingHall.company?.companyName}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="myWeddingApp.weddingHall.album">Gallery</span></dt>
+                <dd>
+                    <div *ngIf="weddingHall.album">
+                        <div *ngFor="let photo of weddingHall.album.photos; trackBy: trackPhotosById">
+                            <dt><span jhiTranslate="myWeddingApp.photo.title">Photo title</span></dt>
+                            <dd>
+                                <div *ngIf="photo.image">
+                                    <a (click)="openFile(photo.imageContentType, photo.image)">
+                                        <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-width: 100%;" alt="photo image"/>
+                                    </a>
+                                    <p>{{photo.imageContentType}}, {{byteSize(photo.image)}}</p>
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                </dd>
             </dl>
 
             <button (click)="previousState()"
