@@ -28,68 +28,36 @@
     </div>
     <br/>
     <div *ngIf="weddingHalls" class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th><span jhiTranslate="global.field.id">ID</span></th>
-                <th><span jhiTranslate="myWeddingApp.weddingHall.hallName">Hall Name</span></th>
-                <th><span jhiTranslate="myWeddingApp.weddingHall.country">Country</span></th>
-                <th><span jhiTranslate="myWeddingApp.weddingHall.province">Province</span></th>
-                <th><span jhiTranslate="myWeddingApp.weddingHall.city">City</span></th>
-                <th><span jhiTranslate="myWeddingApp.weddingHall.company">Company</span></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let weddingHall of weddingHalls ;trackBy: trackId">
-                <td><a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]">{{weddingHall.id}}</a></td>
-                <td>{{weddingHall.hallName}}</td>
-                <td>
-                    <div *ngIf="weddingHall.country">
-                        <a [routerLink]="['/country', weddingHall.country?.id, 'view' ]">{{weddingHall.country?.countryName}}</a>
+        <div class="row" *ngFor="let weddingHall of weddingHalls ;trackBy: trackId">
+            <div class="col-md-3">
+                <a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]">
+                    <div
+                        *ngIf="weddingHall.album && weddingHall.album.photos && weddingHall.album.photos[0].image; else placeholder">
+                        <img
+                            [src]="'data:' + weddingHall.album.photos[0].imageContentType + ';base64,' + weddingHall.album.photos[0].image"
+                            style="max-width: 350px;" alt="photo image"/>
                     </div>
-                </td>
-                <td>
-                    <div *ngIf="weddingHall.province">
-                        <a [routerLink]="['/province', weddingHall.province?.id, 'view' ]">{{weddingHall.province?.provinceName}}</a>
+                    <ng-template #placeholder>
+                        <img src="http://via.placeholder.com/350x200" style="max-width: 350px;" alt="placeholder"/>
+                    </ng-template>
+                </a>
+            </div>
+            <div class="col-md-9">
+                <a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]"><h2>{{weddingHall.hallName}}</h2>
+                </a>
+                <h4>{{weddingHall.city?.cityName}}</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        foto-max · Dziękujemy, że zainteresowaliście się nasza ofertą. Zajmujemy się fotografią ślubną
+                        już kilkanaście lat. Uwielbiamy to robić, bo wierzymy, że na każdym ślubie i weselu jest garś
                     </div>
-                </td>
-                <td>
-                    <div *ngIf="weddingHall.city">
-                        <a [routerLink]="['/city', weddingHall.city?.id, 'view' ]">{{weddingHall.city?.cityName}}</a>
+                    <div class="col-md-6">
+                        170 - 220 zł / os
                     </div>
-                </td>
-                <td>
-                    <div *ngIf="weddingHall.company">
-                        <a [routerLink]="['/ext/company', weddingHall.company?.id, 'view' ]">{{weddingHall.company?.companyName}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]"
-                                class="btn btn-info btn-sm"
-                                type="submit">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button [routerLink]="['/ext/wedding-hall', weddingHall.id, 'edit']"
-                                class="btn btn-primary btn-sm"
-                                type="submit">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button [routerLink]="['/ext/wedding-hall', { outlets: { popup: weddingHall.id + '/delete'} }]"
-                                class="btn btn-danger btn-sm"
-                                queryParamsHandling="merge"
-                                replaceUrl="true"
-                                type="submit">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+        </div>
+
     </div>
 </div>
