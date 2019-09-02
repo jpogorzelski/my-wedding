@@ -1,0 +1,22 @@
+{
+    "myWeddingApp": {
+        "eventDate": {
+            "home": {
+                "title": "Event Date",
+                "createLabel": "Dodaj Event Date",
+                "createOrEditLabel": "Dodaj lub edytuj: Event Date"
+            },
+            "created": "Utworzono nowy obiekt typu Event Date z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono obiekt typu Event Date z identyfikatorem {{ param }}",
+            "deleted": "Usunięto obiekt typu Event Date z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Event Date {{ id }}?"
+            },
+            "detail": {
+                "title": "Event Date"
+            },
+            "date": "Date",
+            "offer": "Offer"
+        }
+    }
+}

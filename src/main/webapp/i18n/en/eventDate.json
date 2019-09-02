@@ -1,0 +1,22 @@
+{
+    "myWeddingApp": {
+        "eventDate": {
+            "home": {
+                "title": "Event Dates",
+                "createLabel": "Create a new Event Date",
+                "createOrEditLabel": "Create or edit a Event Date"
+            },
+            "created": "A new Event Date is created with identifier {{ param }}",
+            "updated": "A Event Date is updated with identifier {{ param }}",
+            "deleted": "A Event Date is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Event Date {{ id }}?"
+            },
+            "detail": {
+                "title": "Event Date"
+            },
+            "date": "Date",
+            "offer": "Offer"
+        }
+    }
+}
