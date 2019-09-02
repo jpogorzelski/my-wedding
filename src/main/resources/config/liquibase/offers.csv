@@ -1,4 +1,4 @@
-id;wedding_hall_id;description;price_per_capita;available;event_date;start_date
-1;1;Oferta nr Lipcowy ogród;123;true;2019-07-23T16:30:00;2019-05-23
-2;2;Oferta nr 2 Dworek Czarneckiego;345;true;2019-08-11T15:30:00;2019-04-11
-3;3;Oferta nr 3 Trijumf;321;true;2019-05-30T16:30:00;2019-02-01
+id;description;min_price;max_price;price_unit
+1;Oferta nr Lipcowy ogród;160;220;os
+2;Oferta nr 2 Dworek Czarneckiego;220;300;os
+3;Oferta nr 3 Trijumf;321;366;os

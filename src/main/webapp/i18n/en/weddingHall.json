@@ -22,8 +22,7 @@
             "province": "Province",
             "city": "City",
             "company": "Company",
-            "album": "Album",
-            "offers": "Offers"
+            "offer": "Offer"
         }
     }
 }

@@ -23,8 +23,7 @@
     <include file="config/liquibase/changelog/20190316150829_added_entity_constraints_Company.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190316150830_added_entity_constraints_WeddingHall.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190405154404_added_entity_constraints_Photo.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190408075219_added_entity_constraints_Offer.xml"
-             relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190408075219_added_entity_constraints_Offer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408143707_added_entity_constraints_ReservationOrder.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190519185607_added_test_data.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190902200439_added_entity_constraints_EventDate.xml" relativeToChangelogFile="false"/>

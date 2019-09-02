@@ -22,8 +22,7 @@
             "province": "Województwo",
             "city": "Miasto",
             "company": "Firma",
-            "album": "Album",
-            "offers": "Oferty"
+            "offer": "Oferta"
         }
     }
 }

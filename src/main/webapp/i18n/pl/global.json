@@ -13,12 +13,12 @@
                 "address": "Adres",
                 "customer": "Klient",
                 "company": "Firma",
-                "weddingHall": "Sala weselna",
                 "album": "Album",
                 "photo": "Zdjęcie",
-                "offer": "Oferta",
                 "reservationOrder": "Rezerwacja",
                 "eventDate": "Event Date",
+                "offer": "Oferta",
+                "weddingHall": "Sala weselna",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "customer": {

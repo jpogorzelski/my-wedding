@@ -6,8 +6,6 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
 import { WeddingHallService } from './wedding-hall.service';
-import { IAlbum } from 'app/shared/model/album.model';
-import { AlbumService } from 'app/entities/album';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country';
 import { IProvince } from 'app/shared/model/province.model';
@@ -16,6 +14,8 @@ import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
 import { ICompany } from 'app/shared/model/company.model';
 import { CompanyService } from 'app/entities/company';
+import { IOffer } from 'app/shared/model/offer.model';
+import { OfferService } from 'app/entities/offer';
 
 @Component({
     selector: 'jhi-wedding-hall-update',
@@ -25,8 +25,6 @@ export class WeddingHallUpdateComponent implements OnInit {
     weddingHall: IWeddingHall;
     isSaving: boolean;
 
-    albums: IAlbum[];
-
     countries: ICountry[];
 
     provinces: IProvince[];
@@ -35,14 +33,16 @@ export class WeddingHallUpdateComponent implements OnInit {
 
     companies: ICompany[];
 
+    offers: IOffer[];
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected weddingHallService: WeddingHallService,
-        protected albumService: AlbumService,
         protected countryService: CountryService,
         protected provinceService: ProvinceService,
         protected cityService: CityService,
         protected companyService: CompanyService,
+        protected offerService: OfferService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -51,31 +51,6 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ weddingHall }) => {
             this.weddingHall = weddingHall;
         });
-        this.albumService
-            .query({ filter: 'weddinghall-is-null' })
-            .pipe(
-                filter((mayBeOk: HttpResponse<IAlbum[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IAlbum[]>) => response.body)
-            )
-            .subscribe(
-                (res: IAlbum[]) => {
-                    if (!this.weddingHall.album || !this.weddingHall.album.id) {
-                        this.albums = res;
-                    } else {
-                        this.albumService
-                            .find(this.weddingHall.album.id)
-                            .pipe(
-                                filter((subResMayBeOk: HttpResponse<IAlbum>) => subResMayBeOk.ok),
-                                map((subResponse: HttpResponse<IAlbum>) => subResponse.body)
-                            )
-                            .subscribe(
-                                (subRes: IAlbum) => (this.albums = [subRes].concat(res)),
-                                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                            );
-                    }
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
         this.countryService
             .query()
             .pipe(
@@ -104,6 +79,31 @@ export class WeddingHallUpdateComponent implements OnInit {
                 map((response: HttpResponse<ICompany[]>) => response.body)
             )
             .subscribe((res: ICompany[]) => (this.companies = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.offerService
+            .query({ filter: 'weddinghall-is-null' })
+            .pipe(
+                filter((mayBeOk: HttpResponse<IOffer[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IOffer[]>) => response.body)
+            )
+            .subscribe(
+                (res: IOffer[]) => {
+                    if (!this.weddingHall.offer || !this.weddingHall.offer.id) {
+                        this.offers = res;
+                    } else {
+                        this.offerService
+                            .find(this.weddingHall.offer.id)
+                            .pipe(
+                                filter((subResMayBeOk: HttpResponse<IOffer>) => subResMayBeOk.ok),
+                                map((subResponse: HttpResponse<IOffer>) => subResponse.body)
+                            )
+                            .subscribe(
+                                (subRes: IOffer) => (this.offers = [subRes].concat(res)),
+                                (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                            );
+                    }
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     previousState() {
@@ -136,10 +136,6 @@ export class WeddingHallUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackAlbumById(index: number, item: IAlbum) {
-        return item.id;
-    }
-
     trackCountryById(index: number, item: ICountry) {
         return item.id;
     }
@@ -153,6 +149,10 @@ export class WeddingHallUpdateComponent implements OnInit {
     }
 
     trackCompanyById(index: number, item: ICompany) {
+        return item.id;
+    }
+
+    trackOfferById(index: number, item: IOffer) {
         return item.id;
     }
 }

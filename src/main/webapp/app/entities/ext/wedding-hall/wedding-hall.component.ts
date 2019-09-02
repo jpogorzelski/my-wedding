@@ -10,7 +10,7 @@ import { AccountService } from 'app/core';
 import { WeddingHallService } from './wedding-hall.service';
 
 @Component({
-    selector: 'jhi-wedding-hall',
+    selector: 'jhi-wedding-hall-ext',
     templateUrl: './wedding-hall.component.html'
 })
 export class WeddingHallComponent implements OnInit, OnDestroy {

@@ -1,18 +1,15 @@
 package io.pogorzelski.mywedding.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A WeddingHall.
@@ -20,11 +17,10 @@ import java.util.Set;
 @Entity
 @Table(name = "wedding_hall")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "weddinghall")
 public class WeddingHall implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -33,10 +29,6 @@ public class WeddingHall implements Serializable {
     @NotNull
     @Column(name = "hall_name", nullable = false)
     private String hallName;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-    private Album album;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -56,9 +48,10 @@ public class WeddingHall implements Serializable {
     @JsonIgnoreProperties("weddingHalls")
     private Company company;
 
-    @OneToMany(mappedBy = "weddingHall")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Offer> offers = new HashSet<>();
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Offer offer;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -79,19 +72,6 @@ public class WeddingHall implements Serializable {
 
     public void setHallName(String hallName) {
         this.hallName = hallName;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public WeddingHall album(Album album) {
-        this.album = album;
-        return this;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
     }
 
     public Country getCountry() {
@@ -146,29 +126,17 @@ public class WeddingHall implements Serializable {
         this.company = company;
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public Offer getOffer() {
+        return offer;
     }
 
-    public WeddingHall offers(Set<Offer> offers) {
-        this.offers = offers;
+    public WeddingHall offer(Offer offer) {
+        this.offer = offer;
         return this;
     }
 
-    public WeddingHall addOffers(Offer offer) {
-        this.offers.add(offer);
-        offer.setWeddingHall(this);
-        return this;
-    }
-
-    public WeddingHall removeOffers(Offer offer) {
-        this.offers.remove(offer);
-        offer.setWeddingHall(null);
-        return this;
-    }
-
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

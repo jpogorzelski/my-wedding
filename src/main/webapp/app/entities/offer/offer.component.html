@@ -15,28 +15,30 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="myWeddingApp.offer.eventDate">Event Date</span></th>
             <th><span jhiTranslate="myWeddingApp.offer.description">Description</span></th>
-            <th><span jhiTranslate="myWeddingApp.offer.pricePerCapita">Price Per Capita</span></th>
-            <th><span jhiTranslate="myWeddingApp.offer.available">Available</span></th>
-            <th><span jhiTranslate="myWeddingApp.offer.startDate">Start Date</span></th>
-            <th><span jhiTranslate="myWeddingApp.offer.endDate">End Date</span></th>
-            <th><span jhiTranslate="myWeddingApp.offer.weddingHall">Wedding Hall</span></th>
+            <th><span jhiTranslate="myWeddingApp.offer.minPrice">Min Price</span></th>
+            <th><span jhiTranslate="myWeddingApp.offer.maxPrice">Max Price</span></th>
+            <th><span jhiTranslate="myWeddingApp.offer.priceUnit">Price Unit</span></th>
+            <th><span jhiTranslate="myWeddingApp.offer.album">Album</span></th>
+            <th><span jhiTranslate="myWeddingApp.offer.photo">Photo</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let offer of offers ;trackBy: trackId">
                 <td><a [routerLink]="['/offer', offer.id, 'view' ]">{{offer.id}}</a></td>
-                <td>{{offer.eventDate | date:'medium'}}</td>
                 <td>{{offer.description}}</td>
-                <td>{{offer.pricePerCapita}}</td>
-                <td>{{offer.available}}</td>
-                <td>{{offer.startDate | date:'mediumDate'}}</td>
-                <td>{{offer.endDate | date:'mediumDate'}}</td>
+                <td>{{offer.minPrice}}</td>
+                <td>{{offer.maxPrice}}</td>
+                <td>{{offer.priceUnit}}</td>
                 <td>
-                    <div *ngIf="offer.weddingHall">
-                        <a [routerLink]="['/wedding-hall', offer.weddingHall?.id, 'view' ]" >{{offer.weddingHall?.hallName}}</a>
+                    <div *ngIf="offer.album">
+                        <a [routerLink]="['/album', offer.album?.id, 'view' ]" >{{offer.album?.title}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="offer.photo">
+                        <a [routerLink]="['/photo', offer.photo?.id, 'view' ]" >{{offer.photo?.coverPhoto}}</a>
                     </div>
                 </td>
                 <td class="text-right">

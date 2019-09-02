@@ -29,34 +29,36 @@
     <br/>
     <div *ngIf="weddingHalls" class="table-responsive">
         <div class="row" *ngFor="let weddingHall of weddingHalls ;trackBy: trackId">
-            <div class="col-md-3">
-                <a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]">
-                    <div
-                        *ngIf="weddingHall.album && weddingHall.album.photos && weddingHall.album.photos[0].image; else placeholder">
-                        <img
-                            [src]="'data:' + weddingHall.album.photos[0].imageContentType + ';base64,' + weddingHall.album.photos[0].image"
-                            style="max-width: 350px;" alt="photo image"/>
-                    </div>
-                    <ng-template #placeholder>
-                        <img src="http://via.placeholder.com/350x200" style="max-width: 350px;" alt="placeholder"/>
-                    </ng-template>
-                </a>
-            </div>
-            <div class="col-md-9">
-                <a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]"><h2>{{weddingHall.hallName}}</h2>
-                </a>
-                <h4>{{weddingHall.city?.cityName}}</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        foto-max · Dziękujemy, że zainteresowaliście się nasza ofertą. Zajmujemy się fotografią ślubną
-                        już kilkanaście lat. Uwielbiamy to robić, bo wierzymy, że na każdym ślubie i weselu jest garś
-                    </div>
-                    <div class="col-md-6">
-                        170 - 220 zł / os
+            <ng-container *ngIf="weddingHall.offer">
+                <div class="col-md-3">
+                    <a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]">
+                        <div
+                            *ngIf="weddingHall.offer && weddingHall.offer && weddingHall.offer.album.photo && weddingHall.offer.album.photo.image; else placeholder">
+                            <img
+                                [src]="'data:' + weddingHall.offer.album.photo.imageContentType + ';base64,' + weddingHall.offer.album.photo.image"
+                                style="max-width: 350px;" alt="photo image"/>
+                        </div>
+                        <ng-template #placeholder>
+                            <img src="http://via.placeholder.com/350x200" style="max-width: 350px;" alt="placeholder"/>
+                        </ng-template>
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <a [routerLink]="['/ext/wedding-hall', weddingHall.id, 'view' ]"><h2>{{weddingHall.hallName}}</h2>
+                    </a>
+                    <h4>{{weddingHall.city?.cityName}}</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{weddingHall.offer.description}}
+                        </div>
+                        <div class="col-md-6">
+                            {{weddingHall.offer.minPrice}} - {{weddingHall.offer.maxPrice}}
+                            / {{weddingHall.offer.priceUnit}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="clearfix">&nbsp;</div>
+                <div class="clearfix">&nbsp;</div>
+            </ng-container>
         </div>
 
     </div>

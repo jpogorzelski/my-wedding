@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IOffer } from 'app/shared/model/offer.model';
 import { OfferService } from './offer.service';
 import { IWeddingHall } from 'app/shared/model/wedding-hall.model';
 import { WeddingHallService } from 'app/entities/wedding-hall';
+import { IPhoto } from 'app/shared/model/photo.model';
 
 @Component({
     selector: 'jhi-offer-update',
@@ -21,21 +20,22 @@ export class OfferUpdateComponent implements OnInit {
 
     weddinghalls: IWeddingHall[];
     eventDate: string;
-    startDateDp: any;
-    endDateDp: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected offerService: OfferService,
         protected weddingHallService: WeddingHallService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected dataUtils: JhiDataUtils,
+        protected elementRef: ElementRef
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ offer }) => {
             this.offer = offer;
-            this.eventDate = this.offer.eventDate != null ? this.offer.eventDate.format(DATE_TIME_FORMAT) : null;
+            this.offer.album = this.offer.album || { title: '' };
+            this.offer.album.photos = this.offer.album.photos || [];
         });
         this.weddingHallService
             .query()
@@ -44,9 +44,6 @@ export class OfferUpdateComponent implements OnInit {
                 map((response: HttpResponse<IWeddingHall[]>) => response.body)
             )
             .subscribe((res: IWeddingHall[]) => (this.weddinghalls = res), (res: HttpErrorResponse) => this.onError(res.message));
-        if (this.offer.startDate == null) {
-            this.offer.startDate = moment();
-        }
     }
 
     previousState() {
@@ -55,12 +52,42 @@ export class OfferUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.offer.eventDate = this.eventDate != null ? moment(this.eventDate, DATE_TIME_FORMAT) : null;
         if (this.offer.id !== undefined) {
             this.subscribeToSaveResponse(this.offerService.update(this.offer));
         } else {
             this.subscribeToSaveResponse(this.offerService.create(this.offer));
         }
+    }
+
+    trackWeddingHallById(index: number, item: IWeddingHall) {
+        return item.id;
+    }
+
+    // photo related
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    clearInputImage(photo: IPhoto, field: string, fieldContentType: string, idInput: string) {
+        this.dataUtils.clearInputImage(photo, this.elementRef, field, fieldContentType, idInput);
+    }
+
+    newImage() {
+        console.log('adding new image.');
+        this.offer.album.photos.push({ album: { id: this.offer.album.id } });
+    }
+
+    deleteImage(photo: IPhoto) {
+        console.log('removing photo: ' + photo);
+        this.offer.album.photos.splice(this.offer.album.photos.indexOf(photo), 1);
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IOffer>>) {
@@ -78,9 +105,5 @@ export class OfferUpdateComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackWeddingHallById(index: number, item: IWeddingHall) {
-        return item.id;
     }
 }

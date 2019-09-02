@@ -22,13 +22,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="myWeddingApp.weddingHall.album" for="field_album">Album</label>
-                    <select class="form-control" id="field_album" name="album" [(ngModel)]="weddingHall.album">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="albumOption.id === weddingHall.album?.id ? weddingHall.album : albumOption" *ngFor="let albumOption of albums; trackBy: trackAlbumById">{{albumOption.title}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="myWeddingApp.weddingHall.country" for="field_country">Country</label>
                     <select class="form-control" id="field_country" name="country" [(ngModel)]="weddingHall.country"  required>
                         <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>
@@ -66,6 +59,13 @@
                     <select class="form-control" id="field_company" name="company" [(ngModel)]="weddingHall.company" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="companyOption.id === weddingHall.company?.id ? weddingHall.company : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.companyName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="myWeddingApp.weddingHall.offer" for="field_offer">Offer</label>
+                    <select class="form-control" id="field_offer" name="offer" [(ngModel)]="weddingHall.offer">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="offerOption.id === weddingHall.offer?.id ? weddingHall.offer : offerOption" *ngFor="let offerOption of offers; trackBy: trackOfferById">{{offerOption.id}}</option>
                     </select>
                 </div>
             </div>

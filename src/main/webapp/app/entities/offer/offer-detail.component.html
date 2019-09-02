@@ -5,34 +5,32 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="myWeddingApp.offer.eventDate">Event Date</span></dt>
-                <dd>
-                    <span>{{offer.eventDate}}</span>
-                </dd>
                 <dt><span jhiTranslate="myWeddingApp.offer.description">Description</span></dt>
                 <dd>
                     <span>{{offer.description}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.offer.pricePerCapita">Price Per Capita</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.offer.minPrice">Min Price</span></dt>
                 <dd>
-                    <span>{{offer.pricePerCapita}}</span>
+                    <span>{{offer.minPrice}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.offer.available">Available</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.offer.maxPrice">Max Price</span></dt>
                 <dd>
-                    <span>{{offer.available}}</span>
+                    <span>{{offer.maxPrice}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.offer.startDate">Start Date</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.offer.priceUnit">Price Unit</span></dt>
                 <dd>
-                    <span>{{offer.startDate}}</span>
+                    <span>{{offer.priceUnit}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.offer.endDate">End Date</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.offer.album">Album</span></dt>
                 <dd>
-                    <span>{{offer.endDate}}</span>
+                    <div *ngIf="offer.album">
+                        <a [routerLink]="['/album', offer.album?.id, 'view']">{{offer.album?.title}}</a>
+                    </div>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.offer.weddingHall">Wedding Hall</span></dt>
+                <dt><span jhiTranslate="myWeddingApp.offer.photo">Photo</span></dt>
                 <dd>
-                    <div *ngIf="offer.weddingHall">
-                        <a [routerLink]="['/wedding-hall', offer.weddingHall?.id, 'view']">{{offer.weddingHall?.hallName}}</a>
+                    <div *ngIf="offer.photo">
+                        <a [routerLink]="['/photo', offer.photo?.id, 'view']">{{offer.photo?.coverPhoto}}</a>
                     </div>
                 </dd>
             </dl>

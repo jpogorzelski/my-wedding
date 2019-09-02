@@ -25,10 +25,6 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -47,23 +43,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = MyWeddingApp.class)
 public class OfferResourceIntTest {
 
-    private static final Instant DEFAULT_EVENT_DATE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_EVENT_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final BigDecimal DEFAULT_PRICE_PER_CAPITA = new BigDecimal(1);
-    private static final BigDecimal UPDATED_PRICE_PER_CAPITA = new BigDecimal(2);
+    private static final BigDecimal DEFAULT_MIN_PRICE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_MIN_PRICE = new BigDecimal(2);
 
-    private static final Boolean DEFAULT_AVAILABLE = false;
-    private static final Boolean UPDATED_AVAILABLE = false;
+    private static final BigDecimal DEFAULT_MAX_PRICE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_MAX_PRICE = new BigDecimal(2);
 
-    private static final LocalDate DEFAULT_START_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_START_DATE = LocalDate.now(ZoneId.systemDefault());
-
-    private static final LocalDate DEFAULT_END_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_END_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final String DEFAULT_PRICE_UNIT = "AAAAAAAAAA";
+    private static final String UPDATED_PRICE_UNIT = "BBBBBBBBBB";
 
     @Autowired
     private OfferRepository offerRepository;
@@ -110,12 +100,10 @@ public class OfferResourceIntTest {
      */
     public static Offer createEntity(EntityManager em) {
         Offer offer = new Offer()
-            .eventDate(DEFAULT_EVENT_DATE)
             .description(DEFAULT_DESCRIPTION)
-            .pricePerCapita(DEFAULT_PRICE_PER_CAPITA)
-            .available(DEFAULT_AVAILABLE)
-            .startDate(DEFAULT_START_DATE)
-            .endDate(DEFAULT_END_DATE);
+            .minPrice(DEFAULT_MIN_PRICE)
+            .maxPrice(DEFAULT_MAX_PRICE)
+            .priceUnit(DEFAULT_PRICE_UNIT);
         // Add required entity
         WeddingHall weddingHall = WeddingHallResourceIntTest.createEntity(em);
         em.persist(weddingHall);
@@ -144,12 +132,10 @@ public class OfferResourceIntTest {
         List<Offer> offerList = offerRepository.findAll();
         assertThat(offerList).hasSize(databaseSizeBeforeCreate + 1);
         Offer testOffer = offerList.get(offerList.size() - 1);
-        assertThat(testOffer.getEventDate()).isEqualTo(DEFAULT_EVENT_DATE);
         assertThat(testOffer.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testOffer.getPricePerCapita()).isEqualTo(DEFAULT_PRICE_PER_CAPITA);
-        assertThat(testOffer.isAvailable()).isEqualTo(true);
-        assertThat(testOffer.getStartDate()).isEqualTo(DEFAULT_START_DATE);
-        assertThat(testOffer.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+        assertThat(testOffer.getMinPrice()).isEqualTo(DEFAULT_MIN_PRICE);
+        assertThat(testOffer.getMaxPrice()).isEqualTo(DEFAULT_MAX_PRICE);
+        assertThat(testOffer.getPriceUnit()).isEqualTo(DEFAULT_PRICE_UNIT);
     }
 
     @Test
@@ -173,10 +159,10 @@ public class OfferResourceIntTest {
 
     @Test
     @Transactional
-    public void checkEventDateIsRequired() throws Exception {
+    public void checkDescriptionIsRequired() throws Exception {
         int databaseSizeBeforeTest = offerRepository.findAll().size();
         // set the field null
-        offer.setEventDate(null);
+        offer.setDescription(null);
 
         // Create the Offer, which fails.
 
@@ -191,10 +177,10 @@ public class OfferResourceIntTest {
 
     @Test
     @Transactional
-    public void checkPricePerCapitaIsRequired() throws Exception {
+    public void checkMinPriceIsRequired() throws Exception {
         int databaseSizeBeforeTest = offerRepository.findAll().size();
         // set the field null
-        offer.setPricePerCapita(null);
+        offer.setMinPrice(null);
 
         // Create the Offer, which fails.
 
@@ -209,10 +195,10 @@ public class OfferResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAvailableIsRequired() throws Exception {
+    public void checkMaxPriceIsRequired() throws Exception {
         int databaseSizeBeforeTest = offerRepository.findAll().size();
         // set the field null
-        offer.setAvailable(null);
+        offer.setMaxPrice(null);
 
         // Create the Offer, which fails.
 
@@ -227,10 +213,10 @@ public class OfferResourceIntTest {
 
     @Test
     @Transactional
-    public void checkStartDateIsRequired() throws Exception {
+    public void checkPriceUnitIsRequired() throws Exception {
         int databaseSizeBeforeTest = offerRepository.findAll().size();
         // set the field null
-        offer.setStartDate(null);
+        offer.setPriceUnit(null);
 
         // Create the Offer, which fails.
 
@@ -254,12 +240,10 @@ public class OfferResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(offer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].eventDate").value(hasItem(DEFAULT_EVENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].pricePerCapita").value(hasItem(DEFAULT_PRICE_PER_CAPITA.intValue())))
-            .andExpect(jsonPath("$.[*].available").value(hasItem(DEFAULT_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())));
+            .andExpect(jsonPath("$.[*].minPrice").value(hasItem(DEFAULT_MIN_PRICE.intValue())))
+            .andExpect(jsonPath("$.[*].maxPrice").value(hasItem(DEFAULT_MAX_PRICE.intValue())))
+            .andExpect(jsonPath("$.[*].priceUnit").value(hasItem(DEFAULT_PRICE_UNIT.toString())));
     }
     
     @Test
@@ -273,12 +257,10 @@ public class OfferResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(offer.getId().intValue()))
-            .andExpect(jsonPath("$.eventDate").value(DEFAULT_EVENT_DATE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.pricePerCapita").value(DEFAULT_PRICE_PER_CAPITA.intValue()))
-            .andExpect(jsonPath("$.available").value(DEFAULT_AVAILABLE.booleanValue()))
-            .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
-            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()));
+            .andExpect(jsonPath("$.minPrice").value(DEFAULT_MIN_PRICE.intValue()))
+            .andExpect(jsonPath("$.maxPrice").value(DEFAULT_MAX_PRICE.intValue()))
+            .andExpect(jsonPath("$.priceUnit").value(DEFAULT_PRICE_UNIT.toString()));
     }
 
     @Test
@@ -302,12 +284,10 @@ public class OfferResourceIntTest {
         // Disconnect from session so that the updates on updatedOffer are not directly saved in db
         em.detach(updatedOffer);
         updatedOffer
-            .eventDate(UPDATED_EVENT_DATE)
             .description(UPDATED_DESCRIPTION)
-            .pricePerCapita(UPDATED_PRICE_PER_CAPITA)
-            .available(UPDATED_AVAILABLE)
-            .startDate(UPDATED_START_DATE)
-            .endDate(UPDATED_END_DATE);
+            .minPrice(UPDATED_MIN_PRICE)
+            .maxPrice(UPDATED_MAX_PRICE)
+            .priceUnit(UPDATED_PRICE_UNIT);
 
         restOfferMockMvc.perform(put("/api/offers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -318,12 +298,10 @@ public class OfferResourceIntTest {
         List<Offer> offerList = offerRepository.findAll();
         assertThat(offerList).hasSize(databaseSizeBeforeUpdate);
         Offer testOffer = offerList.get(offerList.size() - 1);
-        assertThat(testOffer.getEventDate()).isEqualTo(UPDATED_EVENT_DATE);
         assertThat(testOffer.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testOffer.getPricePerCapita()).isEqualTo(UPDATED_PRICE_PER_CAPITA);
-        assertThat(testOffer.isAvailable()).isEqualTo(UPDATED_AVAILABLE);
-        assertThat(testOffer.getStartDate()).isEqualTo(UPDATED_START_DATE);
-        assertThat(testOffer.getEndDate()).isEqualTo(UPDATED_END_DATE);
+        assertThat(testOffer.getMinPrice()).isEqualTo(UPDATED_MIN_PRICE);
+        assertThat(testOffer.getMaxPrice()).isEqualTo(UPDATED_MAX_PRICE);
+        assertThat(testOffer.getPriceUnit()).isEqualTo(UPDATED_PRICE_UNIT);
     }
 
     @Test

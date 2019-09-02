@@ -9,12 +9,6 @@
                 <dd>
                     <span>{{weddingHall.hallName}}</span>
                 </dd>
-                <dt><span jhiTranslate="myWeddingApp.weddingHall.album">Album</span></dt>
-                <dd>
-                    <div *ngIf="weddingHall.album">
-                        <a [routerLink]="['/album', weddingHall.album?.id, 'view']">{{weddingHall.album?.title}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="myWeddingApp.weddingHall.country">Country</span></dt>
                 <dd>
                     <div *ngIf="weddingHall.country">
@@ -37,6 +31,12 @@
                 <dd>
                     <div *ngIf="weddingHall.company">
                         <a [routerLink]="['/company', weddingHall.company?.id, 'view']">{{weddingHall.company?.companyName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="myWeddingApp.weddingHall.offer">Offer</span></dt>
+                <dd>
+                    <div *ngIf="weddingHall.offer">
+                        <a [routerLink]="['/offer', weddingHall.offer?.id, 'view']">{{weddingHall.offer?.id}}</a>
                     </div>
                 </dd>
             </dl>

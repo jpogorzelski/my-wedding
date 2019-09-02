@@ -34,8 +34,7 @@ export const weddingHallRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'myWeddingApp.weddingHall.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        }
     },
     {
         path: ':id/view',
@@ -46,8 +45,7 @@ export const weddingHallRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'myWeddingApp.weddingHall.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        }
     },
     {
         path: 'new',

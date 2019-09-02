@@ -15,14 +15,15 @@
             "detail": {
                 "title": "Offer"
             },
-            "eventDate": "Event Date",
             "description": "Description",
-            "pricePerCapita": "Price Per Capita",
-            "available": "Available",
-            "startDate": "Start Date",
-            "endDate": "End Date",
+            "minPrice": "Min Price",
+            "maxPrice": "Max Price",
+            "priceUnit": "Price Unit",
             "weddingHall": "Wedding Hall",
             "reservationOrder": "Reservation Order",
+            "album": "Album",
+            "photo": "Photo",
+            "eventDates": "Free dates",
             "action": {
                 "book": "Book"
             }

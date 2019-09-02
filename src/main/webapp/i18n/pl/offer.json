@@ -15,14 +15,15 @@
             "detail": {
                 "title": "Oferta"
             },
-            "eventDate": "Data imprezy",
             "description": "Opis",
-            "pricePerCapita": "Cena za osobę",
-            "available": "Dostępna",
-            "startDate": "Aktywna od",
-            "endDate": "Aktywna do",
+            "minPrice": "Cena od",
+            "maxPrice": "Cena do",
+            "priceUnit": "Jednostka",
             "weddingHall": "Sala weselna",
             "reservationOrder": "Rezerwacja",
+            "album": "Album",
+            "photo": "Zdjęcie",
+            "eventDates": "Wolne terminy",
             "action": {
                 "book": "Zarezerwuj"
             }

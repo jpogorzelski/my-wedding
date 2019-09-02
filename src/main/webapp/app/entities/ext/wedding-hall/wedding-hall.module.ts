@@ -30,6 +30,7 @@ const ENTITY_STATES = [...weddingHallRoute, ...weddingHallPopupRoute];
     ],
     entryComponents: [WeddingHallComponent, WeddingHallUpdateComponent, WeddingHallDeleteDialogComponent, WeddingHallDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+    exports: [WeddingHallComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MyWeddingWeddingHallExtModule {

@@ -196,7 +196,7 @@ public class WeddingHallResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(weddingHall.getId().intValue())))
             .andExpect(jsonPath("$.[*].hallName").value(hasItem(DEFAULT_HALL_NAME.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getWeddingHall() throws Exception {

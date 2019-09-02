@@ -63,7 +63,6 @@ public class ReservationOrderService {
         }
         reservationOrder.setModificationDate(now);
         final Offer offer = reservationOrder.getOffer();
-        offer.setAvailable(false);
         offerRepository.save(offer);
         return reservationOrderRepository.save(reservationOrder);
     }

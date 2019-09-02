@@ -8,12 +8,6 @@
     -->
     <changeSet id="20190316150830-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="album_id"
-                                 baseTableName="wedding_hall"
-                                 constraintName="fk_wedding_hall_album_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="album"/>
-
         <addForeignKeyConstraint baseColumnNames="country_id"
                                  baseTableName="wedding_hall"
                                  constraintName="fk_wedding_hall_country_id"
@@ -37,6 +31,12 @@
                                  constraintName="fk_wedding_hall_company_id"
                                  referencedColumnNames="id"
                                  referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="offer_id"
+                                 baseTableName="wedding_hall"
+                                 constraintName="fk_wedding_hall_offer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="offer"/>
 
     </changeSet>
 </databaseChangeLog>

@@ -2,11 +2,13 @@ package io.pogorzelski.mywedding.service;
 
 import io.pogorzelski.mywedding.domain.Company;
 import io.pogorzelski.mywedding.domain.Offer;
+import io.pogorzelski.mywedding.domain.Photo;
 import io.pogorzelski.mywedding.repository.OfferRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +38,11 @@ public class OfferService {
      */
     public Offer save(Offer offer) {
         log.debug("Request to save Offer : {}", offer);
+        if (offer.getAlbum() != null && !CollectionUtils.isEmpty(offer.getAlbum().getPhotos())) {
+            for (Photo photo : offer.getAlbum().getPhotos()) {
+                photo.setAlbum(offer.getAlbum());
+            }
+        }
         return offerRepository.save(offer);
     }
 
@@ -56,7 +63,7 @@ public class OfferService {
      *  get all the offers where ReservationOrder is null.
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<Offer> findAllWhereReservationOrderIsNull() {
         log.debug("Request to get all offers where ReservationOrder is null");
         return StreamSupport

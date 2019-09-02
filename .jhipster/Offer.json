@@ -2,50 +2,43 @@
     "name": "Offer",
     "fields": [
         {
-            "fieldName": "eventDate",
-            "fieldType": "Instant",
+            "fieldName": "description",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "description",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "pricePerCapita",
+            "fieldName": "minPrice",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "available",
-            "fieldType": "Boolean",
+            "fieldName": "maxPrice",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "startDate",
-            "fieldType": "LocalDate",
+            "fieldName": "priceUnit",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "endDate",
-            "fieldType": "LocalDate"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-one",
             "otherEntityName": "weddingHall",
-            "otherEntityRelationshipName": "offers",
+            "otherEntityRelationshipName": "offer",
             "relationshipValidateRules": "required",
             "relationshipName": "weddingHall",
-            "otherEntityField": "hallName"
+            "otherEntityField": "hallName",
+            "ownerSide": false
         },
         {
             "relationshipType": "one-to-one",
@@ -53,6 +46,30 @@
             "otherEntityRelationshipName": "offer",
             "relationshipName": "reservationOrder",
             "ownerSide": false
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "album",
+            "otherEntityRelationshipName": "offer",
+            "relationshipName": "album",
+            "otherEntityField": "title",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "photo",
+            "otherEntityRelationshipName": "offer",
+            "relationshipName": "photo",
+            "otherEntityField": "coverPhoto",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "eventDate",
+            "otherEntityRelationshipName": "offer",
+            "relationshipName": "eventDates",
+            "otherEntityField": "date",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20190408075219",

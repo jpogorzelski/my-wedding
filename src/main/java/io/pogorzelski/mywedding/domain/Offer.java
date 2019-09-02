@@ -2,7 +2,6 @@ package io.pogorzelski.mywedding.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -11,8 +10,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -31,36 +30,40 @@ public class Offer implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "event_date", nullable = false)
-    private Instant eventDate;
-
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @NotNull
-    @Column(name = "price_per_capita", precision = 10, scale = 2, nullable = false)
-    private BigDecimal pricePerCapita;
+    @Column(name = "min_price", precision = 10, scale = 2, nullable = false)
+    private BigDecimal minPrice;
 
     @NotNull
-    @Column(name = "available", nullable = false)
-    private Boolean available;
+    @Column(name = "max_price", precision = 10, scale = 2, nullable = false)
+    private BigDecimal maxPrice;
 
     @NotNull
-    @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
+    @Column(name = "price_unit", nullable = false)
+    private String priceUnit;
 
-    @Column(name = "end_date")
-    private LocalDate endDate;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("offers")
+    @OneToOne(mappedBy = "offer")
+    @JsonIgnore
     private WeddingHall weddingHall;
 
     @OneToOne(mappedBy = "offer")
     @JsonIgnore
     private ReservationOrder reservationOrder;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Album album;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Photo photo;
+
+    @OneToMany(mappedBy = "offer")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<EventDate> eventDates = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -68,19 +71,6 @@ public class Offer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Instant getEventDate() {
-        return eventDate;
-    }
-
-    public Offer eventDate(Instant eventDate) {
-        this.eventDate = eventDate;
-        return this;
-    }
-
-    public void setEventDate(Instant eventDate) {
-        this.eventDate = eventDate;
     }
 
     public String getDescription() {
@@ -96,56 +86,43 @@ public class Offer implements Serializable {
         this.description = description;
     }
 
-    public BigDecimal getPricePerCapita() {
-        return pricePerCapita;
+    public BigDecimal getMinPrice() {
+        return minPrice;
     }
 
-    public Offer pricePerCapita(BigDecimal pricePerCapita) {
-        this.pricePerCapita = pricePerCapita;
+    public Offer minPrice(BigDecimal minPrice) {
+        this.minPrice = minPrice;
         return this;
     }
 
-    public void setPricePerCapita(BigDecimal pricePerCapita) {
-        this.pricePerCapita = pricePerCapita;
+    public void setMinPrice(BigDecimal minPrice) {
+        this.minPrice = minPrice;
     }
 
-    public Boolean isAvailable() {
-        return available;
+    public BigDecimal getMaxPrice() {
+        return maxPrice;
     }
 
-    public Offer available(Boolean available) {
-        this.available = available;
+    public Offer maxPrice(BigDecimal maxPrice) {
+        this.maxPrice = maxPrice;
         return this;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setMaxPrice(BigDecimal maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public String getPriceUnit() {
+        return priceUnit;
     }
 
-    public Offer startDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public Offer priceUnit(String priceUnit) {
+        this.priceUnit = priceUnit;
         return this;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public Offer endDate(LocalDate endDate) {
-        this.endDate = endDate;
-        return this;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setPriceUnit(String priceUnit) {
+        this.priceUnit = priceUnit;
     }
 
     public WeddingHall getWeddingHall() {
@@ -173,6 +150,57 @@ public class Offer implements Serializable {
     public void setReservationOrder(ReservationOrder reservationOrder) {
         this.reservationOrder = reservationOrder;
     }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public Offer album(Album album) {
+        this.album = album;
+        return this;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public Offer photo(Photo photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    public Set<EventDate> getEventDates() {
+        return eventDates;
+    }
+
+    public Offer eventDates(Set<EventDate> eventDates) {
+        this.eventDates = eventDates;
+        return this;
+    }
+
+    public Offer addEventDates(EventDate eventDate) {
+        this.eventDates.add(eventDate);
+        eventDate.setOffer(this);
+        return this;
+    }
+
+    public Offer removeEventDates(EventDate eventDate) {
+        this.eventDates.remove(eventDate);
+        eventDate.setOffer(null);
+        return this;
+    }
+
+    public void setEventDates(Set<EventDate> eventDates) {
+        this.eventDates = eventDates;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -199,12 +227,10 @@ public class Offer implements Serializable {
     public String toString() {
         return "Offer{" +
             "id=" + getId() +
-            ", eventDate='" + getEventDate() + "'" +
             ", description='" + getDescription() + "'" +
-            ", pricePerCapita=" + getPricePerCapita() +
-            ", available='" + isAvailable() + "'" +
-            ", startDate='" + getStartDate() + "'" +
-            ", endDate='" + getEndDate() + "'" +
+            ", minPrice=" + getMinPrice() +
+            ", maxPrice=" + getMaxPrice() +
+            ", priceUnit='" + getPriceUnit() + "'" +
             "}";
     }
 }
